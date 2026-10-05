@@ -1,0 +1,32 @@
+{
+  "campaign": {
+    "id": "demo-campaign-01",
+    "purpose": "Invitation to a fictional workshop on responsible AI workflows",
+    "approved_fields": [
+      "first_name",
+      "company",
+      "industry",
+      "interest"
+    ]
+  },
+  "contacts": [
+    {
+      "id": "demo-contact-001",
+      "first_name": "Mara",
+      "company": "Alpenlicht Studio",
+      "industry": "Design",
+      "interest": "AI-supported content workflows",
+      "email": "mara@example.invalid",
+      "internal_note": "Not approved for model use"
+    },
+    {
+      "id": "demo-contact-002",
+      "first_name": "Jonas",
+      "company": "Rheintal Werkstatt",
+      "industry": "Manufacturing",
+      "interest": "Process documentation",
+      "email": "jonas@example.invalid",
+      "internal_note": "Not approved for model use"
+    }
+  ]
+}

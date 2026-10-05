@@ -25,3 +25,6 @@ build/
 .DS_Store
 .idea/
 .vscode/
+
+Local Hermes runtime: sessions, logs and credentials
+runtime/

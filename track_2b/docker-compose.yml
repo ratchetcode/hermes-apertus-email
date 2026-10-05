@@ -1,0 +1,11 @@
+services:
+  hermes:
+    image: nousresearch/hermes-agent:latest
+    container_name: hack-apertus-hermes
+    working_dir: /workspace
+    command: gateway run
+    environment:
+      HERMES_GATEWAY_BOOTSTRAP_STATE: running
+    volumes:
+      - ./runtime/hermes:/opt/data
+      - ./:/workspace:ro
