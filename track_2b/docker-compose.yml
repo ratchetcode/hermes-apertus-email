@@ -4,6 +4,8 @@ services:
     container_name: hack-apertus-hermes
     working_dir: /workspace
     command: gateway run
+    env_file:
+      - .env
     environment:
       HERMES_GATEWAY_BOOTSTRAP_STATE: running
     volumes:
