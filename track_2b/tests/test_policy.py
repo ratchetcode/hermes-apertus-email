@@ -65,7 +65,7 @@ class ModelContextPolicyTests(unittest.TestCase):
 
         with self.assertRaisesRegex(ValueError, "forbidden"):
             policy.build_model_context(campaign, contact)
-            
+
     def test_data_minimisation_record_lists_used_and_excluded_fields(self):
         fixture = json.loads(FIXTURE_PATH.read_text(encoding="utf-8"))
         campaign = fixture["campaign"]
