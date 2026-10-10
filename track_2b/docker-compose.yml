@@ -1,13 +1,14 @@
 services:
   hermes:
     image: nousresearch/hermes-agent:latest
-    container_name: hack-apertus-hermes
     working_dir: /workspace
-    command: gateway run
+    entrypoint: ["/bin/sh", "/workspace/scripts/start-demo.sh"]
+    init: true
+    user: "${HERMES_UID:-1000}:${HERMES_GID:-1000}"
+    stdin_open: true
+    tty: true
     env_file:
       - .env
-    environment:
-      HERMES_GATEWAY_BOOTSTRAP_STATE: running
     volumes:
       - ./runtime/hermes:/opt/data
       - ./:/workspace:ro

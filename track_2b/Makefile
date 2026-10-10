@@ -1,10 +1,10 @@
 .PHONY: run stop logs
 
 run:
-	docker compose up
+	docker compose run --rm hermes
 
 stop:
-	docker compose down
+	docker compose down --remove-orphans
 
 logs:
 	docker compose logs -f

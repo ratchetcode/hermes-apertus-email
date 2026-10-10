@@ -5,7 +5,26 @@ Bring your own idea and build a working Apertus prototype that tackles a problem
 Submissions must use the Apertus model family.
 For Track 2 this means that submitted solutions must be built with Apertus. Other open-weights models can be used to support development, e.g. as automatic judges during evaluation. Their role must be clearly described in the submission report.
 
-💬 In case you have questions, join the conversation on [Discord](https://discord.gg/hack-apertus) or send an email to “hello@hackapertus.ch”
+💬 In case you have questions, join the conversation on [Discord](https://discord.gg/hackapertus) or send an email to “hello@hackapertus.ch”
+
+---
+
+## Local interactive demo
+
+This project starts an interactive Hermes CLI demo; it does not start a Telegram gateway.
+
+1. Create a local `./.env` from `.env.example` and set `LLM_API_KEY`. Never commit this file.
+2. Start the demo from this directory:
+
+   ```bash
+   make run
+   ```
+
+3. Read the welcome text, then give Hermes an instruction in the same terminal.
+
+The container starts Hermes in `/workspace`. The versioned `AGENTS.md` provides the demo rules, `data/test_contacts.json` contains only fictional data, and the demo must never send email.
+
+Stop the attached demo with `Ctrl+C`; then run `make stop` if the container remains present.
 
 ---
 
