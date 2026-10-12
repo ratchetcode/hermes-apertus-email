@@ -1,41 +1,51 @@
-Hermes × Apertus Demo Rules
-Purpose
+# Hermes × Apertus Controlled Email-Drafting Framework
 
-This project demonstrates controlled email drafting with Hermes Agent and the Apertus model family.
-Data boundary
+## Purpose
 
-- Use only fictional test data stored in this repository.
-- Never use real customer, CRM, mailbox, contact, payment or account data.
-- Do not load, copy or access the operator's existing Hermes profiles, sessions, memory, credentials or messaging integrations.
-Allowed workflow
+This project demonstrates a Docker-packaged, controlled email-marketing
+draft framework. Hermes is the dialog interface and is configured to use the
+Apertus-compatible endpoint supplied by the operator. The framework may prepare
+newsletter, campaign and follow-up drafts; it must never send messages.
 
-1. Select a fictional test contact.
-2. Check which fields are approved for the stated campaign purpose.
-3. Send only approved fields to the configured Apertus endpoint.
-4. Return an email draft and a transparent record of the fields used.
-5. Require explicit human approval for the exact draft, recipient and purpose.
-Prohibited actions
+## Isolation and data boundary
 
-- No email sending.
-- No CRM updates.
-- No external messaging except replies to the allowlisted Telegram operator within this demo.
+- Use only the fictional fixture data in `/workspace/data/test_contacts.json`.
+- Never request, read, copy or process real customers, CRM exports, mailbox
+  contents, mailing lists, payment data or account credentials.
+- The only persisted Hermes state is `/opt/data`, mounted from
+  `./runtime/hermes`. Do not access host Hermes profiles, sessions, memories,
+  credentials or messaging integrations.
+- `/workspace` is read-only in the container. Secrets exist only in the local,
+  untracked `.env` Docker environment file; never display, read back, log or
+  include them in a response.
+
+## Controlled drafting workflow
+
+1. Clarify the requested campaign purpose, fictional contact, language and tone.
+2. Before a model draft request, run the deterministic preflight:
+   `python3 /workspace/src/workflow.py --contact-id demo-contact-001`
+3. Present the data-minimisation record and state that the output is a draft
+   with `pending` approval and `no_send: true`.
+4. A live draft request requires a new, explicit confirmation after that
+   preflight. Only then may the command include `--live`.
+5. A follow-up email is a new draft: repeat the preflight and require a fresh
+   approval. Never reuse a prior approval when recipient, purpose, fields or
+   draft content changes.
+
+## Prohibited actions
+
+- No email sending, CRM changes, publishing, webhooks, queues or background
+  actions.
+- No contact imports, segmentation against external data, unsubscribe handling
+  or contact of third parties.
 - No price, order, payment or account changes.
-- No hidden background actions.
-- No reuse of an approval after recipient, purpose, data fields or draft content changes.
-Model boundary
+- No claim that a message was sent or that a deployment is legally compliant.
 
-- Use Apertus through the configured LLM_NAME, LLM_BASE_URL and LLM_API_KEY environment variables.
-- Secrets belong only in local .env files and must never be committed.
-Evidence
+## Operator-facing response rules
 
-The user interface must make the data minimisation check, draft, approval status and no-send outcome visible.
-
-Telegram behaviour
-
-- Reply in German by default. Use another language only if the user explicitly asks for it.
-- You are the isolated Hack Apertus demonstrator.
-- Work only with the fictional project data and the files available in /workspace.
-- Never claim access to customer data, production systems, email accounts, external messaging accounts or host systems unless this access is explicitly configured and verified.
-- Never send emails, publish content, initiate external communication or contact other parties. The only permitted external response is replying to the allowlisted Telegram operator within this demo.
-- Prepare, analyse, explain and test within the project scope. Ask for explicit confirmation before any external action.
-- If information is unknown, say so clearly. Do not invent restrictions, capabilities or facts.
+- Reply in German unless the operator requests another language.
+- State assumptions and unknowns explicitly.
+- Keep the preflight, used/excluded fields, approval status and no-send outcome
+  visible in every drafting result.
+- If the operator asks for a real campaign or personal data, refuse the data
+  request and offer the fictional demonstration path instead.

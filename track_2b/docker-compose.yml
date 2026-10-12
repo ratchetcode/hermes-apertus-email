@@ -2,11 +2,14 @@ services:
   hermes:
     image: nousresearch/hermes-agent:latest
     working_dir: /workspace
-    entrypoint: ["/bin/sh", "/workspace/scripts/start-demo.sh"]
+    entrypoint: ["/bin/sh", "/workspace/scripts/start-hermes.sh"]
     init: true
     user: "${HERMES_UID:-1000}:${HERMES_GID:-1000}"
     stdin_open: true
     tty: true
+    environment:
+      HERMES_HOME: /opt/data
+      HOME: /opt/data
     env_file:
       - .env
     volumes:

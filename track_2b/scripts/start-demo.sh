@@ -5,31 +5,33 @@ set -eu
 : "${LLM_BASE_URL:?LLM_BASE_URL must be set in .env}"
 : "${LLM_API_KEY:?LLM_API_KEY must be set in .env}"
 
-hermes config set model.default "$LLM_NAME" >/dev/null
-hermes config set model.provider custom >/dev/null
-hermes config set model.base_url "$LLM_BASE_URL" >/dev/null
-hermes config set model.api_key '${LLM_API_KEY}' >/dev/null
-
 cat <<'EOF'
 
-Hermes × Apertus – Controlled Email Drafting Demo
+Apertus Draft Gate – Controlled Email Drafting Demo
 
-Aufgabe
-  Erstelle ausschliesslich E-Mail-Entwürfe auf Grundlage der fiktiven
-  Projektdaten. Niemals E-Mails versenden.
+Diese isolierte Demonstration verwendet ausschliesslich fiktive Daten aus
+diesem Repository. Sie erstellt einen nachvollziehbaren E-Mail-Entwurf.
+Niemals E-Mails versenden, CRM-Daten ändern oder Empfänger kontaktieren.
 
-Kurzanleitung
-  1. Beschreibe den gewünschten Entwurf oder nenne einen fiktiven Kontakt.
-  2. Hermes prüft zuerst die Datenminimierung.
-  3. Nur freigegebene Felder dürfen an Apertus übergeben werden.
-  4. Prüfe Entwurf und Nachweis der verwendeten Felder.
-  5. Eine Freigabe erzeugt keinen Versand; dies ist eine No-send-Demo.
+Step 1 — deterministic preflight
+- recipient data is held back from the model;
+- only campaign-approved fields are supplied to Apertus;
+- the output remains pending human approval for draft, recipient and purpose.
 
-Projektregeln: /workspace/AGENTS.md
-Fiktive Testdaten: /workspace/data/test_contacts.json
-
-Hermes bereit. Welche Aufgabe soll ich bearbeiten?
+Project rules: /workspace/AGENTS.md
+Fictional test data: /workspace/data/test_contacts.json
 
 EOF
 
-exec hermes --cli
+python3 /workspace/src/workflow.py --contact-id demo-contact-001
+
+printf '\nGenerate a live Apertus draft? [y/N] '
+read -r answer
+case "$answer" in
+  y|Y|yes|YES)
+    python3 /workspace/src/workflow.py --contact-id demo-contact-001 --live
+    ;;
+  *)
+    printf '%s\n' 'Stopped after preflight. No model call and no email was sent.'
+    ;;
+esac

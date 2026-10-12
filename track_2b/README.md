@@ -1,122 +1,142 @@
-# Track 2 B: Own Project
+# Apertus Draft Gate — Hermes Email-Marketing Framework
 
-Bring your own idea and build a working Apertus prototype that tackles a problem you care about — any domain, any use case. The project must be new, started within the hackathon period.
+A Docker-packaged, controlled **email and newsletter drafting framework** for
+Hack Apertus Online Hackathon Track 2B. It starts an isolated interactive Hermes
+session by default and can run a persistent Hermes gateway when a messaging
+platform is explicitly configured.
 
-Submissions must use the Apertus model family.
-For Track 2 this means that submitted solutions must be built with Apertus. Other open-weights models can be used to support development, e.g. as automatic judges during evaluation. Their role must be clearly described in the submission report.
+The project is deliberately **draft-only**. It demonstrates the controlled core
+of an email-marketing workflow without shipping an email sender, CRM client,
+contact import, webhook, queue or automatic action.
 
-💬 In case you have questions, join the conversation on [Discord](https://discord.gg/hackapertus) or send an email to “hello@hackapertus.ch”
+## What the prototype does
 
----
+- starts an isolated interactive Hermes session with `make run`;
+- provides `make gateway` for a separately configured persistent Hermes gateway;
+- configures Hermes with an operator-selected, OpenAI-compatible Apertus
+  endpoint from a local `.env` file;
+- provides a terminal chat mode for planning fictional newsletters, campaigns
+  and follow-up drafts in German;
+- retains a deterministic policy gate for the fictional fixture data;
+- sends only campaign-approved fields to Apertus through the deterministic
+  draft command;
+- shows a data-minimisation record, `pending` human approval and `no_send: true`;
+- requires a new preflight and confirmation for every follow-up draft.
 
-## Local interactive demo
+## Safety boundary
 
-This project starts an interactive Hermes CLI demo; it does not start a Telegram gateway.
+- All contacts in `data/test_contacts.json` are fictional.
+- `src/policy.py` rejects `email`, record ID and internal notes even if a
+  campaign configuration tries to approve them.
+- The model payload created by `src/workflow.py` contains only the minimised
+  context. Recipient address, record ID and internal notes are excluded.
+- There is no SMTP, CRM, delivery, queue or webhook implementation.
+- The local `.env` file is ignored by Git. It must never be committed.
+- No messaging channel is configured by default; a real integration requires a
+  separate deployment and data-protection decision.
 
-1. Create a local `./.env` from `.env.example` and set `LLM_API_KEY`. Never commit this file.
-2. Start the demo from this directory:
+## Quick start
 
-   ```bash
-   make run
-   ```
+```bash
+cd track_2b
+cp .env.example .env
+# Edit .env locally. Do not commit it.
+make run
+```
 
-3. Read the welcome text, then give Hermes an instruction in the same terminal.
+`make run` starts the interactive project-local Hermes session. Its runtime is
+stored only in `./runtime/hermes`; it does not mount or reuse the operator's
+normal Hermes profile. Leave the session with `/exit`.
 
-The container starts Hermes in `/workspace`. The versioned `AGENTS.md` provides the demo rules, `data/test_contacts.json` contains only fictional data, and the demo must never send email.
+`make chat` is an alias for the same interactive mode.
 
-Stop the attached demo with `Ctrl+C`; then run `make stop` if the container remains present.
+To start the persistent gateway for a separately configured messaging platform:
 
----
+```bash
+make gateway
+```
 
-## 🔧 Resources & Tools
+Stop a gateway with `Ctrl-C` or:
 
-Check our resources & tools page for detailed information:
-https://hackapertus.notion.site/resources-tools
+```bash
+make stop
+```
 
-| Models           | URL                                      |
-|------------------|------------------------------------------|
-| Apertus v1.5 8B  | [huggingface.co/swiss-ai/Apertus-v1.5-8B](https://huggingface.co/swiss-ai/Apertus-v1.5-8B)  |
-| Apertus v1.5 70B | [huggingface.co/swiss-ai/Apertus-v1.5-70B](https://huggingface.co/swiss-ai/Apertus-v1.5-70B) |
+For the deterministic controlled draft demonstration, use:
 
+```bash
+make draft
+```
 
-## Target architecture (mandatory)
+The draft command first prints the preflight for `demo-contact-001` and asks:
 
-Whatever you build in Track 2B must be deployable in one of these three architectures:
+```text
+Generate a live Apertus draft? [y/N]
+```
 
-- **a) On-premise** — on the organisation's own infrastructure, under its own administration.
-- **b) Air-gapped** — with no external network connection at runtime.
-- **c) Sovereign Swiss cloud** — on a cloud platform operated in Switzerland, under Swiss jurisdiction, with Swiss data residency.
+- Press **Enter** or anything other than `y`: no model request and no email.
+- Enter `y`: one HTTPS request to `${LLM_BASE_URL}/chat/completions`, containing
+  only the approved fictional context. The result is still a draft with
+  `pending` approval and `no_send: true`.
 
----
+## Configuration
 
-## Data
+`.env` contains only local endpoint credentials:
 
-The `data/` directory must not exceed 100 MB.
+```dotenv
+LLM_NAME=swiss-ai/Apertus-v1.5-8B
+LLM_BASE_URL=https://your-controlled-apertus-endpoint/v1
+LLM_API_KEY=replace-locally
+```
 
----
+On first start, `scripts/start-hermes.sh` copies
+`runtime-template/config.yaml` into the local ignored runtime directory. The
+configuration selects Hermes' `custom` provider and references the variables
+above. Existing local runtime configuration is not overwritten.
 
-## 📦 Submission Requirements & Deliverables
+## Verification
 
-❗️ Submissions are not handled on Devpost but via this URL only:
-http://hackapertus.ch/online-hack/submissions
+```bash
+make test
+```
 
-The submission must: 
-1. follow the template repo and include all prerequisite files and definitions
-2. follow the specified input/output formats
-3. run in a Docker container, launched with `make run` from the root of the project
-4. run end-to-end when judges try to run it
+Tests use fake model responses and require neither Docker access nor an API key.
+They verify policy enforcement, payload minimisation, clean endpoint failures,
+explicit live confirmation, and the isolated persistent gateway configuration.
 
-### Git repo (URL)
-- Create your repo from this template (**Use this template**) and work in the `track_2b/` challenge directory. Delete the other track challenge directories.
-- Keep `track_2b/` as it is: don't rename it or move its files.
-- Set the repo to PUBLIC (Settings --> Collaborators --> Manage Visibility)
-- Submit the URL of YOUR Git repo.
+## Architecture
 
-### Technical Report (pdf)
-- Update [technical_report.md](technical_report.md) in this repository with all the details for your submission.
-- Upload a pdf of your technical report to this directory, named as `TeamName_Report.pdf`.
-- Format: pdf, max. 6 pages
-- Submit the pdf of the technical report.
+```text
+Operator
+  │
+  ├── make run / make chat ──> interactive Hermes (Apertus-configured conversation)
+  ├── make gateway ──────────> optional persistent messaging gateway
+  │
+  └── make draft ────────────> deterministic preflight
+                         │
+                         ├── approved fictional fields only
+                         ├── explicit live confirmation
+                         └── Apertus draft → pending approval + no_send
+```
 
-### Demo video (URL)
-- Max. 2 min demo video of your prototype
+A production-capable marketing system would additionally need independently
+reviewed contact consent, recipient management, unsubscribe/suppression logic,
+audit retention, role-based access, encryption, deletion/backup procedures and
+a separately authorised sending adapter. Those features are intentionally not
+implemented in this demonstrator.
 
-### Dataset (URL) - optional, depending on your project
-Submitted datasets must comply with our guidelines for responsibly sourced datasets.
+## Structure
 
-- Create a user account on Hugging Face
-- Clone our dataset template on Hugging Face: https://huggingface.co/datasets/HackApertus/online_hack_template
-- Complete the dataset card with all required information
-- Upload your dataset. It should consist of the following components:
-    - evaluation dataset (i.e. individual test cases)
-    - model response dataset (i.e. the model response to each test case)
-    - metadata file (i.e. additional information about each test case; where relevant, this file must contain instance-level licensing information) 
-- Make sure your dataset access control is set to PUBLIC
-- Provide the URL of _your_ data set
+- `AGENTS.md` — project-local Hermes safety and workflow rules.
+- `runtime-template/config.yaml` — non-secret isolated Hermes configuration.
+- `scripts/start-hermes.sh` — idempotent project-runtime bootstrap and gateway
+  start.
+- `scripts/start-demo.sh` — explicit no-send draft demonstration.
+- `src/policy.py` — allowlist/denylist data-minimisation policy.
+- `src/workflow.py` — deterministic preflight and isolated Apertus draft call.
+- `data/test_contacts.json` — fictional fixture data.
+- `tests/` — offline unit and configuration tests.
 
+## License
 
----
-
-## ⚖️ Judging Criteria
-
-1. Purposeful use of AI
-2. Technical rigour
-3. Value, cost & scalability
-4. Sovereign deployability
-5. Implementation feasibility
-
-Judges use a Scale 0–5 per dimension.
-
----
-
-## Support
-
-**Licensing requirements**
-Please check our Terms & Conditions (6. What you build is open source):
-https://hackapertus.ch/terms-and-conditions
-
-## FAQ
-💡 https://hackapertus.ch/faq
-
-## Contact
-💬 In case you have questions, join the conversation on Discord or send an email to “hello@hackapertus.ch”
+CC-BY-4.0, as required by the Hack Apertus template.

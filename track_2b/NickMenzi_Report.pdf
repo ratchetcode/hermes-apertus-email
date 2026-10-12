@@ -1,0 +1,324 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [4 0 R 6 0 R 8 0 R] /Count 3 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 5 0 R >>
+endobj
+5 0 obj
+<< /Length 3773 >>
+stream
+BT
+/F1 9 Tf
+48 794 Td
+(Apertus Draft Gate - Technical Report - Page 1) Tj
+0 -26 Td
+(Technical report ? Apertus Draft Gate) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- Track: Track 2B ? Own Project) Tj
+0 -13 Td
+(- Event: Hack Apertus Online Hackathon, October 2026) Tj
+0 -13 Td
+(- Team: Nick Menzi) Tj
+0 -13 Td
+(- Demo: Local interactive Docker demo \(make run\) and offline captioned overview at) Tj
+0 -13 Td
+(docs/Apertus_Draft_Gate_Demo.mp4; no public video URL is included in this repository.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(1. Summary) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Apertus Draft Gate is a small, safety-first prototype for a controlled email-marketing draft) Tj
+0 -13 Td
+(workflow. make run opens an isolated Hermes terminal session configured for an operator-) Tj
+0 -13 Td
+(selected Apertus-compatible endpoint; make gateway is reserved for a separately configured) Tj
+0 -13 Td
+(persistent messaging gateway. The deterministic draft path places a policy gate before an) Tj
+0 -13 Td
+(Apertus request: it sends only campaign-approved fictional fields, keeps the recipient) Tj
+0 -13 Td
+(address and internal note outside the model context, and produces a draft that remains) Tj
+0 -13 Td
+(pending human approval. The implementation deliberately has no email-send, CRM-update or) Tj
+0 -13 Td
+(messaging capability.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(2. Architecture) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(The Docker service uses scripts/start-hermes.sh to create an isolated project-local Hermes) Tj
+0 -13 Td
+(home at /opt/data and copy a non-secret configuration template only on first start. It reads) Tj
+0 -13 Td
+(the operator's LLM_NAME, LLM_BASE_URL and LLM_API_KEY from the untracked local .env file.) Tj
+0 -13 Td
+(make run invokes that bootstrap and starts hermes --tui, so a judge can interact with the) Tj
+0 -13 Td
+(demonstrator immediately. make gateway invokes the same bootstrap without a TUI and starts) Tj
+0 -13 Td
+(hermes gateway run --no-supervise --external-supervisor for a separately configured) Tj
+0 -13 Td
+(messaging platform. The regular host Hermes profile is never mounted.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(The deterministic make draft path retains the fixture, pure-Python policy module and) Tj
+0 -13 Td
+(explicit confirmation gate. policy.py validates an allowlist and rejects email, id and) Tj
+0 -13 Td
+(internal_note even if a faulty campaign configuration lists them. workflow.py first creates) Tj
+0 -13 Td
+(a preflight record, then ? only after the operator answers y ? posts the minimised JSON) Tj
+0 -13 Td
+(context to an OpenAI-compatible Apertus /chat/completions endpoint. The result is printed) Tj
+0 -13 Td
+(together with the original data-minimisation evidence, no_send: true, and a pending approval) Tj
+0 -13 Td
+(record.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(The deterministic model request contains a constrained drafting instruction and the) Tj
+0 -13 Td
+(minimised fictional context. It does not contain the recipient email, record ID, internal) Tj
+0 -13 Td
+(note or a send instruction. There is no SMTP client, CRM SDK, webhook, queue or external-) Tj
+0 -13 Td
+(action tool in the codebase.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Target architecture \(mandatory\)) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(a\) On-premise. The container is deployable with an organisation-controlled, OpenAI-) Tj
+0 -13 Td
+(compatible Apertus inference endpoint set in LLM_BASE_URL. The fixture, policy and approval) Tj
+0 -13 Td
+(logic remain local. At runtime, the only optional external dependency is that configured) Tj
+0 -13 Td
+(model endpoint, and only after explicit operator confirmation. The same configuration) Tj
+0 -13 Td
+(pattern can also target an organisation-approved Swiss-hosted inference endpoint; this) Tj
+0 -13 Td
+(repository does not claim to operate such infrastructure.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 7 0 R >>
+endobj
+7 0 obj
+<< /Length 3515 >>
+stream
+BT
+/F1 9 Tf
+48 794 Td
+(Apertus Draft Gate - Technical Report - Page 2) Tj
+0 -26 Td
+(3. Use of Apertus) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- Model: configured through LLM_NAME; .env.example uses swiss-ai/Apertus-v1.5-8B.) Tj
+0 -13 Td
+(- How it is used: inference for a concise German invitation-email draft.) Tj
+0 -13 Td
+(- Where it runs: an OpenAI-compatible endpoint configured by the operator through) Tj
+0 -13 Td
+(LLM_BASE_URL and LLM_API_KEY.) Tj
+0 -13 Td
+(- Prompt boundary: a fixed system instruction prohibits invented facts and sending claims.) Tj
+0 -13 Td
+(The user message is generated with json.dumps\(\) from the allowlisted model context only.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(The project does not fine-tune Apertus, collect prompts, retain model outputs or use tools) Tj
+0 -13 Td
+(for external actions.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(4. Data) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(data/test_contacts.json contains two deliberately fictional contacts and one fictional) Tj
+0 -13 Td
+(campaign. It is the only input dataset. The fixture includes email and internal-note fields) Tj
+0 -13 Td
+(specifically to test that they are excluded from the model payload. No real customer,) Tj
+0 -13 Td
+(mailbox, CRM, payment, account or contact data is used or required. The data directory is) Tj
+0 -13 Td
+(far below the 100 MB limit.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(5. Evaluation) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(The prototype is evaluated as a safety-contract test, not as a semantic-quality benchmark.) Tj
+0 -13 Td
+(The local deterministic suite was run with python3 -m unittest discover -s tests -v.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+( /  Setup  /  Metric  /  Result  /) Tj
+0 -13 Td
+( / --- / --- / --- /) Tj
+0 -13 Td
+( /  Policy gate  /  Forbidden model fields rejected  /  1/1 test passed  /) Tj
+0 -13 Td
+( /  Policy gate  /  Approved fields only; excluded fields reported  /  2/2 tests passed  /) Tj
+0 -13 Td
+( /  Preflight  /  Known contact, approval-pending and no-send states  /  3/3 tests passed  /) Tj
+0 -13 Td
+( /  Draft request  /  Recipient, ID and internal note absent from payload  /  1/1 test) Tj
+0 -13 Td
+(passed  /) Tj
+0 -13 Td
+( /  Draft request  /  Invalid model response rejected  /  1/1 test passed  /) Tj
+0 -13 Td
+( /  Live CLI  /  Model endpoint failure returned as no-send error record  /  1/1 test passed) Tj
+0 -13 Td
+(/) Tj
+0 -13 Td
+( /  Container / gateway contract  /  Isolated persistent Hermes runtime, chat and explicit) Tj
+0 -13 Td
+(draft commands  /  6/6 tests passed  /) Tj
+0 -13 Td
+( /  Total  /  Deterministic automated tests  /  15/15 passed  /) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(The live Apertus endpoint was intentionally not invoked during this repository verification) Tj
+0 -13 Td
+(because no credentials or external endpoint are included in the source tree. The tested) Tj
+0 -13 Td
+(request seam uses a local fake response to prove payload construction and no-send state) Tj
+0 -13 Td
+(handling without transmitting data.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(6. Limitations) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(This is a narrow prototype, not a production mail system. It does not measure factual) Tj
+0 -13 Td
+(quality, tone, language quality or hallucination rate of a live Apertus model. A model can) Tj
+0 -13 Td
+(still write an unsuitable draft, so exact draft, recipient and purpose remain pending human) Tj
+0 -13 Td
+(approval. The implementation does not persist approvals or drafts, authenticate human) Tj
+0 -13 Td
+(reviewers, support multiple campaigns, render HTML email or integrate a real contact system.) Tj
+0 -13 Td
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 9 0 R >>
+endobj
+9 0 obj
+<< /Length 1766 >>
+stream
+BT
+/F1 9 Tf
+48 794 Td
+(Apertus Draft Gate - Technical Report - Page 3) Tj
+0 -26 Td
+(The endpoint operator must secure LLM_API_KEY, provide the selected Apertus model and apply) Tj
+0 -13 Td
+(network controls appropriate to their deployment.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(7. Reproducibility) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Requirements: Docker with Docker Compose for the container modes, or Python 3.12+ for the) Tj
+0 -13 Td
+(offline tests. Copy .env.example to .env, configure an Apertus endpoint and run make run) Tj
+0 -13 Td
+(from track_2b/ to start the interactive isolated Hermes session. make chat is an alias; make) Tj
+0 -13 Td
+(gateway starts the persistent gateway only when a messaging platform has been separately) Tj
+0 -13 Td
+(configured. Use make draft for the deterministic policy preflight; only entering y in the) Tj
+0 -13 Td
+(latter performs one live model request with fictional minimised data. Run the deterministic) Tj
+0 -13 Td
+(checks with make test. The report reflects branch feat/run-to-finish; the exact source) Tj
+0 -13 Td
+(revision is recorded in Git history.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(8. Next steps) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(With more time, the project would add a review UI that binds an approval to a draft hash,) Tj
+0 -13 Td
+(recipient and campaign purpose; structured red-team cases for prompt injection and unsafe) Tj
+0 -13 Td
+(claims; an offline/on-premise model deployment recipe; a human-rated, licensed evaluation) Tj
+0 -13 Td
+(set; and an immutable audit log that contains field names and approval events but never) Tj
+0 -13 Td
+(unneeded contact content.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(License) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Creative Commons Attribution 4.0 \(CC-BY-4.0\). All HackApertus projects are open-sourced.) Tj
+0 -13 Td
+ET
+endstream
+endobj
+xref
+0 10
+0000000000 65535 f
+0000000015 00000 n
+0000000064 00000 n
+0000000133 00000 n
+0000000203 00000 n
+0000000329 00000 n
+0000004154 00000 n
+0000004280 00000 n
+0000007847 00000 n
+0000007973 00000 n
+trailer
+<< /Size 10 /Root 1 0 R >>
+startxref
+9791
+%%EOF
