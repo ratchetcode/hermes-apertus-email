@@ -10,6 +10,7 @@ services:
     environment:
       HERMES_HOME: /opt/data
       HOME: /opt/data
+      HERMES_ENABLE_PROJECT_PLUGINS: "1"
     env_file:
       - .env
     volumes:

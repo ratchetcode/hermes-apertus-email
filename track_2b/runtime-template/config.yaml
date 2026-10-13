@@ -22,5 +22,9 @@ terminal:
   cwd: /workspace
   timeout: 30
 
+plugins:
+  enabled:
+    - email-framework
+
 # No messaging channel is configured by default. Add one only after an
 # explicit deployment decision and operator allowlisting.

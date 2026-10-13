@@ -8,6 +8,7 @@ MAKEFILE_PATH = ROOT / "Makefile"
 DRAFT_START_SCRIPT_PATH = ROOT / "scripts" / "start-demo.sh"
 HERMES_START_SCRIPT_PATH = ROOT / "scripts" / "start-hermes.sh"
 HERMES_CONFIG_TEMPLATE_PATH = ROOT / "runtime-template" / "config.yaml"
+SOUL_TEMPLATE_PATH = ROOT / "runtime-template" / "SOUL.md"
 AGENTS_PATH = ROOT / "AGENTS.md"
 
 
@@ -23,6 +24,7 @@ class ContainerStartTests(unittest.TestCase):
         self.assertIn('user: "${HERMES_UID:-1000}:${HERMES_GID:-1000}"', compose)
         self.assertIn("HERMES_HOME: /opt/data", compose)
         self.assertIn("\n      HOME: /opt/data", compose)
+        self.assertIn('HERMES_ENABLE_PROJECT_PLUGINS: "1"', compose)
         self.assertIn("- ./runtime/hermes:/opt/data", compose)
         self.assertIn("- ./:/workspace:ro", compose)
         self.assertNotIn("container_name:", compose)
@@ -33,11 +35,13 @@ class ContainerStartTests(unittest.TestCase):
         self.assertIn('runtime_dir="${HERMES_HOME:-/opt/data}"', script)
         self.assertIn('template="/workspace/runtime-template/config.yaml"', script)
         self.assertIn('cp "$template" "$runtime_dir/config.yaml"', script)
+        self.assertIn('soul_template="/workspace/runtime-template/SOUL.md"', script)
+        self.assertIn('cp "$soul_template" "$runtime_dir/SOUL.md"', script)
+        self.assertIn("hermes config set plugins.enabled", script)
         self.assertIn('if [ "$#" -eq 0 ]; then', script)
         self.assertIn('set -- hermes gateway run --no-supervise --external-supervisor', script)
         self.assertIn('exec "$@"', script)
         self.assertNotIn("/home/nick/.hermes", script)
-        self.assertNotIn("hermes config set", script)
 
     def test_runtime_template_uses_only_local_environment_references_for_apertus(self):
         template = HERMES_CONFIG_TEMPLATE_PATH.read_text(encoding="utf-8")
@@ -47,6 +51,16 @@ class ContainerStartTests(unittest.TestCase):
         self.assertIn('base_url: "${LLM_BASE_URL}"', template)
         self.assertIn('api_key: "${LLM_API_KEY}"', template)
         self.assertNotIn("TELEGRAM_BOT_TOKEN", template)
+
+    def test_soul_template_requires_reply_in_the_operator_language(self):
+        soul = SOUL_TEMPLATE_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("same language as the operator's current request", soul)
+        self.assertIn("German only when the operator's language is unclear", soul)
+        self.assertIn("Do not use the previous", soul)
+        self.assertIn("assistant reply as the language signal", soul)
+        self.assertIn("Quoted or copied text does not override", soul)
+        self.assertIn("the operator's request language", soul)
 
     def test_project_rules_require_preflight_and_fresh_follow_up_approval(self):
         rules = AGENTS_PATH.read_text(encoding="utf-8")

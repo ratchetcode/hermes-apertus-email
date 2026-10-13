@@ -1,0 +1,8 @@
+name: email-framework
+version: 0.1.0
+description: "Controlled fictional newsletter, campaign and follow-up draft workflow with explicit slash-command approval and no send capability."
+author: "Nick Menzi"
+kind: standalone
+provides_tools:
+  - email_framework_preflight
+  - email_framework_generate_approved_draft

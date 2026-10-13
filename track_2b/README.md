@@ -15,8 +15,12 @@ contact import, webhook, queue or automatic action.
 - provides `make gateway` for a separately configured persistent Hermes gateway;
 - configures Hermes with an operator-selected, OpenAI-compatible Apertus
   endpoint from a local `.env` file;
-- provides a terminal chat mode for planning fictional newsletters, campaigns
-  and follow-up drafts in German;
+- provides a terminal chat mode that replies in the operator's current language;
+  the last operator request decides, not the preceding assistant reply or quoted
+  text in the request, while planning fictional newsletters, campaigns and
+  follow-up drafts;
+- loads the project-local `email-framework` plugin with deterministic preflight,
+  explicit `/email-approve <approval-id>` and one-time approved draft tools;
 - retains a deterministic policy gate for the fictional fixture data;
 - sends only campaign-approved fields to Apertus through the deterministic
   draft command;
