@@ -13,12 +13,13 @@ mkdir -p "$runtime_dir"
 if [ ! -f "$runtime_dir/config.yaml" ]; then
   cp "$template" "$runtime_dir/config.yaml"
 fi
-if [ ! -f "$runtime_dir/.email-framework-soul-v3" ]; then
+if [ ! -f "$runtime_dir/.email-framework-soul-v7" ]; then
   cp "$soul_template" "$runtime_dir/SOUL.md"
-  rm -f "$runtime_dir/.email-framework-soul-v1" "$runtime_dir/.email-framework-soul-v2"
-  : > "$runtime_dir/.email-framework-soul-v3"
+  rm -f "$runtime_dir/.email-framework-soul-v1" "$runtime_dir/.email-framework-soul-v2" "$runtime_dir/.email-framework-soul-v3" "$runtime_dir/.email-framework-soul-v4" "$runtime_dir/.email-framework-soul-v5" "$runtime_dir/.email-framework-soul-v6"
+  : > "$runtime_dir/.email-framework-soul-v7"
 fi
 hermes config set plugins.enabled '["email-framework"]' >/dev/null
+hermes config set toolsets '["hermes-cli", "email_framework"]' >/dev/null
 
 if [ "$#" -eq 0 ]; then
   set -- hermes gateway run --no-supervise --external-supervisor

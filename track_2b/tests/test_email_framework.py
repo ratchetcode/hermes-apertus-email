@@ -1,5 +1,6 @@
 import importlib.util
 import json
+import os
 from pathlib import Path
 import tempfile
 import unittest
@@ -78,7 +79,74 @@ class EmailFrameworkPluginContractTests(unittest.TestCase):
 
         self.assertIn("name: email-framework", manifest)
         self.assertIn("email_framework_preflight", manifest)
+        self.assertIn("email_framework_segment_preflight", manifest)
         self.assertIn("email_framework_generate_approved_draft", manifest)
+        self.assertIn("email_framework_generate_segment_drafts", manifest)
+
+
+class SegmentPluginFlowTests(unittest.TestCase):
+    def setUp(self):
+        self.temp_dir = tempfile.TemporaryDirectory()
+        self.previous_environment = {
+            key: os.environ.get(key)
+            for key in ("EMAIL_FRAMEWORK_WORKSPACE", "HERMES_HOME", "LLM_NAME", "LLM_BASE_URL", "LLM_API_KEY")
+        }
+        os.environ.update(
+            {
+                "EMAIL_FRAMEWORK_WORKSPACE": str(ROOT),
+                "HERMES_HOME": self.temp_dir.name,
+                "LLM_NAME": "fake-model",
+                "LLM_BASE_URL": "https://example.invalid/v1",
+                "LLM_API_KEY": "fake-key",
+            }
+        )
+        plugin_path = ROOT / ".hermes" / "plugins" / "email-framework" / "__init__.py"
+        spec = importlib.util.spec_from_file_location("email_framework_plugin_test", plugin_path)
+        if spec is None or spec.loader is None:
+            raise RuntimeError("email framework plugin cannot be loaded")
+        self.plugin = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(self.plugin)
+
+    def tearDown(self):
+        for key, value in self.previous_environment.items():
+            if value is None:
+                os.environ.pop(key, None)
+            else:
+                os.environ[key] = value
+        self.temp_dir.cleanup()
+
+    def test_segment_flow_creates_eight_review_drafts_with_a_fake_model(self):
+        preflight = json.loads(
+            self.plugin._segment_preflight(
+                {
+                    "marketing_category": "recruit",
+                    "campaign_goal": "Fiktives Willkommensangebot vorstellen",
+                    "language": "de",
+                    "tone": "freundlich",
+                }
+            )
+        )
+        self.assertTrue(preflight["success"])
+        self.assertEqual(preflight["contact_count"], 8)
+        self.assertTrue(preflight["no_send"])
+
+        approval = json.loads(self.plugin._approve_segment(preflight["approval_id"]))
+        self.assertEqual(approval["approval"]["status"], "approved_for_batch_generation")
+
+        self.plugin.generate_draft = lambda preflight, **_kwargs: {
+            **preflight,
+            "draft": "Betreff: Fiktiver Entwurf\n\nDies ist nur ein Entwurf.",
+        }
+        result = json.loads(
+            self.plugin._generate_segment_drafts({"approval_id": preflight["approval_id"]})
+        )
+
+        self.assertTrue(result["success"])
+        self.assertTrue(result["no_send"])
+        self.assertEqual(result["delivery_mode"], "draft_only")
+        self.assertEqual(len(result["drafts"]), 8)
+        self.assertTrue(all(item["status"] == "needs_review" for item in result["drafts"]))
+        self.assertTrue(all("@example.invalid" not in json.dumps(item["model_context"]) for item in result["drafts"]))
 
 
 if __name__ == "__main__":

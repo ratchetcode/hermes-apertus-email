@@ -29,3 +29,8 @@ build/
 
 Local Hermes runtime: sessions, logs and credentials
 runtime/
+
+# Real operator import/export files stay local. Tracked examples belong in
+# data/templates/ only.
+data/imports/
+data/exports/

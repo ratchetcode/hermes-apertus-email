@@ -15,6 +15,7 @@ if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
 from email_framework import DraftRegistry, create_fictional_preflight
+from segment_queue import SegmentDraftRegistry, prepare_segment_preflight
 from workflow import generate_draft, load_fixture
 
 
@@ -71,8 +72,41 @@ EMAIL_GENERATE_SCHEMA = _schema(
 )
 
 
+EMAIL_SEGMENT_PREFLIGHT_SCHEMA = _schema(
+    "email_framework_segment_preflight",
+    "Create a deterministic no-send preflight for one fictional 3R cohort of eight contacts. Use this before generating any personalised batch drafts. The operator must later type /email-approve-segment <id>.",
+    {
+        "marketing_category": {
+            "type": "string",
+            "enum": ["recruit", "retain", "recover"],
+            "description": "Fictional lifecycle category; every selected cohort has exactly eight demo contacts.",
+        },
+        "campaign_goal": {"type": "string", "description": "Fictional campaign goal."},
+        "language": {"type": "string", "description": "Draft language, for example de."},
+        "tone": {"type": "string", "description": "Writing tone, for example freundlich und sachlich."},
+    },
+    ["marketing_category", "campaign_goal", "language", "tone"],
+)
+
+EMAIL_SEGMENT_GENERATE_SCHEMA = _schema(
+    "email_framework_generate_segment_drafts",
+    "Generate exactly eight personalised, fictional no-send drafts from a previously approved 3R cohort preflight. Never call this before /email-approve-segment <id>; it has no delivery capability.",
+    {
+        "approval_id": {
+            "type": "string",
+            "description": "Segment approval ID returned by email_framework_segment_preflight and explicitly approved by the operator.",
+        }
+    },
+    ["approval_id"],
+)
+
+
 def _registry() -> DraftRegistry:
     return DraftRegistry(STATE_DIR)
+
+
+def _segment_registry() -> SegmentDraftRegistry:
+    return SegmentDraftRegistry(STATE_DIR)
 
 
 def _json(value: dict[str, Any]) -> str:
@@ -101,6 +135,30 @@ def _preflight(args: dict[str, Any]) -> str:
         )
     except (KeyError, ValueError) as exc:
         return _json({"success": False, "stage": "preflight", "error": str(exc), "no_send": True})
+
+
+def _segment_preflight(args: dict[str, Any]) -> str:
+    try:
+        preflight = prepare_segment_preflight(
+            load_fixture(FIXTURE_PATH),
+            marketing_category=args["marketing_category"],
+            campaign_goal=args["campaign_goal"],
+            language=args["language"],
+            tone=args["tone"],
+        )
+        record = _segment_registry().create_preflight(preflight)
+        return _json(
+            {
+                "success": True,
+                **record,
+                "next_step": (
+                    f"Review the eight fictional, minimised contexts and ask the operator to type "
+                    f"{record['approval']['required_command']}. Do not generate drafts before that command."
+                ),
+            }
+        )
+    except (KeyError, ValueError) as exc:
+        return _json({"success": False, "stage": "segment_preflight", "error": str(exc), "no_send": True})
 
 
 def _generate_approved_draft(args: dict[str, Any]) -> str:
@@ -135,6 +193,41 @@ def _generate_approved_draft(args: dict[str, Any]) -> str:
         )
 
 
+def _generate_segment_drafts(args: dict[str, Any]) -> str:
+    try:
+        record = _segment_registry().claim_for_generation(args["approval_id"])
+        generated = [
+            generate_draft(
+                {
+                    "model_context": item["model_context"],
+                    "data_minimisation": item["data_minimisation"],
+                    "no_send": True,
+                },
+                model_name=os.environ["LLM_NAME"],
+                base_url=os.environ["LLM_BASE_URL"],
+                api_key=os.environ["LLM_API_KEY"],
+            )["draft"]
+            for item in record["drafts"]
+        ]
+        result = _segment_registry().record_generated_drafts(record["approval_id"], generated)
+        return _json(
+            {
+                "success": True,
+                **result,
+                "next_step": "Review each of the eight drafts. They remain fictional, draft-only and have no delivery path.",
+            }
+        )
+    except (KeyError, RuntimeError, ValueError) as exc:
+        return _json(
+            {
+                "success": False,
+                "stage": "segment_draft_generation",
+                "error": str(exc),
+                "no_send": True,
+            }
+        )
+
+
 def _approve(raw_args: str) -> str:
     approval_id = raw_args.strip()
     if not approval_id:
@@ -154,13 +247,34 @@ def _approve(raw_args: str) -> str:
         return _json({"success": False, "error": str(exc), "no_send": True})
 
 
+def _approve_segment(raw_args: str) -> str:
+    approval_id = raw_args.strip()
+    if not approval_id:
+        return "Usage: /email-approve-segment <approval-id>"
+    try:
+        record = _segment_registry().approve(approval_id)
+        return _json(
+            {
+                "success": True,
+                "approval_id": record["approval_id"],
+                "approval": record["approval"],
+                "contact_count": record["contact_count"],
+                "delivery_mode": "draft_only",
+                "no_send": True,
+                "next_step": "Hermes may now generate eight personalised, fictional drafts using the segment-draft tool.",
+            }
+        )
+    except ValueError as exc:
+        return _json({"success": False, "error": str(exc), "no_send": True})
+
+
 def _status(_raw_args: str) -> str:
     return (
         "Apertus Email Framework (fictional, no-send):\n"
-        "1. Ask Hermes for a newsletter, campaign or follow-up draft.\n"
-        "2. Hermes must call the deterministic preflight first.\n"
-        "3. Review used/excluded fields and type /email-approve <approval-id>.\n"
-        "4. Hermes may generate exactly one draft; no email is ever sent."
+        "1. Ask Hermes for one draft or a 3R cohort campaign (Recruit, Retain, Recover).\n"
+        "2. Hermes must call a deterministic no-send preflight first.\n"
+        "3. Review used/excluded fields and type the matching /email-approve command.\n"
+        "4. Hermes may generate one draft or eight fictional cohort drafts; no email is ever sent."
     )
 
 
@@ -179,10 +293,30 @@ def register(ctx) -> None:
         handler=_generate_approved_draft,
         emoji="✉️",
     )
+    ctx.register_tool(
+        name="email_framework_segment_preflight",
+        toolset=TOOLSET,
+        schema=EMAIL_SEGMENT_PREFLIGHT_SCHEMA,
+        handler=_segment_preflight,
+        emoji="🛡️",
+    )
+    ctx.register_tool(
+        name="email_framework_generate_segment_drafts",
+        toolset=TOOLSET,
+        schema=EMAIL_SEGMENT_GENERATE_SCHEMA,
+        handler=_generate_segment_drafts,
+        emoji="✉️",
+    )
     ctx.register_command(
         "email-approve",
         handler=_approve,
         description="Approve exactly one fictional, no-send email draft preflight.",
+        args_hint="<approval-id>",
+    )
+    ctx.register_command(
+        "email-approve-segment",
+        handler=_approve_segment,
+        description="Approve one fictional 3R cohort for eight no-send drafts.",
         args_hint="<approval-id>",
     )
     ctx.register_command(

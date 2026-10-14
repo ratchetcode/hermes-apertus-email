@@ -42,6 +42,10 @@ class DraftPreparationTests(unittest.TestCase):
             "email",
             "id",
             "internal_note",
+            "language",
+            "last_name",
+            "marketing_category",
+            "offer_category",
         ])
         self.assertNotIn("email", result["model_context"]["contact"])
         self.assertTrue(result["no_send"])

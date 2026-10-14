@@ -20,7 +20,11 @@ contact import, webhook, queue or automatic action.
   text in the request, while planning fictional newsletters, campaigns and
   follow-up drafts;
 - loads the project-local `email-framework` plugin with deterministic preflight,
-  explicit `/email-approve <approval-id>` and one-time approved draft tools;
+  explicit `/email-approve <approval-id>` for single drafts and
+  `/email-approve-segment <approval-id>` for 3R cohorts;
+- offers Recruit, Retain and Recover as three fictional categories with exactly
+  eight contacts each (24 total), then creates eight personalised draft-only
+  review items after explicit segment approval;
 - retains a deterministic policy gate for the fictional fixture data;
 - sends only campaign-approved fields to Apertus through the deterministic
   draft command;
@@ -34,7 +38,9 @@ contact import, webhook, queue or automatic action.
   campaign configuration tries to approve them.
 - The model payload created by `src/workflow.py` contains only the minimised
   context. Recipient address, record ID and internal notes are excluded.
-- There is no SMTP, CRM, delivery, queue or webhook implementation.
+- There is no SMTP, CRM, delivery, webhook or automatic-action implementation.
+  The only queue is a project-local, fictional draft-review registry; it has no
+  recipient delivery capability.
 - The local `.env` file is ignored by Git. It must never be committed.
 - No messaging channel is configured by default; a real integration requires a
   separate deployment and data-protection decision.
@@ -53,6 +59,23 @@ stored only in `./runtime/hermes`; it does not mount or reuse the operator's
 normal Hermes profile. Leave the session with `/exit`.
 
 `make chat` is an alias for the same interactive mode.
+
+### 3R cohort demonstration in Hermes
+
+In `make run`, ask for a fictional campaign for **Recruit**, **Retain** or
+**Recover**, then provide goal, language and tone. Hermes calls the deterministic
+segment preflight and displays eight minimised fictional contexts. After review,
+type the exact command returned by the preflight, for example:
+
+```text
+/email-approve-segment segment-…
+```
+
+Only then can Hermes create eight personalised drafts. They are retained in the
+project-local review state with `needs_review`, `delivery_mode: draft_only` and
+`no_send: true`. The event log records `preflight_created`,
+`approved_for_batch_generation`, `generation_claimed` and `drafts_created`; it
+has no delivery event types.
 
 To start the persistent gateway for a separately configured messaging platform:
 

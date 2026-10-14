@@ -10,23 +10,31 @@
     ]
   },
   "contacts": [
-    {
-      "id": "demo-contact-001",
-      "first_name": "Mara",
-      "company": "Alpenlicht Studio",
-      "industry": "Design",
-      "interest": "AI-supported content workflows",
-      "email": "mara@example.invalid",
-      "internal_note": "Not approved for model use"
-    },
-    {
-      "id": "demo-contact-002",
-      "first_name": "Jonas",
-      "company": "Rheintal Werkstatt",
-      "industry": "Manufacturing",
-      "interest": "Process documentation",
-      "email": "jonas@example.invalid",
-      "internal_note": "Not approved for model use"
-    }
+    {"id":"demo-contact-001","first_name":"Mara","last_name":"Keller","company":"Alpenlicht Studio","industry":"Design","interest":"AI-supported content workflows","marketing_category":"recruit","language":"de","offer_category":"Willkommensangebot","email":"mara@example.invalid","internal_note":"Not approved for model use"},
+    {"id":"demo-contact-002","first_name":"Jonas","last_name":"Meier","company":"Rheintal Werkstatt","industry":"Manufacturing","interest":"Process documentation","marketing_category":"recruit","language":"de","offer_category":"Willkommensangebot","email":"jonas.meier@example.invalid","internal_note":"Not approved for model use"},
+    {"id":"demo-contact-003","first_name":"Lea","last_name":"Frei","company":"Seeblick Technik GmbH","industry":"Engineering","interest":"Newsletter insights","marketing_category":"recruit","language":"de","offer_category":"Einführungsangebot","email":"lea.frei@example.invalid","internal_note":"Not approved for model use"},
+    {"id":"demo-contact-004","first_name":"Noah","last_name":"Brunner","company":"Nordstern Beratung","industry":"Consulting","interest":"Responsible AI","marketing_category":"recruit","language":"de","offer_category":"Einführungsangebot","email":"noah.brunner@example.invalid","internal_note":"Not approved for model use"},
+    {"id":"demo-contact-005","first_name":"Sofia","last_name":"Graf","company":"Waldraum Architektur","industry":"Architecture","interest":"Content planning","marketing_category":"recruit","language":"de","offer_category":"Willkommensangebot","email":"sofia.graf@example.invalid","internal_note":"Not approved for model use"},
+    {"id":"demo-contact-006","first_name":"Elias","last_name":"Müller","company":"Talfahrt Logistik AG","industry":"Logistics","interest":"Workflow templates","marketing_category":"recruit","language":"de","offer_category":"Einführungsangebot","email":"elias.mueller@example.invalid","internal_note":"Not approved for model use"},
+    {"id":"demo-contact-007","first_name":"Nina","last_name":"Weber","company":"Lindenhof Medien","industry":"Media","interest":"Editorial workflows","marketing_category":"recruit","language":"de","offer_category":"Willkommensangebot","email":"nina.weber@example.invalid","internal_note":"Not approved for model use"},
+    {"id":"demo-contact-008","first_name":"Luca","last_name":"Baumann","company":"Bergquell Handel","industry":"Retail","interest":"Customer communication","marketing_category":"recruit","language":"de","offer_category":"Einführungsangebot","email":"luca.baumann@example.invalid","internal_note":"Not approved for model use"},
+
+    {"id":"demo-contact-009","first_name":"Anna","last_name":"Schmid","company":"Flussufer Informatik","industry":"Software","interest":"Product updates","marketing_category":"retain","language":"de","offer_category":"Kundeninformation","email":"anna.schmid@example.invalid","internal_note":"Not approved for model use"},
+    {"id":"demo-contact-010","first_name":"David","last_name":"Koch","company":"Sonnenhang Energie","industry":"Energy","interest":"Service updates","marketing_category":"retain","language":"de","offer_category":"Kundeninformation","email":"david.koch@example.invalid","internal_note":"Not approved for model use"},
+    {"id":"demo-contact-011","first_name":"Mia","last_name":"Huber","company":"Kornfeld Lebensmittel","industry":"Food","interest":"Customer education","marketing_category":"retain","language":"de","offer_category":"Bestandskundenangebot","email":"mia.huber@example.invalid","internal_note":"Not approved for model use"},
+    {"id":"demo-contact-012","first_name":"Simon","last_name":"Roth","company":"Stadtgarten Pflege","industry":"Services","interest":"Seasonal information","marketing_category":"retain","language":"de","offer_category":"Kundeninformation","email":"simon.roth@example.invalid","internal_note":"Not approved for model use"},
+    {"id":"demo-contact-013","first_name":"Clara","last_name":"Vogel","company":"Hochland Reisen","industry":"Travel","interest":"Planning assistance","marketing_category":"retain","language":"de","offer_category":"Bestandskundenangebot","email":"clara.vogel@example.invalid","internal_note":"Not approved for model use"},
+    {"id":"demo-contact-014","first_name":"Finn","last_name":"Zimmermann","company":"Uferblick Hotel","industry":"Hospitality","interest":"Guest communication","marketing_category":"retain","language":"de","offer_category":"Kundeninformation","email":"finn.zimmermann@example.invalid","internal_note":"Not approved for model use"},
+    {"id":"demo-contact-015","first_name":"Elena","last_name":"Steiner","company":"Regenbogen Bildung","industry":"Education","interest":"Learning resources","marketing_category":"retain","language":"de","offer_category":"Bestandskundenangebot","email":"elena.steiner@example.invalid","internal_note":"Not approved for model use"},
+    {"id":"demo-contact-016","first_name":"Paul","last_name":"Ammann","company":"Talblick Finanzen","industry":"Finance","interest":"Process clarity","marketing_category":"retain","language":"de","offer_category":"Kundeninformation","email":"paul.ammann@example.invalid","internal_note":"Not approved for model use"},
+
+    {"id":"demo-contact-017","first_name":"Laura","last_name":"Bieri","company":"Morgenrot Kommunikation","industry":"Marketing","interest":"Campaign planning","marketing_category":"recover","language":"de","offer_category":"Reaktivierungsangebot","email":"laura.bieri@example.invalid","internal_note":"Not approved for model use"},
+    {"id":"demo-contact-018","first_name":"Tim","last_name":"Suter","company":"Felsenwerk Bau AG","industry":"Construction","interest":"Project updates","marketing_category":"recover","language":"de","offer_category":"Reaktivierungsangebot","email":"tim.suter@example.invalid","internal_note":"Not approved for model use"},
+    {"id":"demo-contact-019","first_name":"Sarah","last_name":"Kunz","company":"Seegrund Immobilien","industry":"Real estate","interest":"Market updates","marketing_category":"recover","language":"de","offer_category":"Rückgewinnungsinformation","email":"sarah.kunz@example.invalid","internal_note":"Not approved for model use"},
+    {"id":"demo-contact-020","first_name":"Ben","last_name":"Egger","company":"Wiesenhof Landwirtschaft","industry":"Agriculture","interest":"Practical guides","marketing_category":"recover","language":"de","offer_category":"Reaktivierungsangebot","email":"ben.egger@example.invalid","internal_note":"Not approved for model use"},
+    {"id":"demo-contact-021","first_name":"Julia","last_name":"Lenz","company":"Horizont Events","industry":"Events","interest":"Event planning","marketing_category":"recover","language":"de","offer_category":"Rückgewinnungsinformation","email":"julia.lenz@example.invalid","internal_note":"Not approved for model use"},
+    {"id":"demo-contact-022","first_name":"Max","last_name":"Gerber","company":"Gipfel Sport","industry":"Sports","interest":"Training tips","marketing_category":"recover","language":"de","offer_category":"Reaktivierungsangebot","email":"max.gerber@example.invalid","internal_note":"Not approved for model use"},
+    {"id":"demo-contact-023","first_name":"Isabel","last_name":"Rüegg","company":"Schlossberg Kultur","industry":"Culture","interest":"Programme updates","marketing_category":"recover","language":"de","offer_category":"Rückgewinnungsinformation","email":"isabel.rueegg@example.invalid","internal_note":"Not approved for model use"},
+    {"id":"demo-contact-024","first_name":"Leon","last_name":"Stalder","company":"Wasserfall Outdoor","industry":"Outdoor","interest":"Community news","marketing_category":"recover","language":"de","offer_category":"Reaktivierungsangebot","email":"leon.stalder@example.invalid","internal_note":"Not approved for model use"}
   ]
 }

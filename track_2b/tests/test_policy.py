@@ -88,6 +88,10 @@ class ModelContextPolicyTests(unittest.TestCase):
                     "email",
                     "id",
                     "internal_note",
+                    "language",
+                    "last_name",
+                    "marketing_category",
+                    "offer_category",
                 ],
             },
         )
