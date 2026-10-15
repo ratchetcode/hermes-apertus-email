@@ -5,7 +5,7 @@ import unittest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-FIXTURE_PATH = ROOT / "data" / "test_contacts.json"
+FIXTURE_PATH = ROOT / "tests" / "fixtures" / "test_contacts.json"
 WORKFLOW_PATH = ROOT / "src" / "workflow.py"
 
 

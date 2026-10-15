@@ -33,7 +33,10 @@ contact import, webhook, queue or automatic action.
 
 ## Safety boundary
 
-- All contacts in `data/test_contacts.json` are fictional.
+- `data/demo_contacts_3r.csv` is the only canonical, visible demo-contact
+  dataset: 50 fictional contacts ordered by the 3R categories.
+- `tests/fixtures/test_contacts.json` is a separate technical fixture for the
+  deterministic no-send tests; it is not a second visible demo dataset.
 - `src/policy.py` rejects `email`, record ID and internal notes even if a
   campaign configuration tries to approve them.
 - The model payload created by `src/workflow.py` contains only the minimised
@@ -161,7 +164,9 @@ implemented in this demonstrator.
 - `scripts/start-demo.sh` — explicit no-send draft demonstration.
 - `src/policy.py` — allowlist/denylist data-minimisation policy.
 - `src/workflow.py` — deterministic preflight and isolated Apertus draft call.
-- `data/test_contacts.json` — fictional fixture data.
+- `data/demo_contacts_3r.csv` — canonical visible fictional demo contacts.
+- `data/templates/contacts.example.csv` — header-only CSV schema template.
+- `tests/fixtures/test_contacts.json` — isolated technical test fixture.
 - `tests/` — offline unit and configuration tests.
 
 ## License

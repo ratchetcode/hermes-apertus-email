@@ -17,7 +17,7 @@ if str(SRC_DIR) not in sys.path:
 from policy import build_data_minimisation_record, build_model_context
 
 
-DEFAULT_FIXTURE_PATH = Path(__file__).resolve().parents[1] / "data" / "test_contacts.json"
+DEFAULT_FIXTURE_PATH = Path(__file__).resolve().parents[1] / "tests" / "fixtures" / "test_contacts.json"
 
 
 def load_fixture(path: Path) -> dict[str, Any]:

@@ -25,6 +25,19 @@ class DemoContactsCsvTests(unittest.TestCase):
         self.assertTrue(all(contact["email"].endswith("@example.invalid") for contact in contacts))
         self.assertTrue(all(contact["consent_status"] == "fictional_demo_only" for contact in contacts))
 
+    def test_data_directory_has_one_canonical_contact_list_and_a_header_only_template(self):
+        legacy_fixture = ROOT / "data" / "test_contacts.json"
+        test_fixture = ROOT / "tests" / "fixtures" / "test_contacts.json"
+        template = ROOT / "data" / "templates" / "contacts.example.csv"
+        data_readme = ROOT / "data" / "README.md"
+
+        self.assertFalse(legacy_fixture.exists())
+        self.assertTrue(test_fixture.is_file())
+        with template.open(newline="", encoding="utf-8") as handle:
+            self.assertEqual(len(list(csv.DictReader(handle))), 0)
+        self.assertIn("demo_contacts_3r.csv", data_readme.read_text(encoding="utf-8"))
+        self.assertIn("only canonical", data_readme.read_text(encoding="utf-8"))
+
     def test_profile_soul_points_only_to_the_fictional_demo_contact_csv(self):
         soul = PROFILE_SOUL.read_text(encoding="utf-8")
 

@@ -7,7 +7,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 MODULE_PATH = ROOT / "src" / "segment_queue.py"
-FIXTURE_PATH = ROOT / "data" / "test_contacts.json"
+FIXTURE_PATH = ROOT / "tests" / "fixtures" / "test_contacts.json"
 
 
 def load_module():

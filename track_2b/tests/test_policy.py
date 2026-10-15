@@ -4,7 +4,7 @@ from pathlib import Path
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
-FIXTURE_PATH = ROOT / "data" / "test_contacts.json"
+FIXTURE_PATH = ROOT / "tests" / "fixtures" / "test_contacts.json"
 POLICY_PATH = ROOT / "src" / "policy.py"
 
 def load_policy_module():

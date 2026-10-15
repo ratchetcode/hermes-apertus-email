@@ -21,7 +21,7 @@ from workflow import generate_draft, load_fixture
 
 
 TOOLSET = "email_framework"
-FIXTURE_PATH = WORKSPACE / "data" / "test_contacts.json"
+FIXTURE_PATH = WORKSPACE / "tests" / "fixtures" / "test_contacts.json"
 STATE_DIR = Path(os.environ.get("HERMES_HOME", "/opt/data")) / "email-framework"
 def _schema(name: str, description: str, properties: dict[str, Any], required: list[str]) -> dict[str, Any]:
     return {

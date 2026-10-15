@@ -1,4 +1,1 @@
-contact_id,email,first_name,company,language,lifecycle_stage,interest,consent_status,consent_timestamp,unsubscribed,campaign_tags
-demo-contact-001,mara@example.invalid,Mara,Alpenlicht Studio,de,onboarding,AI-supported content workflows,opt_in,2026-10-01T09:00:00Z,false,"welcome,workshop"
-demo-contact-002,jonas@example.invalid,Jonas,Rheintal Werkstatt,de,interest,Process documentation,opt_in,2026-10-02T10:00:00Z,false,"documentation,follow-up"
-demo-contact-003,elena@example.invalid,Elena,Beispiel Handel GmbH,de,suppressed,Customer newsletter,opt_in,2026-09-15T08:00:00Z,true,"unsubscribe"
+contact_id,email,first_name,last_name,company,language,marketing_category,lifecycle_stage,interest,consent_status,consent_timestamp,unsubscribed,campaign_tags

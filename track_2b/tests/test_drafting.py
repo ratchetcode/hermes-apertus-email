@@ -25,7 +25,7 @@ class ApertusDraftTests(unittest.TestCase):
     def setUp(self):
         self.workflow = load_workflow_module()
         self.fixture = json.loads(
-            (ROOT / "data" / "test_contacts.json").read_text(encoding="utf-8")
+            (ROOT / "tests" / "fixtures" / "test_contacts.json").read_text(encoding="utf-8")
         )
         self.preflight = self.workflow.prepare_draft_request(
             self.fixture, "demo-contact-001"

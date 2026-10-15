@@ -32,7 +32,7 @@ The project does not fine-tune Apertus, collect prompts, retain model outputs or
 
 ## 4. Data
 
-`data/test_contacts.json` contains two deliberately fictional contacts and one fictional campaign. It is the only input dataset. The fixture includes email and internal-note fields specifically to test that they are excluded from the model payload. No real customer, mailbox, CRM, payment, account or contact data is used or required. The data directory is far below the 100 MB limit.
+`data/demo_contacts_3r.csv` is the only visible demo-contact dataset. It contains 50 deliberately fictional contacts, ordered by Recruit, Retain and Recover, and every address uses `@example.invalid`. `tests/fixtures/test_contacts.json` is a separate technical fixture used to verify that email and internal-note fields stay out of model payloads. No real customer, mailbox, CRM, payment, account or contact data is used or required.
 
 ## 5. Evaluation
 

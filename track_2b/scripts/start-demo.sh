@@ -19,7 +19,8 @@ Step 1 — deterministic preflight
 - the output remains pending human approval for draft, recipient and purpose.
 
 Project rules: /workspace/AGENTS.md
-Fictional test data: /workspace/data/test_contacts.json
+Technical test fixture: /workspace/tests/fixtures/test_contacts.json
+Visible canonical demo contacts: /workspace/data/demo_contacts_3r.csv
 
 EOF
 

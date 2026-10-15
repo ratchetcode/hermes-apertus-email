@@ -26,7 +26,7 @@ class EmailFrameworkRegistryTests(unittest.TestCase):
     def setUp(self):
         self.module = load_module()
         self.fixture = json.loads(
-            (ROOT / "data" / "test_contacts.json").read_text(encoding="utf-8")
+            (ROOT / "tests" / "fixtures" / "test_contacts.json").read_text(encoding="utf-8")
         )
         self.preflight = self.module.prepare_draft_request(
             self.fixture, "demo-contact-001"
