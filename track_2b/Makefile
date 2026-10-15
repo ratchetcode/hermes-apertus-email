@@ -1,11 +1,15 @@
-.PHONY: run chat gateway draft stop logs test
+.PHONY: run chat workflow gateway draft stop logs test
 
-# Default judge/operator path: start an isolated interactive Hermes session.
+# Hermes TUI, including standard slash commands such as /exit.
 run:
-	docker compose run --rm --entrypoint /bin/sh hermes /workspace/scripts/start-hermes.sh hermes --tui
+	docker compose run --rm hermes /bin/sh /workspace/scripts/start-hermes.sh hermes --tui
 
-# Alias for the interactive default.
+# Alias for the interactive Hermes TUI.
 chat: run
+
+# Temporary deterministic terminal workflow; not the Hermes TUI.
+workflow:
+	docker compose run --rm hermes /bin/sh /workspace/scripts/start-controlled-workflow.sh
 
 # Persistent gateway for a separately configured messaging platform.
 gateway:
@@ -13,7 +17,7 @@ gateway:
 
 # Deterministic policy preflight; live Apertus generation remains opt-in.
 draft:
-	docker compose run --rm --entrypoint /workspace/scripts/start-demo.sh hermes
+	docker compose run --rm hermes /bin/sh /workspace/scripts/start-demo.sh
 
 stop:
 	docker compose down --remove-orphans

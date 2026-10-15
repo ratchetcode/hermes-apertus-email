@@ -242,3 +242,28 @@ class SegmentDraftRegistry:
         self._save(records)
         self._append_event(record, "drafts_created")
         return self._operator_view(record)
+
+    def get_ready_for_export(self, approval_id: str) -> dict[str, Any]:
+        records = self._load()
+        record = records.get(approval_id)
+        if record is None:
+            raise ValueError("unknown approval id")
+        if record["approval"]["status"] != "drafts_ready_for_review":
+            raise ValueError("drafts are not ready for local export")
+        return record
+
+    def record_export(self, approval_id: str, export: dict[str, Any]) -> dict[str, Any]:
+        records = self._load()
+        record = records.get(approval_id)
+        if record is None:
+            raise ValueError("unknown approval id")
+        if record["approval"]["status"] != "drafts_ready_for_review":
+            raise ValueError("drafts are not ready for local export")
+        record["export"] = export
+        record["approval"] = {
+            **record["approval"],
+            "status": "exported_for_review",
+        }
+        self._save(records)
+        self._append_event(record, "drafts_exported")
+        return self._operator_view(record)

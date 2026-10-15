@@ -4,6 +4,8 @@ import os
 from pathlib import Path
 import tempfile
 import unittest
+from email import policy
+from email.parser import BytesParser
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -147,6 +149,81 @@ class SegmentPluginFlowTests(unittest.TestCase):
         self.assertEqual(len(result["drafts"]), 8)
         self.assertTrue(all(item["status"] == "needs_review" for item in result["drafts"]))
         self.assertTrue(all("@example.invalid" not in json.dumps(item["model_context"]) for item in result["drafts"]))
+
+    def test_segment_commands_bypass_unreliable_model_tool_call_text(self):
+        preflight = json.loads(
+            self.plugin._segment_preflight_command(
+                json.dumps(
+                    {
+                        "marketing_category": "recover",
+                        "campaign_goal": "reaktivierung",
+                        "language": "Deutsch",
+                        "tone": "sachlich",
+                    }
+                )
+            )
+        )
+
+        self.assertTrue(preflight["success"])
+        self.assertEqual(preflight["contact_count"], 8)
+        approval = json.loads(self.plugin._approve_segment(preflight["approval_id"]))
+        self.assertEqual(approval["approval"]["status"], "approved_for_batch_generation")
+
+        self.plugin.generate_draft = lambda preflight, **_kwargs: {**preflight, "draft": "Entwurf"}
+        result = json.loads(self.plugin._generate_segment_command(preflight["approval_id"]))
+
+        self.assertTrue(result["success"])
+        self.assertTrue(result["no_send"])
+        self.assertEqual(len(result["drafts"]), 8)
+
+    def test_conversation_admission_consumes_input_and_uses_selected_language(self):
+        session_id = "test-deterministic-conversation"
+        first = self.plugin._conversation_admission(
+            text="hallo", session_key=session_id, platform="gateway", source={}, message_id="1"
+        )
+        self.assertEqual(first, {"action": "handled", "reply": "Welche Sprache möchten Sie verwenden? [Deutsch / English / Français]"})
+
+        selected = self.plugin._conversation_admission(
+            text="deutsch", session_key=session_id, platform="gateway", source={}, message_id="2"
+        )
+        self.assertIn("Was möchten Sie vorbereiten?", selected["reply"])
+        self.assertNotIn("What would", selected["reply"])
+        self.assertNotIn("Que souhaitez", selected["reply"])
+
+    def test_export_command_writes_eight_importable_draft_only_eml_files(self):
+        preflight = json.loads(
+            self.plugin._segment_preflight(
+                {
+                    "marketing_category": "retain",
+                    "campaign_goal": "Reaktivierung mit einem fiktiven Angebot",
+                    "language": "Deutsch",
+                    "tone": "sachlich",
+                }
+            )
+        )
+        json.loads(self.plugin._approve_segment(preflight["approval_id"]))
+        self.plugin.generate_draft = lambda preflight, **_kwargs: {
+            **preflight,
+            "draft": "Betreff: Fiktiver Entwurf\n\nDies ist nur ein fiktiver Entwurf.",
+        }
+        json.loads(self.plugin._generate_segment_command(preflight["approval_id"]))
+
+        exported = json.loads(self.plugin._export_segment_command(preflight["approval_id"]))
+
+        self.assertTrue(exported["success"])
+        self.assertTrue(exported["no_send"])
+        self.assertEqual(exported["draft_count"], 8)
+        export_dir = Path(exported["export_dir"])
+        eml_files = sorted(export_dir.glob("*.eml"))
+        self.assertEqual(len(eml_files), 8)
+        message = BytesParser(policy=policy.default).parsebytes(eml_files[0].read_bytes())
+        self.assertEqual(message["Subject"], "Fiktiver Entwurf")
+        self.assertTrue(message["To"].endswith("@example.invalid"))
+        self.assertEqual(message["X-Draft-Only"], "true")
+        self.assertNotIn("internal_note", eml_files[0].read_text(encoding="utf-8"))
+        manifest = json.loads((export_dir / "manifest.json").read_text(encoding="utf-8"))
+        self.assertEqual(manifest["status"], "needs_review")
+        self.assertEqual(len(manifest["drafts"]), 8)
 
 
 if __name__ == "__main__":

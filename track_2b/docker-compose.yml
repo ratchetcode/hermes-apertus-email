@@ -2,13 +2,14 @@ services:
   hermes:
     image: nousresearch/hermes-agent:latest
     working_dir: /workspace
-    entrypoint: ["/bin/sh", "/workspace/scripts/start-hermes.sh"]
-    init: true
-    user: "${HERMES_UID:-1000}:${HERMES_GID:-1000}"
+    entrypoint: ["/opt/hermes/docker/entrypoint-dispatch.sh"]
+    command: ["/bin/sh", "/workspace/scripts/start-hermes.sh"]
     stdin_open: true
     tty: true
     environment:
       HERMES_HOME: /opt/data
+      HERMES_UID: "${HERMES_UID:-1000}"
+      HERMES_GID: "${HERMES_GID:-1000}"
       HOME: /opt/data
       HERMES_ENABLE_PROJECT_PLUGINS: "true"
     env_file:

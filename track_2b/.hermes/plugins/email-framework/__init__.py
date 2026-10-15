@@ -15,6 +15,8 @@ if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
 from email_framework import DraftRegistry, create_fictional_preflight
+from draft_export import export_segment_drafts
+from conversation_state import ConversationStateMachine
 from segment_queue import SegmentDraftRegistry, prepare_segment_preflight
 from workflow import generate_draft, load_fixture
 
@@ -22,6 +24,55 @@ from workflow import generate_draft, load_fixture
 TOOLSET = "email_framework"
 FIXTURE_PATH = WORKSPACE / "data" / "test_contacts.json"
 STATE_DIR = Path(os.environ.get("HERMES_HOME", "/opt/data")) / "email-framework"
+_CONVERSATION_FLOW = ConversationStateMachine()
+_CONVERSATION_REPLIES: dict[str, str] = {}
+
+
+def _conversation_pre_llm_call(*, user_message: str, session_id: str, **_kwargs: Any) -> str:
+    """Provide the same deterministic workflow for the local TUI surface."""
+    handled = _conversation_admission(text=user_message, session_key=session_id)
+    _CONVERSATION_REPLIES[session_id] = handled["reply"]
+    return "The controlled workflow owns the operator response. Do not add visible text."
+
+
+def _conversation_transform_llm_output(*, response_text: str, session_id: str, **_kwargs: Any) -> str:
+    return _CONVERSATION_REPLIES.pop(session_id, response_text)
+
+
+def _conversation_admission(*, text: str, session_key: str, **_kwargs: Any) -> dict[str, str]:
+    """Exclusively handle the controlled workflow before an agent turn is created."""
+    result = _CONVERSATION_FLOW.advance(session_key, text)
+    reply = result["reply"]
+    action = result["action"]
+    if action and action["kind"] == "segment_preflight":
+        preflight = json.loads(_segment_preflight(action["arguments"]))
+        if preflight.get("success"):
+            _CONVERSATION_FLOW.bind_approval(session_key, preflight["approval_id"])
+            reply = (
+                f"Controlled preflight created: {preflight['contact_count']} fictional contacts; no email will be sent. "
+                "Would you like to create the eight drafts now? [Yes / No]"
+                if action["arguments"]["language"] == "English"
+                else f"Kontrollierter Preflight erstellt: {preflight['contact_count']} fiktive Kontakte, kein Versand. Möchten Sie die acht Entwürfe jetzt erstellen? [Ja / Nein]"
+            )
+        else:
+            reply = f"Preflight failed safely: {preflight['error']}"
+    elif action and action["kind"] == "approve_and_generate":
+        approval_id = action["arguments"]["approval_id"]
+        approved = json.loads(_approve_segment(approval_id))
+        generated = json.loads(_generate_segment_command(approval_id)) if approved.get("success") else approved
+        if generated.get("success"):
+            _CONVERSATION_FLOW.mark_drafts_ready(session_key)
+            reply = "Eight fictional drafts were created for review. Would you like to save them as local .eml files now? [Yes / No]"
+        else:
+            reply = f"Draft generation stopped safely: {generated.get('error', 'unknown error')}"
+    elif action and action["kind"] == "export":
+        exported = json.loads(_export_segment_command(action["arguments"]["approval_id"]))
+        reply = (
+            f"Eight draft files and manifest.json were saved for review in: {exported['export_dir']}"
+            if exported.get("success")
+            else f"Draft export stopped safely: {exported.get('error', 'unknown error')}"
+        )
+    return {"action": "handled", "reply": reply}
 
 
 def _schema(name: str, description: str, properties: dict[str, Any], required: list[str]) -> dict[str, Any]:
@@ -161,6 +212,17 @@ def _segment_preflight(args: dict[str, Any]) -> str:
         return _json({"success": False, "stage": "segment_preflight", "error": str(exc), "no_send": True})
 
 
+def _segment_preflight_command(raw_args: str) -> str:
+    """Run the deterministic 3R preflight without relying on model tool syntax."""
+    try:
+        args = json.loads(raw_args)
+        if not isinstance(args, dict):
+            raise ValueError("segment preflight arguments must be a JSON object")
+    except (json.JSONDecodeError, ValueError) as exc:
+        return _json({"success": False, "stage": "segment_preflight", "error": str(exc), "no_send": True})
+    return _segment_preflight(args)
+
+
 def _generate_approved_draft(args: dict[str, Any]) -> str:
     try:
         record = _registry().claim_for_generation(args["approval_id"])
@@ -228,6 +290,54 @@ def _generate_segment_drafts(args: dict[str, Any]) -> str:
         )
 
 
+def _generate_segment_command(raw_args: str) -> str:
+    """Generate approved fictional cohort drafts through an explicit command."""
+    approval_id = raw_args.strip()
+    if not approval_id:
+        return _json(
+            {
+                "success": False,
+                "stage": "segment_draft_generation",
+                "error": "missing approval ID",
+                "no_send": True,
+            }
+        )
+    return _generate_segment_drafts({"approval_id": approval_id})
+
+
+def _export_segment_command(raw_args: str) -> str:
+    """Write ready fictional cohort drafts as local importable .eml files only."""
+    approval_id = raw_args.strip()
+    if not approval_id:
+        return _json(
+            {
+                "success": False,
+                "stage": "draft_export",
+                "error": "missing approval ID",
+                "no_send": True,
+            }
+        )
+    try:
+        registry = _segment_registry()
+        record = registry.get_ready_for_export(approval_id)
+        export = export_segment_drafts(
+            record,
+            load_fixture(FIXTURE_PATH),
+            STATE_DIR / "exports",
+        )
+        registry.record_export(approval_id, export)
+        return _json({"success": True, **export})
+    except (KeyError, RuntimeError, ValueError) as exc:
+        return _json(
+            {
+                "success": False,
+                "stage": "draft_export",
+                "error": str(exc),
+                "no_send": True,
+            }
+        )
+
+
 def _approve(raw_args: str) -> str:
     approval_id = raw_args.strip()
     if not approval_id:
@@ -279,6 +389,9 @@ def _status(_raw_args: str) -> str:
 
 
 def register(ctx) -> None:
+    ctx.register_hook("post_gateway_admission", _conversation_admission)
+    ctx.register_hook("pre_llm_call", _conversation_pre_llm_call)
+    ctx.register_hook("transform_llm_output", _conversation_transform_llm_output)
     ctx.register_tool(
         name="email_framework_preflight",
         toolset=TOOLSET,
@@ -317,6 +430,24 @@ def register(ctx) -> None:
         "email-approve-segment",
         handler=_approve_segment,
         description="Approve one fictional 3R cohort for eight no-send drafts.",
+        args_hint="<approval-id>",
+    )
+    ctx.register_command(
+        "email-preflight-segment",
+        handler=_segment_preflight_command,
+        description="Create a deterministic no-send preflight for one fictional 3R cohort.",
+        args_hint="<JSON arguments>",
+    )
+    ctx.register_command(
+        "email-generate-segment",
+        handler=_generate_segment_command,
+        description="Generate eight fictional draft-only emails after explicit segment approval.",
+        args_hint="<approval-id>",
+    )
+    ctx.register_command(
+        "email-export-segment",
+        handler=_export_segment_command,
+        description="Export eight ready fictional drafts as local .eml files for review.",
         args_hint="<approval-id>",
     )
     ctx.register_command(

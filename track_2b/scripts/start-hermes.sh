@@ -13,10 +13,10 @@ mkdir -p "$runtime_dir"
 if [ ! -f "$runtime_dir/config.yaml" ]; then
   cp "$template" "$runtime_dir/config.yaml"
 fi
-if [ ! -f "$runtime_dir/.email-framework-soul-v7" ]; then
+if [ ! -f "$runtime_dir/.email-framework-soul-v10" ]; then
   cp "$soul_template" "$runtime_dir/SOUL.md"
-  rm -f "$runtime_dir/.email-framework-soul-v1" "$runtime_dir/.email-framework-soul-v2" "$runtime_dir/.email-framework-soul-v3" "$runtime_dir/.email-framework-soul-v4" "$runtime_dir/.email-framework-soul-v5" "$runtime_dir/.email-framework-soul-v6"
-  : > "$runtime_dir/.email-framework-soul-v7"
+  rm -f "$runtime_dir/.email-framework-soul-v1" "$runtime_dir/.email-framework-soul-v2" "$runtime_dir/.email-framework-soul-v3" "$runtime_dir/.email-framework-soul-v4" "$runtime_dir/.email-framework-soul-v5" "$runtime_dir/.email-framework-soul-v6" "$runtime_dir/.email-framework-soul-v7" "$runtime_dir/.email-framework-soul-v8" "$runtime_dir/.email-framework-soul-v9"
+  : > "$runtime_dir/.email-framework-soul-v10"
 fi
 hermes config set plugins.enabled '["email-framework"]' >/dev/null
 hermes config set toolsets '["hermes-cli", "email_framework"]' >/dev/null
