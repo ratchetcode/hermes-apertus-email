@@ -16,6 +16,10 @@ memory:
 security:
   redact_secrets: true
 
+display:
+  sections:
+    thinking: hidden
+
 terminal:
   backend: local
   cwd: /workspace

@@ -15,6 +15,13 @@ if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
 from email_framework import DraftRegistry, create_fictional_preflight
+from contact_review_queue import (
+    MARKETING_CATEGORIES,
+    ContactReviewRegistry,
+    contact_overview,
+    contacts_for_category,
+    load_demo_contacts,
+)
 from draft_export import export_segment_drafts
 from segment_queue import SegmentDraftRegistry, prepare_segment_preflight
 from workflow import generate_draft, load_fixture
@@ -22,7 +29,9 @@ from workflow import generate_draft, load_fixture
 
 TOOLSET = "email_framework"
 FIXTURE_PATH = WORKSPACE / "tests" / "fixtures" / "test_contacts.json"
+CONTACTS_CSV = WORKSPACE / "data" / "demo_contacts_3r.csv"
 STATE_DIR = Path(os.environ.get("HERMES_HOME", "/opt/data")) / "email-framework"
+ACTIVE_REVIEW_QUEUE_FILE = STATE_DIR / "active-contact-review-queue.txt"
 def _schema(name: str, description: str, properties: dict[str, Any], required: list[str]) -> dict[str, Any]:
     return {
         "name": name,
@@ -106,6 +115,157 @@ def _registry() -> DraftRegistry:
 
 def _segment_registry() -> SegmentDraftRegistry:
     return SegmentDraftRegistry(STATE_DIR)
+
+
+def _contact_review_registry() -> ContactReviewRegistry:
+    return ContactReviewRegistry(STATE_DIR)
+
+
+def _active_review_queue_id() -> str:
+    if not ACTIVE_REVIEW_QUEUE_FILE.exists():
+        raise ValueError("no active contact review queue")
+    queue_id = ACTIVE_REVIEW_QUEUE_FILE.read_text(encoding="utf-8").strip()
+    if not queue_id:
+        raise ValueError("no active contact review queue")
+    return queue_id
+
+
+def _set_active_review_queue(queue_id: str) -> None:
+    STATE_DIR.mkdir(parents=True, exist_ok=True)
+    temporary = ACTIVE_REVIEW_QUEUE_FILE.with_suffix(".tmp")
+    temporary.write_text(queue_id, encoding="utf-8")
+    temporary.replace(ACTIVE_REVIEW_QUEUE_FILE)
+
+
+def _review_status(status: str) -> str:
+    return {
+        "not_created": "noch nicht erstellt",
+        "needs_review": "zur Prüfung",
+        "confirmed": "bestätigt",
+        "skipped": "übersprungen",
+    }.get(status, status)
+
+
+def _review_view(record: dict[str, Any], *, heading: str | None = None) -> str:
+    current = record["current"]
+    contact = current["contact"]
+    lines = []
+    if heading:
+        lines.append(heading)
+    lines.extend(
+        [
+            f"Entwurf {current['position']} von {current['total']} – {record['marketing_category']}",
+            f"Fiktiver Kontakt: {contact['first_name']} {contact['last_name']} · {contact['company']}",
+            f"Interesse: {contact['interest']}",
+            f"Ziel: {record['campaign_goal']}",
+            f"Status: {_review_status(current['status'])}",
+        ]
+    )
+    if current.get("draft"):
+        lines.extend(["", "Aktueller Entwurf:", str(current["draft"])])
+    lines.extend(
+        [
+            "",
+            "Nächste Schritte: Weiter, Zurück, Entwurf speichern, Bestätigen, Überspringen oder Abbrechen.",
+            "Kein Versand. Es wird nur lokal als Entwurf geprüft.",
+        ]
+    )
+    return "\n".join(lines)
+
+
+def _demo_contacts(raw_args: str) -> str:
+    try:
+        contacts = load_demo_contacts(CONTACTS_CSV)
+        category = raw_args.strip().lower()
+        if not category:
+            counts = contact_overview(contacts)
+            return (
+                "Fiktive Demo-Kontakte:\n"
+                f"- recruit: {counts['recruit']}\n"
+                f"- retain: {counts['retain']}\n"
+                f"- recover: {counts['recover']}\n\n"
+                "Für eine Gruppe kann 'recruit', 'retain' oder 'recover' angegeben werden."
+            )
+        selected = contacts_for_category(contacts, category)
+        lines = [f"Fiktive Kontakte – {category}: {len(selected)}"]
+        lines.extend(
+            f"{index}. {contact['contact_id']} – {contact['first_name']} {contact['last_name']} · {contact['interest']}"
+            for index, contact in enumerate(selected, start=1)
+        )
+        return "\n".join(lines)
+    except ValueError as exc:
+        return f"Kontaktansicht nicht verfügbar: {exc}."
+
+
+def _demo_review_start(raw_args: str) -> str:
+    try:
+        category, separator, campaign_goal = raw_args.partition("|")
+        if not separator:
+            raise ValueError("Format: <recruit|retain|recover> | <Ziel der Nachricht>")
+        category = category.strip().lower()
+        if category not in MARKETING_CATEGORIES:
+            raise ValueError("Kategorie muss recruit, retain oder recover sein")
+        record = _contact_review_registry().create_queue(
+            load_demo_contacts(CONTACTS_CSV),
+            marketing_category=category,
+            campaign_goal=campaign_goal,
+        )
+        _set_active_review_queue(record["queue_id"])
+        return _review_view(record, heading="Kontaktbezogene Entwurfsprüfung gestartet.")
+    except ValueError as exc:
+        return f"Entwurfsprüfung nicht gestartet: {exc}."
+
+
+def _demo_review_current(_raw_args: str) -> str:
+    try:
+        return _review_view(_contact_review_registry().current(_active_review_queue_id()))
+    except ValueError as exc:
+        return f"Entwurfsprüfung nicht verfügbar: {exc}."
+
+
+def _demo_review_next(_raw_args: str) -> str:
+    try:
+        return _review_view(_contact_review_registry().next(_active_review_queue_id()))
+    except ValueError as exc:
+        return f"Weiter nicht möglich: {exc}."
+
+
+def _demo_review_previous(_raw_args: str) -> str:
+    try:
+        return _review_view(_contact_review_registry().previous(_active_review_queue_id()))
+    except ValueError as exc:
+        return f"Zurück nicht möglich: {exc}."
+
+
+def _demo_review_draft(raw_args: str) -> str:
+    try:
+        draft = raw_args.strip()
+        if not draft:
+            raise ValueError("ein Entwurfstext ist erforderlich")
+        return _review_view(_contact_review_registry().replace_draft(_active_review_queue_id(), draft))
+    except ValueError as exc:
+        return f"Entwurf nicht gespeichert: {exc}."
+
+
+def _demo_review_confirm(_raw_args: str) -> str:
+    try:
+        return _review_view(_contact_review_registry().confirm_current(_active_review_queue_id()))
+    except ValueError as exc:
+        return f"Bestätigung nicht möglich: {exc}."
+
+
+def _demo_review_skip(_raw_args: str) -> str:
+    try:
+        return _review_view(_contact_review_registry().skip_current(_active_review_queue_id()))
+    except ValueError as exc:
+        return f"Überspringen nicht möglich: {exc}."
+
+
+def _demo_review_abort(_raw_args: str) -> str:
+    try:
+        return _review_view(_contact_review_registry().abort(_active_review_queue_id()), heading="Entwurfsprüfung abgebrochen.")
+    except ValueError as exc:
+        return f"Abbruch nicht möglich: {exc}."
 
 
 def _json(value: dict[str, Any]) -> str:
@@ -399,4 +559,52 @@ def register(ctx) -> None:
         "email-framework",
         handler=_status,
         description="Show the controlled newsletter and follow-up draft workflow.",
+    )
+    ctx.register_command(
+        "email-demo-contacts",
+        handler=_demo_contacts,
+        description="Show fictional demo contacts by 3R category without addresses.",
+        args_hint="[recruit|retain|recover]",
+    )
+    ctx.register_command(
+        "email-demo-review-start",
+        handler=_demo_review_start,
+        description="Start a local no-send per-contact review queue for one fictional 3R group.",
+        args_hint="<category> | <campaign goal>",
+    )
+    ctx.register_command(
+        "email-demo-review-current",
+        handler=_demo_review_current,
+        description="Show the current fictional contact and draft in the local review queue.",
+    )
+    ctx.register_command(
+        "email-demo-review-next",
+        handler=_demo_review_next,
+        description="Move to the next fictional contact in the local review queue.",
+    )
+    ctx.register_command(
+        "email-demo-review-previous",
+        handler=_demo_review_previous,
+        description="Move to the previous fictional contact in the local review queue.",
+    )
+    ctx.register_command(
+        "email-demo-review-draft",
+        handler=_demo_review_draft,
+        description="Store the current fictional contact's draft locally for review.",
+        args_hint="<draft text>",
+    )
+    ctx.register_command(
+        "email-demo-review-confirm",
+        handler=_demo_review_confirm,
+        description="Confirm the current local fictional draft; this never sends email.",
+    )
+    ctx.register_command(
+        "email-demo-review-skip",
+        handler=_demo_review_skip,
+        description="Skip the current fictional contact in the local review queue.",
+    )
+    ctx.register_command(
+        "email-demo-review-abort",
+        handler=_demo_review_abort,
+        description="Abort the active local fictional review queue.",
     )

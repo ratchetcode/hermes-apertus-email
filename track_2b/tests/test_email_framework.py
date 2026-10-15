@@ -212,6 +212,31 @@ class SegmentPluginFlowTests(unittest.TestCase):
         self.assertEqual(manifest["status"], "needs_review")
         self.assertEqual(len(manifest["drafts"]), 8)
 
+    def test_csv_review_commands_bind_the_tui_to_a_real_retention_contact_queue(self):
+        contacts = self.plugin._demo_contacts("retain")
+        self.assertIn("retain: 17", contacts)
+        self.assertNotIn("@example.invalid", contacts)
+
+        started = self.plugin._demo_review_start(
+            "retain | Neue Dienstleistung: Tassen bedrucken vorstellen"
+        )
+        self.assertIn("Entwurf 1 von 17", started)
+        self.assertIn("Simon Müller", started)
+        self.assertIn("noch nicht erstellt", started)
+        self.assertNotIn("@example.invalid", started)
+
+        moved = self.plugin._demo_review_next("")
+        self.assertIn("Entwurf 2 von 17", moved)
+        self.assertIn("Tanja Schmid", moved)
+
+        drafted = self.plugin._demo_review_draft(
+            "Betreff: Neu bei Onlineshop Demo AG | Sehr geehrte Frau Schmid, dies ist ein Entwurf."
+        )
+        self.assertIn("Status: zur Prüfung", drafted)
+        confirmed = self.plugin._demo_review_confirm("")
+        self.assertIn("Status: bestätigt", confirmed)
+        self.assertIn("Kein Versand", confirmed)
+
 
 if __name__ == "__main__":
     unittest.main()

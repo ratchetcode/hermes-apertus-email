@@ -19,17 +19,15 @@ contact import, webhook, queue or automatic action.
   the last operator request decides, not the preceding assistant reply or quoted
   text in the request, while planning fictional newsletters, campaigns and
   follow-up drafts;
-- loads the project-local `email-framework` plugin with deterministic preflight,
-  explicit `/email-approve <approval-id>` for single drafts and
-  `/email-approve-segment <approval-id>` for 3R cohorts;
-- offers Recruit, Retain and Recover as three fictional categories with exactly
-  eight contacts each (24 total), then creates eight personalised draft-only
-  review items after explicit segment approval;
-- retains a deterministic policy gate for the fictional fixture data;
-- sends only campaign-approved fields to Apertus through the deterministic
-  draft command;
-- shows a data-minimisation record, `pending` human approval and `no_send: true`;
-- requires a new preflight and confirmation for every follow-up draft.
+- loads the project-local `email-framework` plugin with local, deterministic
+  no-send commands for the canonical 3R CSV contact review;
+- exposes a per-contact review queue for the 50 visible fictional contacts:
+  `recruit` 17, `retain` 17 and `recover` 16;
+- snapshots only the allowed fictional presentation fields for the selected
+  cohort; the recipient address is excluded from the review view and model
+  context;
+- keeps every item local with `draft_only` and `no_send: true`; no command sends
+  mail, updates a CRM, calls a webhook or publishes content.
 
 ## Safety boundary
 
@@ -63,22 +61,24 @@ normal Hermes profile. Leave the session with `/exit`.
 
 `make chat` is an alias for the same interactive mode.
 
-### 3R cohort demonstration in Hermes
+### Kontaktbezogene 3R-Prüfung in Hermes
 
-In `make run`, ask for a fictional campaign for **Recruit**, **Retain** or
-**Recover**, then provide goal, language and tone. Hermes calls the deterministic
-segment preflight and displays eight minimised fictional contexts. After review,
-type the exact command returned by the preflight, for example:
+In `make run` stehen lokale, deterministische Prüfschritte für die sichtbare
+fiktive CSV bereit. Sie sind ein kontrollierter Ersatz für eine freie,
+modellgesteuerte Empfängerauswahl und lösen keinen Modellaufruf aus.
 
 ```text
-/email-approve-segment segment-…
+/email-demo-contacts
+/email-demo-contacts retain
+/email-demo-review-start retain | Neue Dienstleistung: Tassen bedrucken vorstellen
 ```
 
-Only then can Hermes create eight personalised drafts. They are retained in the
-project-local review state with `needs_review`, `delivery_mode: draft_only` and
-`no_send: true`. The event log records `preflight_created`,
-`approved_for_batch_generation`, `generation_claimed` and `drafts_created`; it
-has no delivery event types.
+Der Start bindet die Prüfung an genau 17 fiktive `retain`-Kontakte und zeigt
+`Entwurf 1 von 17` mit Name, Firma, Interesse, Ziel und Review-Status – aber
+ohne Adresse. Danach sind `current`, `next`, `previous`, `draft`, `confirm`,
+`skip` und `abort` als lokale Review-Schritte verfügbar. Eine Bestätigung bleibt
+nur eine lokale Entwurfsbestätigung; sie löst keinen Export und niemals Versand
+oder Zustellung aus.
 
 To start the persistent gateway for a separately configured messaging platform:
 

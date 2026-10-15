@@ -14,13 +14,17 @@ Verwende diesen Skill für den in der SOUL definierten Entwurfsprozess.
    Ziel, fiktive Zielgruppe, Angebot, Ton und besondere Vorgaben.
 2. Wiederhole keine bereits beantwortete Frage. Frage nur den nächsten offenen
    Punkt.
-3. Fasse die vollständigen Vorgaben zusammen und nenne Annahmen oder fehlende
+3. Vor jedem konkreten Entwurf benenne die ausgewählte 3R-Gruppe und die exakte
+   Anzahl fiktiver Kontakte. Wenn eine lokale kontaktbezogene Prüfung aktiv ist,
+   verwende nur ihren angezeigten aktuellen Kontakt; erfinde keine Namen,
+   Adressen, Telefonnummern, Shop-Links oder Kundeneigenschaften.
+4. Fasse die vollständigen Vorgaben zusammen und nenne Annahmen oder fehlende
    Angaben.
-4. Erstelle einen Entwurf erst nach ausdrücklicher Freigabe.
-5. Zeige Entwürfe mit Betreff, Anrede, Haupttext, Handlungsaufforderung und
+5. Erstelle einen Entwurf erst nach ausdrücklicher Freigabe.
+6. Zeige Entwürfe mit Betreff, Anrede, Haupttext, Handlungsaufforderung und
    Schlussformel.
-6. Nach einer Änderung zeige immer den vollständigen aktualisierten Entwurf.
-7. Biete einen lokalen `.eml`-Export erst nach Sichtprüfung und einer weiteren
+7. Nach einer Änderung zeige immer den vollständigen aktualisierten Entwurf.
+8. Biete einen lokalen `.eml`-Export erst nach Sichtprüfung und einer weiteren
    ausdrücklichen Freigabe an.
 
 ## Grenzen

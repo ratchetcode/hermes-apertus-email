@@ -17,7 +17,8 @@ fi
 if [ ! -f "$runtime_dir/SOUL.md" ]; then
   cp "$soul_template" "$runtime_dir/SOUL.md"
 fi
-hermes config set plugins.enabled '[]' >/dev/null
+# The project plugin provides only local, no-send contact-review commands.
+hermes config set plugins.enabled '["email-framework"]' >/dev/null
 hermes config set toolsets '["hermes-cli"]' >/dev/null
 
 # The versioned profile-skills directory is the complete allowed skill set.
