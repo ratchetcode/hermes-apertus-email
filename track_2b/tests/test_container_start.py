@@ -10,6 +10,7 @@ HERMES_START_SCRIPT_PATH = ROOT / "scripts" / "start-hermes.sh"
 HERMES_CONFIG_TEMPLATE_PATH = ROOT / "runtime-template" / "config.yaml"
 SOUL_TEMPLATE_PATH = ROOT / "runtime-template" / "SOUL.md"
 AGENTS_PATH = ROOT / "AGENTS.md"
+EMAIL_DRAFT_SKILL_PATH = ROOT / "profile-skills" / "email-draft-workflow" / "SKILL.md"
 
 
 
@@ -27,7 +28,7 @@ class ContainerStartTests(unittest.TestCase):
         self.assertIn('HERMES_GID: "${HERMES_GID:-1000}"', compose)
         self.assertIn("HERMES_HOME: /opt/data", compose)
         self.assertIn("\n      HOME: /opt/data", compose)
-        self.assertIn('HERMES_ENABLE_PROJECT_PLUGINS: "true"', compose)
+        self.assertIn('HERMES_ENABLE_PROJECT_PLUGINS: "false"', compose)
         self.assertNotIn("HERMES_TUI_DIR", compose)
         self.assertIn("- ./runtime/hermes:/opt/data", compose)
         self.assertIn("- ./:/workspace:ro", compose)
@@ -41,57 +42,65 @@ class ContainerStartTests(unittest.TestCase):
         self.assertIn('cp "$template" "$runtime_dir/config.yaml"', script)
         self.assertIn('soul_template="/workspace/runtime-template/SOUL.md"', script)
         self.assertIn('cp "$soul_template" "$runtime_dir/SOUL.md"', script)
-        self.assertIn('"$runtime_dir/.email-framework-soul-v10"', script)
+        self.assertIn('if [ ! -f "$runtime_dir/SOUL.md" ]; then', script)
         self.assertNotIn("tui-widgets", script)
-        self.assertIn("hermes config set plugins.enabled", script)
-        self.assertIn("hermes config set toolsets", script)
+        self.assertIn('profile_skills_dir="/workspace/profile-skills"', script)
+        self.assertIn('rm -rf "$runtime_dir/skills"', script)
+        self.assertIn('cp -R "$profile_skills_dir/." "$runtime_dir/skills/"', script)
+        self.assertNotIn("email-framework", script)
+        self.assertIn('hermes config set toolsets \'["hermes-cli"]\'', script)
         self.assertIn('if [ "$#" -eq 0 ]; then', script)
         self.assertIn('set -- hermes gateway run --no-supervise --external-supervisor', script)
         self.assertIn('exec "$@"', script)
         self.assertNotIn("/home/nick/.hermes", script)
 
-    def test_runtime_template_uses_only_local_environment_references_for_apertus(self):
+    def test_profile_skills_contain_only_the_email_draft_workflow(self):
+        skills = sorted(path.relative_to(ROOT / "profile-skills").as_posix() for path in (ROOT / "profile-skills").rglob("SKILL.md"))
+
+        self.assertEqual(skills, ["email-draft-workflow/SKILL.md"])
+        skill = EMAIL_DRAFT_SKILL_PATH.read_text(encoding="utf-8")
+        self.assertIn("no-send", skill)
+        self.assertIn("fiktive", skill)
+
+    def test_runtime_template_is_a_minimal_hermes_base_without_email_plugin(self):
         template = HERMES_CONFIG_TEMPLATE_PATH.read_text(encoding="utf-8")
 
         self.assertIn("provider: custom", template)
         self.assertIn('default: "${LLM_NAME}"', template)
         self.assertIn('base_url: "${LLM_BASE_URL}"', template)
         self.assertIn('api_key: "${LLM_API_KEY}"', template)
+        self.assertNotIn("email-framework", template)
+        self.assertNotIn("plugins:", template)
         self.assertNotIn("TELEGRAM_BOT_TOKEN", template)
 
-    def test_soul_template_requires_reply_in_the_operator_language(self):
+    def test_soul_template_is_neutral_and_does_not_force_email_onboarding(self):
         soul = SOUL_TEMPLATE_PATH.read_text(encoding="utf-8")
 
-        self.assertIn("selected language", soul)
-        self.assertIn("every following question and response", soul)
-        self.assertIn("language is also the campaign draft language", soul)
-        self.assertIn("first question", soul)
-        self.assertIn("Which language would you like to use?", soul)
-        self.assertIn("one unanswered item per turn", soul)
-        self.assertIn("/email-approve <approval-id>", soul)
-        self.assertIn("`recruit`, `retain` or `recover`", soul)
-        self.assertIn("/email-approve-segment <approval-id>", soul)
-        self.assertNotIn("Möchten Sie eine kurze Einführung", soul)
-        self.assertIn("Do not invent defaults", soul)
-        self.assertIn("Never expose tool names", soul)
-        self.assertIn("immediately call `email_framework_segment_preflight`", soul)
+        self.assertIn("persistent project-local Hermes agent", soul)
+        self.assertIn("Do not invent", soul)
+        self.assertIn("explicit approval", soul)
+        self.assertNotIn("Which language would you like to use?", soul)
+        self.assertNotIn("3R", soul)
+        self.assertNotIn("email_framework", soul)
 
-    def test_project_rules_require_preflight_and_fresh_follow_up_approval(self):
+    def test_project_rules_keep_runtime_and_credentials_isolated(self):
         rules = AGENTS_PATH.read_text(encoding="utf-8")
 
-        self.assertIn("controlled email-marketing", rules)
-        self.assertIn("python3 /workspace/src/workflow.py --contact-id demo-contact-001", rules)
-        self.assertIn("new, explicit confirmation", rules)
-        self.assertIn("follow-up email is a new draft", rules)
-        self.assertIn("No email sending", rules)
+        self.assertIn("persistent project-local Hermes runtime", rules)
+        self.assertIn("No external actions", rules)
+        self.assertIn("Never read, display, copy or commit", rules)
+        self.assertNotIn("email-marketing", rules)
+        self.assertNotIn("demo-contact-001", rules)
 
-    def test_makefile_exposes_interactive_default_and_separate_gateway_mode(self):
+    def test_makefile_keeps_hermes_tui_as_default_run_mode(self):
         makefile = MAKEFILE_PATH.read_text(encoding="utf-8")
 
-        self.assertIn("docker compose run --rm hermes /bin/sh /workspace/scripts/start-hermes.sh hermes --tui", makefile)
-        self.assertIn("workflow:\n\tdocker compose run --rm hermes /bin/sh /workspace/scripts/start-controlled-workflow.sh", makefile)
+        self.assertIn("run:\n\tdocker compose run --rm hermes /bin/sh /workspace/scripts/start-hermes.sh hermes --tui", makefile)
+        self.assertNotIn("start-controlled-workflow.sh", makefile)
         self.assertIn("gateway:\n\tdocker compose up", makefile)
         self.assertIn("chat: run", makefile)
+        self.assertIn("profile-apply:\n\tpython3 scripts/apply_profile.py", makefile)
+        self.assertIn("profile-snapshot:\n\tpython3 scripts/export_profile_snapshot.py", makefile)
         self.assertIn("docker compose run --rm hermes /bin/sh /workspace/scripts/start-demo.sh", makefile)
         self.assertNotIn("run:\n\tdocker compose up", makefile)
 

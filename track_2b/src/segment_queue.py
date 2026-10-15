@@ -243,6 +243,33 @@ class SegmentDraftRegistry:
         self._append_event(record, "drafts_created")
         return self._operator_view(record)
 
+    def get_ready_for_review(self, approval_id: str) -> dict[str, Any]:
+        records = self._load()
+        record = records.get(approval_id)
+        if record is None:
+            raise ValueError("unknown approval id")
+        if record["approval"]["status"] != "drafts_ready_for_review":
+            raise ValueError("drafts are not ready for review")
+        return self._operator_view(record)
+
+    def replace_review_draft(self, approval_id: str, position: int, draft: str, *, event_type: str) -> dict[str, Any]:
+        """Replace one reviewed draft locally; this never creates a delivery path."""
+        records = self._load()
+        record = records.get(approval_id)
+        if record is None:
+            raise ValueError("unknown approval id")
+        if record["approval"]["status"] != "drafts_ready_for_review":
+            raise ValueError("drafts are not ready for review")
+        if position < 0 or position >= record["contact_count"]:
+            raise ValueError("draft position is outside the fictional cohort")
+        if not draft.strip():
+            raise ValueError("reviewed draft must not be empty")
+        record["drafts"][position]["generated_draft"] = draft.strip()
+        record["drafts"][position]["status"] = "needs_review"
+        self._save(records)
+        self._append_event(record, event_type)
+        return self._operator_view(record)
+
     def get_ready_for_export(self, approval_id: str) -> dict[str, Any]:
         records = self._load()
         record = records.get(approval_id)

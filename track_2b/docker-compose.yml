@@ -11,7 +11,7 @@ services:
       HERMES_UID: "${HERMES_UID:-1000}"
       HERMES_GID: "${HERMES_GID:-1000}"
       HOME: /opt/data
-      HERMES_ENABLE_PROJECT_PLUGINS: "true"
+      HERMES_ENABLE_PROJECT_PLUGINS: "false"
     env_file:
       - .env
     volumes:

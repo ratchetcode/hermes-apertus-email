@@ -8,7 +8,3 @@ provides_tools:
   - email_framework_generate_approved_draft
   - email_framework_segment_preflight
   - email_framework_generate_segment_drafts
-provides_hooks:
-  - post_gateway_admission
-  - pre_llm_call
-  - transform_llm_output

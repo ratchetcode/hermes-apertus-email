@@ -1,5 +1,4 @@
-# This file bootstraps an isolated project-local Hermes runtime at /opt/data.
-# Credentials are supplied only through the untracked Docker env_file (.env).
+# Minimal project-local Hermes runtime. Credentials come only from .env.
 model:
   default: "${LLM_NAME}"
   provider: custom
@@ -22,9 +21,4 @@ terminal:
   cwd: /workspace
   timeout: 30
 
-plugins:
-  enabled:
-    - email-framework
-
-# No messaging channel is configured by default. Add one only after an
-# explicit deployment decision and operator allowlisting.
+# No plugins, messaging channels or external actions are active by default.

@@ -59,8 +59,11 @@ def prepare_draft_request(
     }
 
 
-def _model_messages(model_context: dict[str, Any]) -> list[dict[str, str]]:
+def _model_messages(model_context: dict[str, Any], review_instruction: str | None = None) -> list[dict[str, str]]:
     """Build a closed prompt from the already-minimised model context."""
+    user_content = "Create a draft from this approved, fictional context:\n" + json.dumps(model_context, ensure_ascii=False, sort_keys=True)
+    if review_instruction:
+        user_content += "\n\nRevise the existing fictional draft according to this operator instruction:\n" + review_instruction
     return [
         {
             "role": "system",
@@ -73,8 +76,7 @@ def _model_messages(model_context: dict[str, Any]) -> list[dict[str, str]]:
         },
         {
             "role": "user",
-            "content": "Create a draft from this approved, fictional context:\n"
-            + json.dumps(model_context, ensure_ascii=False, sort_keys=True),
+            "content": user_content,
         },
     ]
 
@@ -125,7 +127,10 @@ def generate_draft(
 
     payload = {
         "model": model_name,
-        "messages": _model_messages(preflight["model_context"]),
+        "messages": _model_messages(
+            preflight["model_context"],
+            str(preflight.get("review_instruction", "")).strip() or None,
+        ),
         "temperature": 0.2,
     }
     response = post_json(

@@ -16,7 +16,6 @@ if str(SRC_DIR) not in sys.path:
 
 from email_framework import DraftRegistry, create_fictional_preflight
 from draft_export import export_segment_drafts
-from conversation_state import ConversationStateMachine
 from segment_queue import SegmentDraftRegistry, prepare_segment_preflight
 from workflow import generate_draft, load_fixture
 
@@ -24,57 +23,6 @@ from workflow import generate_draft, load_fixture
 TOOLSET = "email_framework"
 FIXTURE_PATH = WORKSPACE / "data" / "test_contacts.json"
 STATE_DIR = Path(os.environ.get("HERMES_HOME", "/opt/data")) / "email-framework"
-_CONVERSATION_FLOW = ConversationStateMachine()
-_CONVERSATION_REPLIES: dict[str, str] = {}
-
-
-def _conversation_pre_llm_call(*, user_message: str, session_id: str, **_kwargs: Any) -> str:
-    """Provide the same deterministic workflow for the local TUI surface."""
-    handled = _conversation_admission(text=user_message, session_key=session_id)
-    _CONVERSATION_REPLIES[session_id] = handled["reply"]
-    return "The controlled workflow owns the operator response. Do not add visible text."
-
-
-def _conversation_transform_llm_output(*, response_text: str, session_id: str, **_kwargs: Any) -> str:
-    return _CONVERSATION_REPLIES.pop(session_id, response_text)
-
-
-def _conversation_admission(*, text: str, session_key: str, **_kwargs: Any) -> dict[str, str]:
-    """Exclusively handle the controlled workflow before an agent turn is created."""
-    result = _CONVERSATION_FLOW.advance(session_key, text)
-    reply = result["reply"]
-    action = result["action"]
-    if action and action["kind"] == "segment_preflight":
-        preflight = json.loads(_segment_preflight(action["arguments"]))
-        if preflight.get("success"):
-            _CONVERSATION_FLOW.bind_approval(session_key, preflight["approval_id"])
-            reply = (
-                f"Controlled preflight created: {preflight['contact_count']} fictional contacts; no email will be sent. "
-                "Would you like to create the eight drafts now? [Yes / No]"
-                if action["arguments"]["language"] == "English"
-                else f"Kontrollierter Preflight erstellt: {preflight['contact_count']} fiktive Kontakte, kein Versand. Möchten Sie die acht Entwürfe jetzt erstellen? [Ja / Nein]"
-            )
-        else:
-            reply = f"Preflight failed safely: {preflight['error']}"
-    elif action and action["kind"] == "approve_and_generate":
-        approval_id = action["arguments"]["approval_id"]
-        approved = json.loads(_approve_segment(approval_id))
-        generated = json.loads(_generate_segment_command(approval_id)) if approved.get("success") else approved
-        if generated.get("success"):
-            _CONVERSATION_FLOW.mark_drafts_ready(session_key)
-            reply = "Eight fictional drafts were created for review. Would you like to save them as local .eml files now? [Yes / No]"
-        else:
-            reply = f"Draft generation stopped safely: {generated.get('error', 'unknown error')}"
-    elif action and action["kind"] == "export":
-        exported = json.loads(_export_segment_command(action["arguments"]["approval_id"]))
-        reply = (
-            f"Eight draft files and manifest.json were saved for review in: {exported['export_dir']}"
-            if exported.get("success")
-            else f"Draft export stopped safely: {exported.get('error', 'unknown error')}"
-        )
-    return {"action": "handled", "reply": reply}
-
-
 def _schema(name: str, description: str, properties: dict[str, Any], required: list[str]) -> dict[str, Any]:
     return {
         "name": name,
@@ -389,9 +337,6 @@ def _status(_raw_args: str) -> str:
 
 
 def register(ctx) -> None:
-    ctx.register_hook("post_gateway_admission", _conversation_admission)
-    ctx.register_hook("pre_llm_call", _conversation_pre_llm_call)
-    ctx.register_hook("transform_llm_output", _conversation_transform_llm_output)
     ctx.register_tool(
         name="email_framework_preflight",
         toolset=TOOLSET,

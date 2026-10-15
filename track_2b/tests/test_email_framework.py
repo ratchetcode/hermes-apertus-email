@@ -84,6 +84,7 @@ class EmailFrameworkPluginContractTests(unittest.TestCase):
         self.assertIn("email_framework_segment_preflight", manifest)
         self.assertIn("email_framework_generate_approved_draft", manifest)
         self.assertIn("email_framework_generate_segment_drafts", manifest)
+        self.assertNotIn("provides_hooks", manifest)
 
 
 class SegmentPluginFlowTests(unittest.TestCase):
@@ -175,20 +176,6 @@ class SegmentPluginFlowTests(unittest.TestCase):
         self.assertTrue(result["success"])
         self.assertTrue(result["no_send"])
         self.assertEqual(len(result["drafts"]), 8)
-
-    def test_conversation_admission_consumes_input_and_uses_selected_language(self):
-        session_id = "test-deterministic-conversation"
-        first = self.plugin._conversation_admission(
-            text="hallo", session_key=session_id, platform="gateway", source={}, message_id="1"
-        )
-        self.assertEqual(first, {"action": "handled", "reply": "Welche Sprache möchten Sie verwenden? [Deutsch / English / Français]"})
-
-        selected = self.plugin._conversation_admission(
-            text="deutsch", session_key=session_id, platform="gateway", source={}, message_id="2"
-        )
-        self.assertIn("Was möchten Sie vorbereiten?", selected["reply"])
-        self.assertNotIn("What would", selected["reply"])
-        self.assertNotIn("Que souhaitez", selected["reply"])
 
     def test_export_command_writes_eight_importable_draft_only_eml_files(self):
         preflight = json.loads(

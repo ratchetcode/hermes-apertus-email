@@ -1,51 +1,41 @@
-# Hermes × Apertus Controlled Email-Drafting Framework
+# Persistent Project-Local Hermes Agent
 
 ## Purpose
 
-This project demonstrates a Docker-packaged, controlled email-marketing
-draft framework. Hermes is the dialog interface and is configured to use the
-Apertus-compatible endpoint supplied by the operator. The framework may prepare
-newsletter, campaign and follow-up drafts; it must never send messages.
+This repository packages a minimal Hermes agent that runs through Docker. Its
+identity and procedures are deliberately configured by the operator over time;
+no legacy specialist workflow is active by default.
 
-## Isolation and data boundary
+## Runtime and confidentiality
 
-- Use only the fictional fixture data in `/workspace/data/test_contacts.json`.
-- Never request, read, copy or process real customers, CRM exports, mailbox
-  contents, mailing lists, payment data or account credentials.
-- The only persisted Hermes state is `/opt/data`, mounted from
-  `./runtime/hermes`. Do not access host Hermes profiles, sessions, memories,
-  credentials or messaging integrations.
-- `/workspace` is read-only in the container. Secrets exist only in the local,
-  untracked `.env` Docker environment file; never display, read back, log or
-  include them in a response.
+- The persistent project-local Hermes runtime is `/opt/data`, mounted from
+  `./runtime/hermes`.
+- `/workspace` is read-only in the container and contains versioned source,
+  templates and documentation.
+- Never read, display, copy or commit `.env`, credentials, access tokens,
+  session databases, chat transcripts or logs.
+- No external actions: no sending, publishing, contact, deployment, GitHub
+  push, deletion outside the project runtime, or account changes without
+  explicit operator approval.
 
-## Controlled drafting workflow
+## Configuration discipline
 
-1. Clarify the requested campaign purpose, fictional contact, language and tone.
-2. Before a model draft request, run the deterministic preflight:
-   `python3 /workspace/src/workflow.py --contact-id demo-contact-001`
-3. Present the data-minimisation record and state that the output is a draft
-   with `pending` approval and `no_send: true`.
-4. A live draft request requires a new, explicit confirmation after that
-   preflight. Only then may the command include `--live`.
-5. A follow-up email is a new draft: repeat the preflight and require a fresh
-   approval. Never reuse a prior approval when recipient, purpose, fields or
-   draft content changes.
+- `SOUL.md` in the runtime is the durable identity and core behaviour.
+- Longer approved instructions belong under `/opt/data/instructions/`.
+- An instruction stored only in a file is not automatically active; permanent
+  required behaviour must be included in the SOUL or explicitly referenced by
+  it.
+- Prepare persistent changes as reviewable proposals. Apply them only after an
+  explicit approval and record the outcome.
+- Do not invent workflows, questions, paths or completed configuration steps.
 
-## Prohibited actions
+## Source-control boundary
 
-- No email sending, CRM changes, publishing, webhooks, queues or background
-  actions.
-- No contact imports, segmentation against external data, unsubscribe handling
-  or contact of third parties.
-- No price, order, payment or account changes.
-- No claim that a message was sent or that a deployment is legally compliant.
-
-## Operator-facing response rules
-
-- Reply in German unless the operator requests another language.
-- State assumptions and unknowns explicitly.
-- Keep the preflight, used/excluded fields, approval status and no-send outcome
-  visible in every drafting result.
-- If the operator asks for a real campaign or personal data, refuse the data
-  request and offer the fictional demonstration path instead.
+- `agent-profile/` is the versionable, canonical source for `SOUL.md`,
+  `config.yaml` and approved `instructions/**/*.md`.
+- After changing `agent-profile/`, use `make profile-apply` to apply it to the
+  local runtime. This does not touch chats, state, logs or credentials.
+- `runtime/` is local operational state and remains ignored by Git.
+- `make profile-snapshot` is the deliberate reverse operation for importing
+  already-reviewed manual runtime edits back into `agent-profile/`; it replaces
+  the snapshot and must not be used by default.

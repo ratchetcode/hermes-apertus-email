@@ -72,6 +72,26 @@ class ApertusDraftTests(unittest.TestCase):
         self.assertTrue(result["no_send"])
         self.assertEqual(result["approval"]["status"], "pending")
 
+    def test_review_instruction_is_sent_without_recipient_identity(self):
+        captured = {}
+
+        def fake_post_json(_url, _headers, payload, _timeout_seconds):
+            captured["payload"] = payload
+            return {"choices": [{"message": {"content": "Betreff: Überarbeitet\n\nHallo Mara,\n\nFiktiver Text."}}]}
+
+        self.workflow.generate_draft(
+            {**self.preflight, "review_instruction": "Kürzer und sachlicher formulieren."},
+            model_name="swiss-ai/Apertus-v1.5-8B",
+            base_url="https://example.test/v1",
+            api_key="test-key",
+            post_json=fake_post_json,
+        )
+
+        prompt = captured["payload"]["messages"][1]["content"]
+        self.assertIn("Kürzer und sachlicher formulieren.", prompt)
+        self.assertNotIn("mara@example.invalid", prompt)
+        self.assertNotIn("demo-contact-001", prompt)
+
     def test_generate_draft_rejects_an_invalid_model_response(self):
         def fake_post_json(*_args):
             return {"choices": []}
