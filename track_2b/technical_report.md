@@ -1,68 +1,56 @@
-# Technical report — Apertus Draft Gate
+# Apertus Draft Gate – Technischer Kurzbericht
 
-- **Track:** Track 2B — Own Project
-- **Event:** Hack Apertus Online Hackathon, October 2026
-- **Team:** Nick Menzi
-- **Demo:** Local interactive Docker demo (`make run`) and offline captioned overview at `docs/Apertus_Draft_Gate_Demo.mp4`; no public video URL is included in this repository.
+**Hack Apertus Online Hackathon · Track 2B · 15. Oktober 2026**
+**Projekt:** Nick Menzi · **Status:** lokaler, fiktiver No-Send-Demonstrator
 
-## 1. Summary
+## 1. Ziel und Ergebnis
 
-Apertus Draft Gate is a small, safety-first prototype for a controlled email-marketing draft workflow. `make run` opens an isolated Hermes terminal session configured for an operator-selected Apertus-compatible endpoint; `make gateway` is reserved for a separately configured persistent messaging gateway. The deterministic draft path places a policy gate before an Apertus request: it sends only campaign-approved fictional fields, keeps the recipient address and internal note outside the model context, and produces a draft that remains pending human approval. The implementation deliberately has no email-send, CRM-update or messaging capability.
+Apertus Draft Gate ist ein Docker-ausführbarer Hermes-Demonstrator für das kontrollierte Erstellen und Prüfen fiktiver E-Mail-Entwürfe der **Onlineshop Demo AG**. Der Demonstrator ist absichtlich kein Newsletter- oder Versandsystem.
 
-## 2. Architecture
+**Erreicht:**
 
-The Docker service uses `scripts/start-hermes.sh` to create an isolated project-local Hermes home at `/opt/data` and copy a non-secret configuration template only on first start. It reads the operator's `LLM_NAME`, `LLM_BASE_URL` and `LLM_API_KEY` from the untracked local `.env` file. `make run` invokes that bootstrap and starts `hermes --tui`, so a judge can interact with the demonstrator immediately. `make gateway` invokes the same bootstrap without a TUI and starts `hermes gateway run --no-supervise --external-supervisor` for a separately configured messaging platform. The regular host Hermes profile is never mounted.
+- Versioniertes Agentenprofil unter `agent-profile/`; gezielte lokale Übernahme in die isolierte Runtime.
+- Eine sichtbare, kanonische fiktive Kontaktquelle mit **50 Kontakten**: 17 `recruit`, 17 `retain`, 16 `recover`.
+- Deterministische kontaktbezogene Review-Queue: Gruppe auswählen, konkreten fiktiven Kontakt anzeigen, vor/zurück gehen, Entwurf lokal prüfen, bestätigen, überspringen oder abbrechen.
+- Der Queue-Kontext enthält keine E-Mail-Adresse; die Modell- und Review-Grenze hält Adressen, interne Notizen und stabile technische IDs aus dem Entwurfsinhalt heraus.
+- Kein SMTP, kein CRM, kein Webhook, keine Kontaktaufnahme und kein automatischer Export oder Versand.
 
-The deterministic `make draft` path retains the fixture, pure-Python policy module and explicit confirmation gate. `policy.py` validates an allowlist and rejects `email`, `id` and `internal_note` even if a faulty campaign configuration lists them. `workflow.py` first creates a preflight record, then — only after the operator answers `y` — posts the minimised JSON context to an OpenAI-compatible Apertus `/chat/completions` endpoint. The result is printed together with the original data-minimisation evidence, `no_send: true`, and a `pending` approval record.
+## 2. Architektur und Workflow
 
-The deterministic model request contains a constrained drafting instruction and the minimised fictional context. It does not contain the recipient email, record ID, internal note or a send instruction. There is no SMTP client, CRM SDK, webhook, queue or external-action tool in the codebase.
+Die lokale Docker-Runtime startet Hermes über `make run`. Das versionierte Profil bleibt getrennt von lokaler Runtime, Sitzungen, Logs und Zugangsdaten. Modellparameter gehören ausschließlich in die nicht versionierte `.env`.
 
-### Target architecture (mandatory)
+### Kontrollierter Workflow
 
-**a) On-premise.** The container is deployable with an organisation-controlled, OpenAI-compatible Apertus inference endpoint set in `LLM_BASE_URL`. The fixture, policy and approval logic remain local. At runtime, the only optional external dependency is that configured model endpoint, and only after explicit operator confirmation. The same configuration pattern can also target an organisation-approved Swiss-hosted inference endpoint; this repository does not claim to operate such infrastructure.
+1. **Anfrage erfassen:** Ziel, Dienstleistung, Ton und gewünschte 3R-Zielgruppe klären.
+2. **Empfänger binden:** Die kanonische CSV liefert die exakte Gruppe und Kontaktanzahl.
+3. **Review-Queue starten:** Ein fiktiver Kontakt wird als „Entwurf n von Gesamtzahl“ angezeigt – ohne Adresse.
+4. **Entwurf prüfen:** Text lokal erfassen oder überarbeiten; Änderungen bleiben beim aktuellen Queue-Element.
+5. **Entscheiden:** Bestätigen, überspringen, zum vorherigen/nächsten Kontakt wechseln oder abbrechen.
+6. **Export erst später:** Nur nach vollständiger menschlicher Prüfung und separater Freigabe. Ein Versandpfad existiert nicht.
 
-## 3. Use of Apertus
+Die freie TUI-Unterhaltung bleibt ein unterstützender Entwurfsdialog. Die deterministische Queue ist der kontrollierte Pfad für Empfängerauswahl, Reihenfolge und Review-Status.
 
-- **Model:** configured through `LLM_NAME`; `.env.example` uses `swiss-ai/Apertus-v1.5-8B`.
-- **How it is used:** inference for a concise German invitation-email draft.
-- **Where it runs:** an OpenAI-compatible endpoint configured by the operator through `LLM_BASE_URL` and `LLM_API_KEY`.
-- **Prompt boundary:** a fixed system instruction prohibits invented facts and sending claims. The user message is generated with `json.dumps()` from the allowlisted model context only.
+## 3. Daten- und Sicherheitsgrenzen
 
-The project does not fine-tune Apertus, collect prompts, retain model outputs or use tools for external actions.
+Die sichtbare Demoquelle `data/demo_contacts_3r.csv` enthält ausschließlich fiktive, mit `fictional_demo_only` markierte Kontakte. Alle Adressen enden auf `@example.invalid`. Die technische Testfixture liegt getrennt unter `tests/fixtures/` und ist keine zweite sichtbare Demoquelle.
 
-## 4. Data
+Die Review-Queue speichert nur die für die Darstellung benötigten fiktiven Felder: Kontakt-ID, Name, Firma, Sprache, 3R-Kategorie, Lifecycle-Status, Interesse und Tags. Nicht in Queue-Ansicht oder Modellkontext: E-Mail-Adresse, interne Notizen, Zugangsdaten oder reale Kundendaten.
 
-`data/demo_contacts_3r.csv` is the only visible demo-contact dataset. It contains 50 deliberately fictional contacts, ordered by Recruit, Retain and Recover, and every address uses `@example.invalid`. `tests/fixtures/test_contacts.json` is a separate technical fixture used to verify that email and internal-note fields stay out of model payloads. No real customer, mailbox, CRM, payment, account or contact data is used or required.
+**Sichere Standardgrenze:** Draft-only und `no_send`. Ein erfolgreicher Entwurf ist weder versandt noch zugestellt. Der verwendete Modellendpunkt wird nicht durch dieses Repository bereitgestellt oder bestätigt; ein Live-Modellaufruf war kein Bestandteil der aktuellen Verifikation.
 
-## 5. Evaluation
+## 4. Verifikation, Reproduzierbarkeit und Grenzen
 
-The prototype is evaluated as a safety-contract test, not as a semantic-quality benchmark. The local deterministic suite was run with `python3 -m unittest discover -s tests -v`.
+Die aktuelle Offline-Suite ergab **41/41 bestandene Tests**. Geprüft wurden unter anderem CSV-Struktur und 3R-Zahlen, Datenminimierung, No-Send-Status, Queue-Navigation, lokale Entwurfsbestätigung, Profilübernahme, Plugin-Import sowie Docker-Compose-Konfiguration.
 
-| Setup | Metric | Result |
-|---|---|---|
-| Policy gate | Forbidden model fields rejected | 1/1 test passed |
-| Policy gate | Approved fields only; excluded fields reported | 2/2 tests passed |
-| Preflight | Known contact, approval-pending and no-send states | 3/3 tests passed |
-| Draft request | Recipient, ID and internal note absent from payload | 1/1 test passed |
-| Draft request | Invalid model response rejected | 1/1 test passed |
-| Live CLI | Model endpoint failure returned as no-send error record | 1/1 test passed |
-| Container / gateway contract | Isolated persistent Hermes runtime, chat and explicit draft commands | 6/6 tests passed |
-| **Total** | Deterministic automated tests | **15/15 passed** |
+Zusätzlich wurde für die Queue bestätigt: `retain: 17`, Position `1/17`, kein E-Mail-Feld im aktuellen Review-Kontakt und `no_send=True`. Die lokale Plugin-Prüfung bestätigte Import und Registrierung. Der reale Docker-TUI-Start muss auf dem berechtigten Host erfolgen; in der aktuellen Automationsumgebung war der Docker-Socket nicht verfügbar.
 
-The live Apertus endpoint was intentionally not invoked during this repository verification because no credentials or external endpoint are included in the source tree. The tested request seam uses a local fake response to prove payload construction and no-send state handling without transmitting data.
+### Reproduzierbarer Testablauf
 
-## 6. Limitations
+1. `make test` – Offline-Tests ohne Modellaufruf.
+2. `make profile-apply` – Profildateien gezielt in die lokale Runtime übernehmen.
+3. `sudo make run` – Hermes-TUI am berechtigten Host starten.
+4. In der TUI die Kontaktübersicht und danach eine kontaktbezogene Review-Queue für `recruit`, `retain` oder `recover` starten.
 
-This is a narrow prototype, not a production mail system. It does not measure factual quality, tone, language quality or hallucination rate of a live Apertus model. A model can still write an unsuitable draft, so exact draft, recipient and purpose remain pending human approval. The implementation does not persist approvals or drafts, authenticate human reviewers, support multiple campaigns, render HTML email or integrate a real contact system. The endpoint operator must secure `LLM_API_KEY`, provide the selected Apertus model and apply network controls appropriate to their deployment.
+### Offene Grenzen und nächster Schritt
 
-## 7. Reproducibility
-
-Requirements: Docker with Docker Compose for the container modes, or Python 3.12+ for the offline tests. Copy `.env.example` to `.env`, configure an Apertus endpoint and run `make run` from `track_2b/` to start the interactive isolated Hermes session. `make chat` is an alias; `make gateway` starts the persistent gateway only when a messaging platform has been separately configured. Use `make draft` for the deterministic policy preflight; only entering `y` in the latter performs one live model request with fictional minimised data. Run the deterministic checks with `make test`. The report reflects branch `feat/run-to-finish`; the exact source revision is recorded in Git history.
-
-## 8. Next steps
-
-With more time, the project would add a review UI that binds an approval to a draft hash, recipient and campaign purpose; structured red-team cases for prompt injection and unsafe claims; an offline/on-premise model deployment recipe; a human-rated, licensed evaluation set; and an immutable audit log that contains field names and approval events but never unneeded contact content.
-
-## License
-
-Creative Commons Attribution 4.0 (CC-BY-4.0). All HackApertus projects are open-sourced.
+Die natürliche Modellunterhaltung kann ohne kontrollierten Queue-Pfad weiterhin unpassende Geschäftsdetails formulieren. Der nächste sinnvolle Ausbau ist daher eine echte Einbettung der Queue in den normalen TUI-Dialog, sodass Empfängerbindung und Review automatisch vor jedem konkreten Entwurf erfolgen. Reale Kontakte, Datenimporte, Versand, CRM-Anbindung oder ein Messaging-Gateway bleiben ausdrücklich außerhalb dieses Demonstrators.

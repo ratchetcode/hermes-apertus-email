@@ -1,29 +1,26 @@
 {
-  "title": "Apertus Draft Gate — Technical Report",
+  "title": "Apertus Draft Gate – Technischer Kurzbericht",
   "author": "Nick Menzi",
+  "date": "2026-10-15",
   "page_size": "A4",
-  "page_numbers": true,
-  "elements": [
-    {"type": "heading", "level": 1, "text": "Apertus Draft Gate"},
-    {"type": "paragraph", "text": "Technical report — Hack Apertus Online Hackathon, Track 2B. Team: Nick Menzi."},
-    {"type": "heading", "level": 2, "text": "1. Summary"},
-    {"type": "paragraph", "text": "Apertus Draft Gate is a safety-first prototype for drafting a fictional workshop invitation email. A deterministic policy gate runs before the Apertus request. It sends only campaign-approved fields, retains the recipient address and internal note outside the model context, and produces a draft that remains pending human approval. The implementation has no email-send, CRM-update or messaging capability."},
-    {"type": "heading", "level": 2, "text": "2. Architecture and deployment"},
-    {"type": "paragraph", "text": "The repository contains a fictional JSON fixture, a pure-Python policy module and a Docker-packaged interactive entry point. The policy rejects email, id and internal_note even if a faulty campaign lists them. The workflow first produces a data-minimisation preflight. Only after the operator enters y does it post the minimised JSON context to an OpenAI-compatible Apertus chat/completions endpoint. The output still contains no_send: true and pending approval."},
-    {"type": "paragraph", "text": "Target architecture: on-premise. LLM_BASE_URL can point to an organisation-controlled, OpenAI-compatible Apertus inference service. The fixture, policy and approval logic remain local; the optional model request occurs only after explicit operator confirmation."},
-    {"type": "heading", "level": 2, "text": "3. Use of Apertus"},
-    {"type": "paragraph", "text": "The configured model is swiss-ai/Apertus-v1.5-8B by default. Apertus is used for inference: generating a concise German email draft from a fixed instruction and an allowlisted fictional JSON context. The prompt prohibits invented claims and sending assertions. The model request excludes recipient email, record ID and internal notes."},
-    {"type": "heading", "level": 2, "text": "4. Data"},
-    {"type": "paragraph", "text": "data/demo_contacts_3r.csv is the only visible demo-contact dataset. It contains 50 fictional contacts ordered by Recruit, Retain and Recover, with @example.invalid addresses. tests/fixtures/test_contacts.json is a separate technical fixture used only to test exclusion of email and internal_note from model requests. No real customer, mailbox, CRM, account, payment or contact data is used."},
-    {"type": "heading", "level": 2, "text": "5. Evaluation"},
-    {"type": "table", "header": true, "rows": [["Setup", "Metric", "Result"], ["Policy gate", "Forbidden fields rejected", "1/1 passed"], ["Policy gate", "Approved-only context and evidence", "2/2 passed"], ["Preflight", "Known contact, pending approval, no-send", "3/3 passed"], ["Draft request", "Sensitive fixture data absent from payload", "1/1 passed"], ["Draft request", "Invalid model response rejected", "1/1 passed"], ["Live CLI", "Endpoint failure returned as no-send error record", "1/1 passed"], ["Container", "Interactive no-send contract", "3/3 passed"], ["Total", "Deterministic automated tests", "12/12 passed"]]},
-    {"type": "paragraph", "text": "The local suite was run with python3 -m unittest discover -s tests -v. It makes no network calls. A live Apertus endpoint was deliberately not invoked during repository verification because no credentials or endpoint are stored in the source tree."},
-    {"type": "heading", "level": 2, "text": "6. Limitations"},
-    {"type": "paragraph", "text": "This is not a production mail system. It does not score semantic quality, tone or hallucinations from a live model. A human must still review the exact draft, recipient and purpose. There is no approval persistence, authentication, HTML rendering, CRM integration or send path."},
-    {"type": "heading", "level": 2, "text": "7. Reproducibility"},
-    {"type": "paragraph", "text": "Use Docker Compose for the interactive demo: copy .env.example to .env, configure an Apertus endpoint, then run make run from track_2b. The default answer exits after the safe preflight; y performs one model request with minimised fictional data. Run offline checks with python3 -m unittest discover -s tests -v."},
-    {"type": "heading", "level": 2, "text": "8. Next steps"},
-    {"type": "paragraph", "text": "Next steps are approval binding to a draft hash, structured red-team cases, an offline deployment recipe, human-rated evaluation data and an immutable, minimised audit log."},
-    {"type": "paragraph", "text": "License: CC-BY-4.0."}
-  ]
+  "maximum_pages": 4,
+  "source": "../technical_report.md",
+  "output": "../NickMenzi_Report.pdf",
+  "required_sections": [
+    "Ziel und Ergebnis",
+    "Architektur und kontrollierter Workflow",
+    "Daten- und Sicherheitsgrenzen",
+    "Verifikation, Reproduzierbarkeit und nächster Schritt"
+  ],
+  "workflow_steps": [
+    "Anfrage erfassen",
+    "Empfänger aus der kanonischen CSV binden",
+    "Lokale kontaktbezogene Review-Queue starten",
+    "Entwurf prüfen oder überarbeiten",
+    "Bestätigen, überspringen oder abbrechen",
+    "Kein Versand; Export nur nach separater Freigabe"
+  ],
+  "verified_test_total": "41/41",
+  "delivery_mode": "draft_only",
+  "no_send": true
 }
