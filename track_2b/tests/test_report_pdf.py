@@ -25,7 +25,7 @@ class TechnicalReportPdfTests(unittest.TestCase):
         self.assertEqual(pdf.count(b"/Type /Page "), 4)
         self.assertIn(b"Workflow", pdf)
         self.assertIn(b"Kein Versand", pdf)
-        self.assertIn(b"41/41", pdf)
+        self.assertIn(b"42/42", pdf)
 
 
 if __name__ == "__main__":

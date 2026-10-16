@@ -166,7 +166,7 @@ def page_four() -> bytes:
     c: list[bytes] = []
     y = TOP
     y = heading(c, y, "Verifikation, Reproduzierbarkeit und nächster Schritt", level=1)
-    box(c, LEFT, 640, 503, 78, "Verifizierter Stand", "41/41 Offline-Tests bestanden: CSV-Struktur und 3R-Zahlen, Datenminimierung, No-Send-Status, Queue-Navigation, lokale Entwurfsbestätigung, Profilübernahme, Plugin-Import sowie Docker-Compose-Konfiguration.", accent=True)
+    box(c, LEFT, 640, 503, 78, "Verifizierter Stand", "42/42 Offline-Tests bestanden: CSV-Struktur und 3R-Zahlen, Datenminimierung, No-Send-Status, Queue-Navigation, lokale Entwurfsbestätigung, Profilübernahme, Plugin-Import sowie Docker-Compose-Konfiguration.", accent=True)
     y = 608
     y = heading(c, y, "Reproduzierbarer Ablauf", level=2)
     steps = [

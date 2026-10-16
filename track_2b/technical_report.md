@@ -40,7 +40,7 @@ Die Review-Queue speichert nur die für die Darstellung benötigten fiktiven Fel
 
 ## 4. Verifikation, Reproduzierbarkeit und Grenzen
 
-Die aktuelle Offline-Suite ergab **41/41 bestandene Tests**. Geprüft wurden unter anderem CSV-Struktur und 3R-Zahlen, Datenminimierung, No-Send-Status, Queue-Navigation, lokale Entwurfsbestätigung, Profilübernahme, Plugin-Import sowie Docker-Compose-Konfiguration.
+Die aktuelle Offline-Suite ergab **42/42 bestandene Tests**. Geprüft wurden unter anderem CSV-Struktur und 3R-Zahlen, Datenminimierung, No-Send-Status, Queue-Navigation, lokale Entwurfsbestätigung, Profilübernahme, Plugin-Import sowie Docker-Compose-Konfiguration.
 
 Zusätzlich wurde für die Queue bestätigt: `retain: 17`, Position `1/17`, kein E-Mail-Feld im aktuellen Review-Kontakt und `no_send=True`. Die lokale Plugin-Prüfung bestätigte Import und Registrierung. Der reale Docker-TUI-Start muss auf dem berechtigten Host erfolgen; in der aktuellen Automationsumgebung war der Docker-Socket nicht verfügbar.
 

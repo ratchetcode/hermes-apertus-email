@@ -216,7 +216,7 @@ BT /F2 19.0 Tf 1 0 0 1 46.0 790.0 Tm (Verifikation, Reproduzierbarkeit und nächs
 46.0 640.0 503.0 78.0 re S
 0 g
 BT /F2 9.5 Tf 1 0 0 1 55.0 700.0 Tm (Verifizierter Stand) Tj ET
-BT /F1 7.6 Tf 1 0 0 1 55.0 684.0 Tm (41/41 Offline-Tests bestanden: CSV-Struktur und 3R-Zahlen, Datenminimierung, No-Send-) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 55.0 684.0 Tm (42/42 Offline-Tests bestanden: CSV-Struktur und 3R-Zahlen, Datenminimierung, No-Send-) Tj ET
 BT /F1 7.6 Tf 1 0 0 1 55.0 674.0 Tm (Status, Queue-Navigation, lokale Entwurfsbestätigung, Profilübernahme, Plugin-Import sowie) Tj ET
 BT /F1 7.6 Tf 1 0 0 1 55.0 664.0 Tm (Docker-Compose-Konfiguration.) Tj ET
 0.05 0.19 0.34 rg
