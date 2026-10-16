@@ -1,0 +1,11 @@
+{
+  "official_project_name": "Hermes Agent x Apertus for privacy-conscious email marketing",
+  "title": "Apertus Draft Gate – Technical Brief",
+  "language": "en",
+  "maximum_pages": 4,
+  "source": "../technical_report_en.md",
+  "output": "../NickMenzi_Report_EN.pdf",
+  "workflow_required": true,
+  "no_send_required": true,
+  "verified_test_total": "43/43"
+}

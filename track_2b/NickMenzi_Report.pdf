@@ -16,31 +16,32 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
 endobj
 6 0 obj
-<< /Length 2229 >>
+<< /Length 2334 >>
 stream
 0.05 0.19 0.34 rg
 BT /F2 19.0 Tf 1 0 0 1 46.0 790.0 Tm (Apertus Draft Gate) Tj ET
 0 g
-BT /F2 10.0 Tf 1 0 0 1 46.0 765.0 Tm (Technischer Kurzbericht · Hack Apertus Online Hackathon · Track 2B) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 46.0 747.0 Tm (Projekt: Nick Menzi · Status: lokaler, fiktiver No-Send-Demonstrator) Tj ET
-0.10 0.35 0.56 RG 0.8 w 46 729.0 m 549 729.0 l S
+BT /F2 9.3 Tf 1 0 0 1 46.0 765.0 Tm (Hermes Agent x Apertus for privacy-conscious email marketing) Tj ET
+BT /F2 10.0 Tf 1 0 0 1 46.0 749.0 Tm (Technischer Kurzbericht · Hack Apertus Online Hackathon · Track 2B) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 733.0 Tm (Projekt: Nick Menzi · Status: lokaler, fiktiver No-Send-Demonstrator) Tj ET
+0.10 0.35 0.56 RG 0.8 w 46 715.0 m 549 715.0 l S
 0.05 0.19 0.34 rg
-BT /F2 12.5 Tf 1 0 0 1 46.0 705.0 Tm (Ziel) Tj ET
+BT /F2 12.5 Tf 1 0 0 1 46.0 691.0 Tm (Ziel) Tj ET
 0 g
-BT /F1 9.2 Tf 1 0 0 1 46.0 685.0 Tm (Docker-ausführbarer Hermes-Demonstrator für das kontrollierte Erstellen und Prüfen) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 46.0 672.0 Tm (fiktiver E-Mail-Entwürfe der Onlineshop Demo AG. Das Projekt ist absichtlich kein) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 46.0 659.0 Tm (Newsletter- oder Versandsystem.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 671.0 Tm (Docker-ausführbarer Hermes-Demonstrator für das kontrollierte Erstellen und Prüfen) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 658.0 Tm (fiktiver E-Mail-Entwürfe der Onlineshop Demo AG. Das Projekt ist absichtlich kein) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 645.0 Tm (Newsletter- oder Versandsystem.) Tj ET
 0.05 0.19 0.34 rg
-BT /F2 12.5 Tf 1 0 0 1 46.0 638.0 Tm (Ergebnis) Tj ET
+BT /F2 12.5 Tf 1 0 0 1 46.0 624.0 Tm (Ergebnis) Tj ET
 0 g
-BT /F1 9.2 Tf 1 0 0 1 56.0 618.0 Tm (? Versioniertes Agentenprofil und gezielte Übernahme in eine isolierte lokale) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 605.0 Tm (Runtime.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 589.0 Tm (? Eine kanonische, fiktive 3R-Kontaktquelle: 50 Kontakte ? 17 recruit, 17 retain, 16) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 576.0 Tm (recover.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 560.0 Tm (? Deterministische kontaktbezogene Review-Queue mit Vor/Zurück, lokalem Prüfen,) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 547.0 Tm (Bestätigen, Überspringen und Abbruch.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 531.0 Tm (? Review-Ansicht ohne E-Mail-Adresse; kein SMTP, CRM, Webhook, Versand oder) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 518.0 Tm (automatischer Export.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 604.0 Tm (? Versioniertes Agentenprofil und gezielte Übernahme in eine isolierte lokale) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 591.0 Tm (Runtime.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 575.0 Tm (? Eine kanonische, fiktive 3R-Kontaktquelle: 50 Kontakte ? 17 recruit, 17 retain, 16) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 562.0 Tm (recover.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 546.0 Tm (? Deterministische kontaktbezogene Review-Queue mit Vor/Zurück, lokalem Prüfen,) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 533.0 Tm (Bestätigen, Überspringen und Abbruch.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 517.0 Tm (? Review-Ansicht ohne E-Mail-Adresse; kein SMTP, CRM, Webhook, Versand oder) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 504.0 Tm (automatischer Export.) Tj ET
 0.90 0.95 0.98 rg
 46.0 106.0 503.0 105.0 re f
 0.18 0.39 0.56 RG 0.8 w
@@ -216,7 +217,7 @@ BT /F2 19.0 Tf 1 0 0 1 46.0 790.0 Tm (Verifikation, Reproduzierbarkeit und nächs
 46.0 640.0 503.0 78.0 re S
 0 g
 BT /F2 9.5 Tf 1 0 0 1 55.0 700.0 Tm (Verifizierter Stand) Tj ET
-BT /F1 7.6 Tf 1 0 0 1 55.0 684.0 Tm (42/42 Offline-Tests bestanden: CSV-Struktur und 3R-Zahlen, Datenminimierung, No-Send-) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 55.0 684.0 Tm (43/43 Offline-Tests bestanden: CSV-Struktur und 3R-Zahlen, Datenminimierung, No-Send-) Tj ET
 BT /F1 7.6 Tf 1 0 0 1 55.0 674.0 Tm (Status, Queue-Navigation, lokale Entwurfsbestätigung, Profilübernahme, Plugin-Import sowie) Tj ET
 BT /F1 7.6 Tf 1 0 0 1 55.0 664.0 Tm (Docker-Compose-Konfiguration.) Tj ET
 0.05 0.19 0.34 rg
@@ -265,14 +266,14 @@ xref
 0000000237 00000 n
 0000000339 00000 n
 0000000475 00000 n
-0000002755 00000 n
-0000002891 00000 n
-0000006240 00000 n
-0000006377 00000 n
-0000009446 00000 n
-0000009584 00000 n
+0000002860 00000 n
+0000002996 00000 n
+0000006345 00000 n
+0000006482 00000 n
+0000009551 00000 n
+0000009689 00000 n
 trailer
 << /Size 13 /Root 1 0 R >>
 startxref
-12784
+12889
 %%EOF

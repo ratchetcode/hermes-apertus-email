@@ -1,4 +1,6 @@
-# Apertus Draft Gate – Technischer Kurzbericht
+# Hermes Agent x Apertus for privacy-conscious email marketing
+
+## Apertus Draft Gate – Technischer Kurzbericht
 
 **Hack Apertus Online Hackathon · Track 2B · 15. Oktober 2026**
 **Projekt:** Nick Menzi · **Status:** lokaler, fiktiver No-Send-Demonstrator
@@ -40,7 +42,7 @@ Die Review-Queue speichert nur die für die Darstellung benötigten fiktiven Fel
 
 ## 4. Verifikation, Reproduzierbarkeit und Grenzen
 
-Die aktuelle Offline-Suite ergab **42/42 bestandene Tests**. Geprüft wurden unter anderem CSV-Struktur und 3R-Zahlen, Datenminimierung, No-Send-Status, Queue-Navigation, lokale Entwurfsbestätigung, Profilübernahme, Plugin-Import sowie Docker-Compose-Konfiguration.
+Die aktuelle Offline-Suite ergab **43/43 bestandene Tests**. Geprüft wurden unter anderem CSV-Struktur und 3R-Zahlen, Datenminimierung, No-Send-Status, Queue-Navigation, lokale Entwurfsbestätigung, Profilübernahme, Plugin-Import sowie Docker-Compose-Konfiguration.
 
 Zusätzlich wurde für die Queue bestätigt: `retain: 17`, Position `1/17`, kein E-Mail-Feld im aktuellen Review-Kontakt und `no_send=True`. Die lokale Plugin-Prüfung bestätigte Import und Registrierung. Der reale Docker-TUI-Start muss auf dem berechtigten Host erfolgen; in der aktuellen Automationsumgebung war der Docker-Socket nicht verfügbar.
 

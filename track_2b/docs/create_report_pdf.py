@@ -57,8 +57,12 @@ def rule(commands: list[bytes], y: float) -> None:
     commands.append(f"0.10 0.35 0.56 RG 0.8 w {LEFT} {y:.1f} m {RIGHT} {y:.1f} l S\n".encode("ascii"))
 
 
-def footer(commands: list[bytes], page: int) -> None:
+def footer(commands: list[bytes], page: int, *, language: str = "de") -> None:
     rule(commands, 37)
+    if language == "en":
+        commands.append(text_command(LEFT, 22, "Apertus Draft Gate · Technical brief · 15 October 2026", size=7.5))
+        commands.append(text_command(475, 22, f"Page {page} of 4", size=7.5))
+        return
     commands.append(text_command(LEFT, 22, "Apertus Draft Gate · Technischer Kurzbericht · 15. Oktober 2026", size=7.5))
     commands.append(text_command(485, 22, f"Seite {page} von 4", size=7.5))
 
@@ -89,8 +93,10 @@ def page_one() -> bytes:
     c: list[bytes] = []
     y = TOP
     y = heading(c, y, "Apertus Draft Gate", level=1)
+    c.append(text_command(LEFT, y, "Hermes Agent x Apertus for privacy-conscious email marketing", size=9.3, font="F2"))
+    y -= 16
     c.append(text_command(LEFT, y, "Technischer Kurzbericht · Hack Apertus Online Hackathon · Track 2B", size=10, font="F2"))
-    y -= 18
+    y -= 16
     c.append(text_command(LEFT, y, "Projekt: Nick Menzi · Status: lokaler, fiktiver No-Send-Demonstrator", size=9.2))
     y -= 18
     rule(c, y)
@@ -166,7 +172,7 @@ def page_four() -> bytes:
     c: list[bytes] = []
     y = TOP
     y = heading(c, y, "Verifikation, Reproduzierbarkeit und nächster Schritt", level=1)
-    box(c, LEFT, 640, 503, 78, "Verifizierter Stand", "42/42 Offline-Tests bestanden: CSV-Struktur und 3R-Zahlen, Datenminimierung, No-Send-Status, Queue-Navigation, lokale Entwurfsbestätigung, Profilübernahme, Plugin-Import sowie Docker-Compose-Konfiguration.", accent=True)
+    box(c, LEFT, 640, 503, 78, "Verifizierter Stand", "43/43 Offline-Tests bestanden: CSV-Struktur und 3R-Zahlen, Datenminimierung, No-Send-Status, Queue-Navigation, lokale Entwurfsbestätigung, Profilübernahme, Plugin-Import sowie Docker-Compose-Konfiguration.", accent=True)
     y = 608
     y = heading(c, y, "Reproduzierbarer Ablauf", level=2)
     steps = [
@@ -186,6 +192,109 @@ def page_four() -> bytes:
     y = wrapped(c, LEFT, y, "Die Queue direkt in den normalen TUI-Dialog einbetten: Vor jedem konkreten Entwurf zuerst Empfängergruppe aus der CSV binden, die exakte Zahl nennen und dann den aktuellen Review-Kontakt verwenden. Reale Datenimporte, Versand, CRM und Messaging bleiben außerhalb dieses Demonstrators.")
     box(c, LEFT, 107, 503, 83, "Entscheidungsvorlage", "Für die Hackathon-Demo ist der Stand nachvollziehbar und sicher begrenzt. Für eine produktive Lösung wären reale Consent-/Suppression-Prüfungen, authentifizierte Rollen, ein gesondert autorisierter Versandadapter und eine neue Datenschutz- und Sicherheitsfreigabe erforderlich.", accent=True)
     footer(c, 4)
+    return b"".join(c)
+
+
+def page_one_en() -> bytes:
+    c: list[bytes] = []
+    y = TOP
+    y = heading(c, y, "Apertus Draft Gate", level=1)
+    c.append(text_command(LEFT, y, "Hermes Agent x Apertus for privacy-conscious email marketing", size=9.3, font="F2"))
+    y -= 16
+    c.append(text_command(LEFT, y, "Technical brief · Hack Apertus Online Hackathon · Track 2B", size=10, font="F2"))
+    y -= 16
+    c.append(text_command(LEFT, y, "Project: Nick Menzi · Status: local fictional no-send demonstrator", size=9.2))
+    y -= 18
+    rule(c, y)
+    y -= 24
+    y = heading(c, y, "Purpose", level=2)
+    y = wrapped(c, LEFT, y, "A Docker-runnable Hermes demonstrator for controlled creation and review of fictional email drafts for Onlineshop Demo AG. The project is deliberately not a newsletter or email-delivery system.")
+    y -= 8
+    y = heading(c, y, "Result", level=2)
+    for item in [
+        "Versioned agent profile and controlled transfer to an isolated local runtime.",
+        "One canonical fictional 3R contact source: 50 contacts – 17 recruit, 17 retain, 16 recover.",
+        "Deterministic per-contact review queue with previous/next, local review, confirmation, skip and abort.",
+        "No email address in the review view; no SMTP, CRM, webhook, sending or automatic export.",
+    ]:
+        y = wrapped(c, LEFT + 10, y, "• " + item, width=84)
+        y -= 3
+    box(c, LEFT, 106, 503, 105, "Safe default state", "Every queue item remains draft_only and no_send. A confirmed draft is neither sent nor delivered. No real contact or customer data is part of this demo.", accent=True)
+    footer(c, 1, language="en")
+    return b"".join(c)
+
+
+def page_two_en() -> bytes:
+    c: list[bytes] = []
+    y = TOP
+    y = heading(c, y, "Architecture and controlled workflow", level=1)
+    c.append(text_command(LEFT, y, "Free TUI conversation supports drafting. The local review queue controls recipient selection and order.", size=9.2))
+    x = 171
+    steps = [
+        (650, "1. Capture request", "Clarify goal, service, tone and 3R target group."),
+        (565, "2. Bind recipients", "Canonical CSV supplies the group and exact contact count."),
+        (480, "3. Start review queue", "Draft n of total; current fictional contact without address."),
+        (395, "4. Review draft", "Capture or revise text locally; changes stay with the queue item."),
+        (310, "5. Decide", "Confirm, skip, previous/next contact or abort."),
+        (225, "6. Export later", "Only after full human review and separate approval."),
+    ]
+    for index, (box_y, title, body) in enumerate(steps):
+        box(c, x, box_y, 254, 60, title, body, accent=index % 2 == 0)
+        if index < len(steps) - 1:
+            arrow(c, x + 127, box_y, box_y - 25)
+    box(c, 46, 103, 503, 76, "What is intentionally absent", "No sending adapter, SMTP, CRM, newsletter job or messaging gateway. The queue only manages local draft and review states.", accent=True)
+    footer(c, 2, language="en")
+    return b"".join(c)
+
+
+def page_three_en() -> bytes:
+    c: list[bytes] = []
+    y = TOP
+    y = heading(c, y, "Data and safety boundaries", level=1)
+    y = heading(c, y, "Fictional data basis", level=2)
+    y = wrapped(c, LEFT, y, "The visible source data/demo_contacts_3r.csv contains only contacts marked fictional_demo_only. Every address ends in @example.invalid. The technical fixture under tests/fixtures/ is separate and is not a second visible demo source.")
+    y -= 10
+    y = heading(c, y, "Review-queue minimisation", level=2)
+    box(c, LEFT, 487, 238, 138, "Displayed fields", "Contact ID, first and last name, company, language, 3R category, lifecycle stage, interest and tags.", accent=True)
+    box(c, 311, 487, 238, 138, "Excluded", "Email address, internal notes, credentials, real customer data and any sending or delivery information.")
+    y = 448
+    y = heading(c, y, "Evidence-based limits", level=2)
+    for item in [
+        "The model endpoint is not supplied or verified by this repository.",
+        "A live model call was not part of the current verification.",
+        "The real Docker TUI must run on an authorised host; the Docker socket was unavailable in the automation environment.",
+        "A contact in the CSV does not grant delivery permission – the demo has no sender.",
+    ]:
+        y = wrapped(c, LEFT + 10, y, "• " + item, width=84)
+        y -= 3
+    box(c, LEFT, 118, 503, 84, "Core principle", "A plausible model response is never treated as a company fact. Offers, discounts, deadlines, delivery times or customer attributes must come from operator input or be explicitly labelled as a suggestion.", accent=True)
+    footer(c, 3, language="en")
+    return b"".join(c)
+
+
+def page_four_en() -> bytes:
+    c: list[bytes] = []
+    y = TOP
+    y = heading(c, y, "Verification, reproducibility and next step", level=1)
+    box(c, LEFT, 640, 503, 78, "Verified status", "43/43 offline tests passed: CSV structure and 3R counts, data minimisation, no-send state, queue navigation, local draft confirmation, profile application, plugin import and Docker Compose configuration.", accent=True)
+    y = 608
+    y = heading(c, y, "Reproducible sequence", level=2)
+    for number, step in enumerate([
+        "make test – run offline checks without a model call.",
+        "make profile-apply – transfer the versioned profile to the local runtime.",
+        "sudo make run – start the Hermes TUI on the authorised host.",
+        "View a fictional 3R group and start a per-contact review queue.",
+    ], start=1):
+        y = wrapped(c, LEFT + 10, y, f"{number}. {step}", width=84)
+        y -= 3
+    y -= 4
+    y = heading(c, y, "Open limitation", level=2)
+    y = wrapped(c, LEFT, y, "Outside the controlled queue path, natural model conversation can still formulate unsuitable business details. The review queue therefore does not replace further TUI work; it already safeguards recipient selection, ordering and local review state.")
+    y -= 10
+    y = heading(c, y, "Next useful increment", level=2)
+    y = wrapped(c, LEFT, y, "Embed the queue directly in the normal TUI dialog: before every concrete draft, bind the recipient group from the CSV, state the exact count and then use the current review contact. Real data imports, sending, CRM and messaging remain outside this demonstrator.")
+    box(c, LEFT, 107, 503, 83, "Decision statement", "The Hackathon demo is traceable and safely bounded. A production solution would require real consent and suppression checks, authenticated roles, a separately authorised sending adapter, and new privacy and security approval.", accent=True)
+    footer(c, 4, language="en")
     return b"".join(c)
 
 
@@ -226,13 +335,17 @@ def build_pdf(streams: list[bytes]) -> bytes:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--language", choices=("de", "en"), default="de")
     parser.add_argument("input", type=Path, help="Markdown source retained beside the PDF")
     parser.add_argument("output", type=Path)
     args = parser.parse_args()
     if not args.input.is_file():
         raise SystemExit(f"missing report source: {args.input}")
-    args.output.write_bytes(build_pdf([page_one(), page_two(), page_three(), page_four()]))
-    print(f"created {args.output} with 4 page(s)")
+    pages = [page_one(), page_two(), page_three(), page_four()]
+    if args.language == "en":
+        pages = [page_one_en(), page_two_en(), page_three_en(), page_four_en()]
+    args.output.write_bytes(build_pdf(pages))
+    print(f"created {args.output} with 4 page(s) [{args.language}]")
     return 0
 
 

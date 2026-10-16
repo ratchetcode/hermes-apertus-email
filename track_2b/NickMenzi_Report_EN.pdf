@@ -1,0 +1,270 @@
+%PDF-1.4
+%âãÏÓ
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [5 0 R 7 0 R 9 0 R 11 0 R] /Count 4 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 2215 >>
+stream
+0.05 0.19 0.34 rg
+BT /F2 19.0 Tf 1 0 0 1 46.0 790.0 Tm (Apertus Draft Gate) Tj ET
+0 g
+BT /F2 9.3 Tf 1 0 0 1 46.0 765.0 Tm (Hermes Agent x Apertus for privacy-conscious email marketing) Tj ET
+BT /F2 10.0 Tf 1 0 0 1 46.0 749.0 Tm (Technical brief · Hack Apertus Online Hackathon · Track 2B) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 733.0 Tm (Project: Nick Menzi · Status: local fictional no-send demonstrator) Tj ET
+0.10 0.35 0.56 RG 0.8 w 46 715.0 m 549 715.0 l S
+0.05 0.19 0.34 rg
+BT /F2 12.5 Tf 1 0 0 1 46.0 691.0 Tm (Purpose) Tj ET
+0 g
+BT /F1 9.2 Tf 1 0 0 1 46.0 671.0 Tm (A Docker-runnable Hermes demonstrator for controlled creation and review of fictional) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 658.0 Tm (email drafts for Onlineshop Demo AG. The project is deliberately not a newsletter or) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 645.0 Tm (email-delivery system.) Tj ET
+0.05 0.19 0.34 rg
+BT /F2 12.5 Tf 1 0 0 1 46.0 624.0 Tm (Result) Tj ET
+0 g
+BT /F1 9.2 Tf 1 0 0 1 56.0 604.0 Tm (? Versioned agent profile and controlled transfer to an isolated local runtime.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 588.0 Tm (? One canonical fictional 3R contact source: 50 contacts ? 17 recruit, 17 retain, 16) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 575.0 Tm (recover.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 559.0 Tm (? Deterministic per-contact review queue with previous/next, local review,) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 546.0 Tm (confirmation, skip and abort.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 530.0 Tm (? No email address in the review view; no SMTP, CRM, webhook, sending or automatic) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 517.0 Tm (export.) Tj ET
+0.90 0.95 0.98 rg
+46.0 106.0 503.0 105.0 re f
+0.18 0.39 0.56 RG 0.8 w
+46.0 106.0 503.0 105.0 re S
+0 g
+BT /F2 9.5 Tf 1 0 0 1 55.0 193.0 Tm (Safe default state) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 55.0 177.0 Tm (Every queue item remains draft_only and no_send. A confirmed draft is neither sent nor) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 55.0 167.0 Tm (delivered. No real contact or customer data is part of this demo.) Tj ET
+0.10 0.35 0.56 RG 0.8 w 46 37.0 m 549 37.0 l S
+BT /F1 7.5 Tf 1 0 0 1 46.0 22.0 Tm (Apertus Draft Gate · Technical brief · 15 October 2026) Tj ET
+BT /F1 7.5 Tf 1 0 0 1 475.0 22.0 Tm (Page 1 of 4) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 3138 >>
+stream
+0.05 0.19 0.34 rg
+BT /F2 19.0 Tf 1 0 0 1 46.0 790.0 Tm (Architecture and controlled workflow) Tj ET
+0 g
+BT /F1 9.2 Tf 1 0 0 1 46.0 765.0 Tm (Free TUI conversation supports drafting. The local review queue controls recipient selection and order.) Tj ET
+0.90 0.95 0.98 rg
+171.0 650.0 254.0 60.0 re f
+0.18 0.39 0.56 RG 0.8 w
+171.0 650.0 254.0 60.0 re S
+0 g
+BT /F2 9.5 Tf 1 0 0 1 180.0 692.0 Tm (1. Capture request) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 180.0 676.0 Tm (Clarify goal, service, tone and 3R target) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 180.0 666.0 Tm (group.) Tj ET
+0.18 0.39 0.56 RG 1.2 w
+298.0 650.0 m 298.0 625.0 l S
+294.0 631.0 m 298.0 625.0 l 302.0 631.0 l S
+0.96 0.97 0.98 rg
+171.0 565.0 254.0 60.0 re f
+0.18 0.39 0.56 RG 0.8 w
+171.0 565.0 254.0 60.0 re S
+0 g
+BT /F2 9.5 Tf 1 0 0 1 180.0 607.0 Tm (2. Bind recipients) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 180.0 591.0 Tm (Canonical CSV supplies the group and exact) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 180.0 581.0 Tm (contact count.) Tj ET
+0.18 0.39 0.56 RG 1.2 w
+298.0 565.0 m 298.0 540.0 l S
+294.0 546.0 m 298.0 540.0 l 302.0 546.0 l S
+0.90 0.95 0.98 rg
+171.0 480.0 254.0 60.0 re f
+0.18 0.39 0.56 RG 0.8 w
+171.0 480.0 254.0 60.0 re S
+0 g
+BT /F2 9.5 Tf 1 0 0 1 180.0 522.0 Tm (3. Start review queue) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 180.0 506.0 Tm (Draft n of total; current fictional contact) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 180.0 496.0 Tm (without address.) Tj ET
+0.18 0.39 0.56 RG 1.2 w
+298.0 480.0 m 298.0 455.0 l S
+294.0 461.0 m 298.0 455.0 l 302.0 461.0 l S
+0.96 0.97 0.98 rg
+171.0 395.0 254.0 60.0 re f
+0.18 0.39 0.56 RG 0.8 w
+171.0 395.0 254.0 60.0 re S
+0 g
+BT /F2 9.5 Tf 1 0 0 1 180.0 437.0 Tm (4. Review draft) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 180.0 421.0 Tm (Capture or revise text locally; changes stay) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 180.0 411.0 Tm (with the queue item.) Tj ET
+0.18 0.39 0.56 RG 1.2 w
+298.0 395.0 m 298.0 370.0 l S
+294.0 376.0 m 298.0 370.0 l 302.0 376.0 l S
+0.90 0.95 0.98 rg
+171.0 310.0 254.0 60.0 re f
+0.18 0.39 0.56 RG 0.8 w
+171.0 310.0 254.0 60.0 re S
+0 g
+BT /F2 9.5 Tf 1 0 0 1 180.0 352.0 Tm (5. Decide) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 180.0 336.0 Tm (Confirm, skip, previous/next contact or abort.) Tj ET
+0.18 0.39 0.56 RG 1.2 w
+298.0 310.0 m 298.0 285.0 l S
+294.0 291.0 m 298.0 285.0 l 302.0 291.0 l S
+0.96 0.97 0.98 rg
+171.0 225.0 254.0 60.0 re f
+0.18 0.39 0.56 RG 0.8 w
+171.0 225.0 254.0 60.0 re S
+0 g
+BT /F2 9.5 Tf 1 0 0 1 180.0 267.0 Tm (6. Export later) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 180.0 251.0 Tm (Only after full human review and separate) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 180.0 241.0 Tm (approval.) Tj ET
+0.90 0.95 0.98 rg
+46.0 103.0 503.0 76.0 re f
+0.18 0.39 0.56 RG 0.8 w
+46.0 103.0 503.0 76.0 re S
+0 g
+BT /F2 9.5 Tf 1 0 0 1 55.0 161.0 Tm (What is intentionally absent) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 55.0 145.0 Tm (No sending adapter, SMTP, CRM, newsletter job or messaging gateway. The queue only manages) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 55.0 135.0 Tm (local draft and review states.) Tj ET
+0.10 0.35 0.56 RG 0.8 w 46 37.0 m 549 37.0 l S
+BT /F1 7.5 Tf 1 0 0 1 46.0 22.0 Tm (Apertus Draft Gate · Technical brief · 15 October 2026) Tj ET
+BT /F1 7.5 Tf 1 0 0 1 475.0 22.0 Tm (Page 2 of 4) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 2772 >>
+stream
+0.05 0.19 0.34 rg
+BT /F2 19.0 Tf 1 0 0 1 46.0 790.0 Tm (Data and safety boundaries) Tj ET
+0 g
+0.05 0.19 0.34 rg
+BT /F2 12.5 Tf 1 0 0 1 46.0 765.0 Tm (Fictional data basis) Tj ET
+0 g
+BT /F1 9.2 Tf 1 0 0 1 46.0 745.0 Tm (The visible source data/demo_contacts_3r.csv contains only contacts marked) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 732.0 Tm (fictional_demo_only. Every address ends in @example.invalid. The technical fixture under) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 719.0 Tm (tests/fixtures/ is separate and is not a second visible demo source.) Tj ET
+0.05 0.19 0.34 rg
+BT /F2 12.5 Tf 1 0 0 1 46.0 696.0 Tm (Review-queue minimisation) Tj ET
+0 g
+0.90 0.95 0.98 rg
+46.0 487.0 238.0 138.0 re f
+0.18 0.39 0.56 RG 0.8 w
+46.0 487.0 238.0 138.0 re S
+0 g
+BT /F2 9.5 Tf 1 0 0 1 55.0 607.0 Tm (Displayed fields) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 55.0 591.0 Tm (Contact ID, first and last name, company,) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 55.0 581.0 Tm (language, 3R category, lifecycle stage,) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 55.0 571.0 Tm (interest and tags.) Tj ET
+0.96 0.97 0.98 rg
+311.0 487.0 238.0 138.0 re f
+0.18 0.39 0.56 RG 0.8 w
+311.0 487.0 238.0 138.0 re S
+0 g
+BT /F2 9.5 Tf 1 0 0 1 320.0 607.0 Tm (Excluded) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 320.0 591.0 Tm (Email address, internal notes, credentials,) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 320.0 581.0 Tm (real customer data and any sending or) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 320.0 571.0 Tm (delivery information.) Tj ET
+0.05 0.19 0.34 rg
+BT /F2 12.5 Tf 1 0 0 1 46.0 448.0 Tm (Evidence-based limits) Tj ET
+0 g
+BT /F1 9.2 Tf 1 0 0 1 56.0 428.0 Tm (? The model endpoint is not supplied or verified by this repository.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 412.0 Tm (? A live model call was not part of the current verification.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 396.0 Tm (? The real Docker TUI must run on an authorised host; the Docker socket was) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 383.0 Tm (unavailable in the automation environment.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 367.0 Tm (? A contact in the CSV does not grant delivery permission ? the demo has no sender.) Tj ET
+0.90 0.95 0.98 rg
+46.0 118.0 503.0 84.0 re f
+0.18 0.39 0.56 RG 0.8 w
+46.0 118.0 503.0 84.0 re S
+0 g
+BT /F2 9.5 Tf 1 0 0 1 55.0 184.0 Tm (Core principle) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 55.0 168.0 Tm (A plausible model response is never treated as a company fact. Offers, discounts,) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 55.0 158.0 Tm (deadlines, delivery times or customer attributes must come from operator input or be) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 55.0 148.0 Tm (explicitly labelled as a suggestion.) Tj ET
+0.10 0.35 0.56 RG 0.8 w 46 37.0 m 549 37.0 l S
+BT /F1 7.5 Tf 1 0 0 1 46.0 22.0 Tm (Apertus Draft Gate · Technical brief · 15 October 2026) Tj ET
+BT /F1 7.5 Tf 1 0 0 1 475.0 22.0 Tm (Page 3 of 4) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 12 0 R >>
+endobj
+12 0 obj
+<< /Length 2805 >>
+stream
+0.05 0.19 0.34 rg
+BT /F2 19.0 Tf 1 0 0 1 46.0 790.0 Tm (Verification, reproducibility and next step) Tj ET
+0 g
+0.90 0.95 0.98 rg
+46.0 640.0 503.0 78.0 re f
+0.18 0.39 0.56 RG 0.8 w
+46.0 640.0 503.0 78.0 re S
+0 g
+BT /F2 9.5 Tf 1 0 0 1 55.0 700.0 Tm (Verified status) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 55.0 684.0 Tm (43/43 offline tests passed: CSV structure and 3R counts, data minimisation, no-send state,) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 55.0 674.0 Tm (queue navigation, local draft confirmation, profile application, plugin import and Docker) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 55.0 664.0 Tm (Compose configuration.) Tj ET
+0.05 0.19 0.34 rg
+BT /F2 12.5 Tf 1 0 0 1 46.0 608.0 Tm (Reproducible sequence) Tj ET
+0 g
+BT /F1 9.2 Tf 1 0 0 1 56.0 588.0 Tm (1. make test ? run offline checks without a model call.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 572.0 Tm (2. make profile-apply ? transfer the versioned profile to the local runtime.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 556.0 Tm (3. sudo make run ? start the Hermes TUI on the authorised host.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 540.0 Tm (4. View a fictional 3R group and start a per-contact review queue.) Tj ET
+0.05 0.19 0.34 rg
+BT /F2 12.5 Tf 1 0 0 1 46.0 520.0 Tm (Open limitation) Tj ET
+0 g
+BT /F1 9.2 Tf 1 0 0 1 46.0 500.0 Tm (Outside the controlled queue path, natural model conversation can still formulate) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 487.0 Tm (unsuitable business details. The review queue therefore does not replace further TUI work;) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 474.0 Tm (it already safeguards recipient selection, ordering and local review state.) Tj ET
+0.05 0.19 0.34 rg
+BT /F2 12.5 Tf 1 0 0 1 46.0 451.0 Tm (Next useful increment) Tj ET
+0 g
+BT /F1 9.2 Tf 1 0 0 1 46.0 431.0 Tm (Embed the queue directly in the normal TUI dialog: before every concrete draft, bind the) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 418.0 Tm (recipient group from the CSV, state the exact count and then use the current review) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 405.0 Tm (contact. Real data imports, sending, CRM and messaging remain outside this demonstrator.) Tj ET
+0.90 0.95 0.98 rg
+46.0 107.0 503.0 83.0 re f
+0.18 0.39 0.56 RG 0.8 w
+46.0 107.0 503.0 83.0 re S
+0 g
+BT /F2 9.5 Tf 1 0 0 1 55.0 172.0 Tm (Decision statement) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 55.0 156.0 Tm (The Hackathon demo is traceable and safely bounded. A production solution would require) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 55.0 146.0 Tm (real consent and suppression checks, authenticated roles, a separately authorised sending) Tj ET
+BT /F1 7.6 Tf 1 0 0 1 55.0 136.0 Tm (adapter, and new privacy and security approval.) Tj ET
+0.10 0.35 0.56 RG 0.8 w 46 37.0 m 549 37.0 l S
+BT /F1 7.5 Tf 1 0 0 1 46.0 22.0 Tm (Apertus Draft Gate · Technical brief · 15 October 2026) Tj ET
+BT /F1 7.5 Tf 1 0 0 1 475.0 22.0 Tm (Page 4 of 4) Tj ET
+endstream
+endobj
+xref
+0 13
+0000000000 65535 f
+0000000015 00000 n
+0000000064 00000 n
+0000000140 00000 n
+0000000237 00000 n
+0000000339 00000 n
+0000000475 00000 n
+0000002741 00000 n
+0000002877 00000 n
+0000006066 00000 n
+0000006203 00000 n
+0000009027 00000 n
+0000009165 00000 n
+trailer
+<< /Size 13 /Root 1 0 R >>
+startxref
+12022
+%%EOF

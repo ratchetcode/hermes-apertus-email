@@ -1,4 +1,6 @@
-# Apertus Draft Gate — Hermes Email-Marketing Framework
+# Hermes Agent x Apertus for privacy-conscious email marketing
+
+## Apertus Draft Gate — Hermes Email-Marketing Framework
 
 A Docker-packaged, controlled **email and newsletter drafting framework** for
 Hack Apertus Online Hackathon Track 2B. It starts an isolated interactive Hermes
@@ -168,6 +170,24 @@ implemented in this demonstrator.
 - `data/templates/contacts.example.csv` — header-only CSV schema template.
 - `tests/fixtures/test_contacts.json` — isolated technical test fixture.
 - `tests/` — offline unit and configuration tests.
+
+## Technical report / Technischer Bericht
+
+Both report editions are reproducible, four-page PDFs with the same verified
+technical scope, workflow and no-send boundary:
+
+- `NickMenzi_Report_DE.pdf` — German technical report; source: `technical_report.md`.
+- `NickMenzi_Report_EN.pdf` — English technical report; source: `technical_report_en.md`.
+
+Recreate them locally:
+
+```bash
+python3 docs/create_report_pdf.py --language de technical_report.md NickMenzi_Report_DE.pdf
+python3 docs/create_report_pdf.py --language en technical_report_en.md NickMenzi_Report_EN.pdf
+```
+
+`NickMenzi_Report.pdf` remains the German compatibility copy used by the
+original report workflow.
 
 ## License
 
