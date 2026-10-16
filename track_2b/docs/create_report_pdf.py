@@ -105,7 +105,7 @@ def page_one() -> bytes:
     rule(c, y)
     y -= 24
     y = heading(c, y, "Ziel", level=2)
-    y = wrapped(c, LEFT, y, "Docker-ausführbarer Hermes-Demonstrator für das kontrollierte Erstellen und Prüfen fiktiver E-Mail-Entwürfe der Onlineshop Demo AG. Das Projekt ist absichtlich kein Newsletter- oder Versandsystem.")
+    y = wrapped(c, LEFT, y, "Docker-ausführbarer Hermes-Demonstrator für das kontrollierte Erstellen und Prüfen fiktiver E-Mail-Entwürfe der Onlineshop Demo AG. E-Mail-Automation kann Empfängerbezug, sensible Daten, Entwurf und Versand vermischen. Das Projekt trennt diese Schritte in fiktive Daten, minimierten Kontext, lokale Review-Queue und No-Send-Grenze.")
     y -= 8
     y = heading(c, y, "Ergebnis", level=2)
     items = [
@@ -181,7 +181,7 @@ def page_four() -> bytes:
     steps = [
         "make test – Offline-Prüfungen ohne Modellaufruf ausführen.",
         "make profile-apply – versioniertes Profil kontrolliert in die lokale Runtime übernehmen.",
-        "sudo make run – Hermes-TUI am berechtigten Host starten.",
+        "Aus track_2b/ make run starten; vollständige Docker- und lokale .env-Konfiguration stehen in README.md.",
         "Fiktive 3R-Gruppe ansehen und eine kontaktbezogene Review-Queue starten.",
     ]
     for number, step in enumerate(steps, start=1):
@@ -212,7 +212,7 @@ def page_one_en() -> bytes:
     rule(c, y)
     y -= 24
     y = heading(c, y, "Purpose", level=2)
-    y = wrapped(c, LEFT, y, "A Docker-runnable Hermes demonstrator for controlled creation and review of fictional email drafts for Onlineshop Demo AG. The project is deliberately not a newsletter or email-delivery system.")
+    y = wrapped(c, LEFT, y, "A Docker-runnable Hermes demonstrator for controlled creation and review of fictional email drafts for Onlineshop Demo AG. Email automation can mix recipient context, sensitive data, drafting and sending. This project separates those steps into fictional data, minimised context, a local review queue and a no-send boundary.")
     y -= 8
     y = heading(c, y, "Result", level=2)
     for item in [
@@ -286,7 +286,7 @@ def page_four_en() -> bytes:
     for number, step in enumerate([
         "make test – run offline checks without a model call.",
         "make profile-apply – transfer the versioned profile to the local runtime.",
-        "sudo make run – start the Hermes TUI on the authorised host.",
+        "From track_2b/, run make run; see README.md for Docker setup and local .env configuration.",
         "View a fictional 3R group and start a per-contact review queue.",
     ], start=1):
         y = wrapped(c, LEFT + 10, y, f"{number}. {step}", width=84)

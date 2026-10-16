@@ -7,7 +7,7 @@
 
 ## 1. Ziel und Ergebnis
 
-Hermes Agent x Apertus for privacy-conscious email marketing ist ein Docker-ausführbarer Hermes-Demonstrator für das kontrollierte Erstellen und Prüfen fiktiver E-Mail-Entwürfe der **Onlineshop Demo AG**. Der Demonstrator ist absichtlich kein Newsletter- oder Versandsystem.
+Hermes Agent x Apertus for privacy-conscious email marketing ist ein Docker-ausführbarer Hermes-Demonstrator für das kontrollierte Erstellen und Prüfen fiktiver E-Mail-Entwürfe der **Onlineshop Demo AG**. E-Mail-Automation kann Empfängerbezug, sensible Daten, Entwurf und Versand vermischen. Dieses Projekt trennt diese Schritte in fiktive Daten, minimierten Kontext, lokale Review-Queue und eine No-Send-Grenze.
 
 **Erreicht:**
 
@@ -50,7 +50,7 @@ Zusätzlich wurde für die Queue bestätigt: `retain: 17`, Position `1/17`, kein
 
 1. `make test` – Offline-Tests ohne Modellaufruf.
 2. `make profile-apply` – Profildateien gezielt in die lokale Runtime übernehmen.
-3. `sudo make run` – Hermes-TUI am berechtigten Host starten.
+3. Aus `track_2b/` `make run` starten; vollständige Docker- und lokale `.env`-Konfiguration stehen in `README.md`.
 4. In der TUI die Kontaktübersicht und danach eine kontaktbezogene Review-Queue für `recruit`, `retain` oder `recover` starten.
 
 ### Offene Grenzen und nächster Schritt

@@ -16,7 +16,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
 endobj
 6 0 obj
-<< /Length 2194 >>
+<< /Length 2369 >>
 stream
 0.05 0.19 0.34 rg
 BT /F2 14.0 Tf 1 0 0 1 46.0 790.0 Tm (Hermes Agent x Apertus for privacy-conscious email marketing) Tj ET
@@ -28,18 +28,19 @@ BT /F1 9.2 Tf 1 0 0 1 46.0 749.0 Tm (Project: Nick Menzi · Status: local fiction
 BT /F2 12.5 Tf 1 0 0 1 46.0 707.0 Tm (Purpose) Tj ET
 0 g
 BT /F1 9.2 Tf 1 0 0 1 46.0 687.0 Tm (A Docker-runnable Hermes demonstrator for controlled creation and review of fictional) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 46.0 674.0 Tm (email drafts for Onlineshop Demo AG. The project is deliberately not a newsletter or) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 46.0 661.0 Tm (email-delivery system.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 674.0 Tm (email drafts for Onlineshop Demo AG. Email automation can mix recipient context, sensitive) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 661.0 Tm (data, drafting and sending. This project separates those steps into fictional data,) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 648.0 Tm (minimised context, a local review queue and a no-send boundary.) Tj ET
 0.05 0.19 0.34 rg
-BT /F2 12.5 Tf 1 0 0 1 46.0 640.0 Tm (Result) Tj ET
+BT /F2 12.5 Tf 1 0 0 1 46.0 627.0 Tm (Result) Tj ET
 0 g
-BT /F1 9.2 Tf 1 0 0 1 56.0 620.0 Tm (- Versioned agent profile and controlled transfer to an isolated local runtime.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 604.0 Tm (- One canonical fictional 3R contact source: 50 contacts - 17 recruit, 17 retain, 16) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 591.0 Tm (recover.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 575.0 Tm (- Deterministic per-contact review queue with previous/next, local review,) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 562.0 Tm (confirmation, skip and abort.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 546.0 Tm (- No email address in the review view; no SMTP, CRM, webhook, sending or automatic) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 533.0 Tm (export.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 607.0 Tm (- Versioned agent profile and controlled transfer to an isolated local runtime.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 591.0 Tm (- One canonical fictional 3R contact source: 50 contacts - 17 recruit, 17 retain, 16) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 578.0 Tm (recover.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 562.0 Tm (- Deterministic per-contact review queue with previous/next, local review,) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 549.0 Tm (confirmation, skip and abort.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 533.0 Tm (- No email address in the review view; no SMTP, CRM, webhook, sending or automatic) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 520.0 Tm (export.) Tj ET
 0.90 0.95 0.98 rg
 46.0 106.0 503.0 105.0 re f
 0.18 0.39 0.56 RG 0.8 w
@@ -200,7 +201,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 12 0 R >>
 endobj
 12 0 obj
-<< /Length 2847 >>
+<< /Length 2921 >>
 stream
 0.05 0.19 0.34 rg
 BT /F2 19.0 Tf 1 0 0 1 46.0 790.0 Tm (Verification, reproducibility and next step) Tj ET
@@ -219,20 +220,21 @@ BT /F2 12.5 Tf 1 0 0 1 46.0 608.0 Tm (Reproducible sequence) Tj ET
 0 g
 BT /F1 9.2 Tf 1 0 0 1 56.0 588.0 Tm (1. make test - run offline checks without a model call.) Tj ET
 BT /F1 9.2 Tf 1 0 0 1 56.0 572.0 Tm (2. make profile-apply - transfer the versioned profile to the local runtime.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 556.0 Tm (3. sudo make run - start the Hermes TUI on the authorised host.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 540.0 Tm (4. View a fictional 3R group and start a per-contact review queue.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 556.0 Tm (3. From track_2b/, run make run; see README.md for Docker setup and local .env) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 543.0 Tm (configuration.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 527.0 Tm (4. View a fictional 3R group and start a per-contact review queue.) Tj ET
 0.05 0.19 0.34 rg
-BT /F2 12.5 Tf 1 0 0 1 46.0 520.0 Tm (Open limitation) Tj ET
+BT /F2 12.5 Tf 1 0 0 1 46.0 507.0 Tm (Open limitation) Tj ET
 0 g
-BT /F1 9.2 Tf 1 0 0 1 46.0 500.0 Tm (Outside the controlled queue path, natural model conversation can still formulate) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 46.0 487.0 Tm (unsuitable business details. The review queue therefore does not replace further TUI work;) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 46.0 474.0 Tm (it already safeguards recipient selection, ordering and local review state.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 487.0 Tm (Outside the controlled queue path, natural model conversation can still formulate) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 474.0 Tm (unsuitable business details. The review queue therefore does not replace further TUI work;) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 461.0 Tm (it already safeguards recipient selection, ordering and local review state.) Tj ET
 0.05 0.19 0.34 rg
-BT /F2 12.5 Tf 1 0 0 1 46.0 451.0 Tm (Next useful increment) Tj ET
+BT /F2 12.5 Tf 1 0 0 1 46.0 438.0 Tm (Next useful increment) Tj ET
 0 g
-BT /F1 9.2 Tf 1 0 0 1 46.0 431.0 Tm (Embed the queue directly in the normal TUI dialog: before every concrete draft, bind the) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 46.0 418.0 Tm (recipient group from the CSV, state the exact count and then use the current review) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 46.0 405.0 Tm (contact. Real data imports, sending, CRM and messaging remain outside this demonstrator.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 418.0 Tm (Embed the queue directly in the normal TUI dialog: before every concrete draft, bind the) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 405.0 Tm (recipient group from the CSV, state the exact count and then use the current review) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 392.0 Tm (contact. Real data imports, sending, CRM and messaging remain outside this demonstrator.) Tj ET
 0.90 0.95 0.98 rg
 46.0 107.0 503.0 83.0 re f
 0.18 0.39 0.56 RG 0.8 w
@@ -256,14 +258,14 @@ xref
 0000000237 00000 n
 0000000339 00000 n
 0000000475 00000 n
-0000002720 00000 n
-0000002856 00000 n
-0000006087 00000 n
-0000006224 00000 n
-0000009090 00000 n
-0000009228 00000 n
+0000002895 00000 n
+0000003031 00000 n
+0000006262 00000 n
+0000006399 00000 n
+0000009265 00000 n
+0000009403 00000 n
 trailer
 << /Size 13 /Root 1 0 R >>
 startxref
-12127
+12376
 %%EOF

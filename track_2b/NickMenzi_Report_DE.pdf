@@ -16,7 +16,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
 endobj
 6 0 obj
-<< /Length 2313 >>
+<< /Length 2492 >>
 stream
 0.05 0.19 0.34 rg
 BT /F2 14.0 Tf 1 0 0 1 46.0 790.0 Tm (Hermes Agent x Apertus for privacy-conscious email marketing) Tj ET
@@ -28,19 +28,20 @@ BT /F1 9.2 Tf 1 0 0 1 46.0 749.0 Tm (Projekt: Nick Menzi · Status: lokaler, fikt
 BT /F2 12.5 Tf 1 0 0 1 46.0 707.0 Tm (Ziel) Tj ET
 0 g
 BT /F1 9.2 Tf 1 0 0 1 46.0 687.0 Tm (Docker-ausführbarer Hermes-Demonstrator für das kontrollierte Erstellen und Prüfen) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 46.0 674.0 Tm (fiktiver E-Mail-Entwürfe der Onlineshop Demo AG. Das Projekt ist absichtlich kein) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 46.0 661.0 Tm (Newsletter- oder Versandsystem.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 674.0 Tm (fiktiver E-Mail-Entwürfe der Onlineshop Demo AG. E-Mail-Automation kann Empfängerbezug,) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 661.0 Tm (sensible Daten, Entwurf und Versand vermischen. Das Projekt trennt diese Schritte in) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 648.0 Tm (fiktive Daten, minimierten Kontext, lokale Review-Queue und No-Send-Grenze.) Tj ET
 0.05 0.19 0.34 rg
-BT /F2 12.5 Tf 1 0 0 1 46.0 640.0 Tm (Ergebnis) Tj ET
+BT /F2 12.5 Tf 1 0 0 1 46.0 627.0 Tm (Ergebnis) Tj ET
 0 g
-BT /F1 9.2 Tf 1 0 0 1 56.0 620.0 Tm (- Versioniertes Agentenprofil und gezielte Übernahme in eine isolierte lokale) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 607.0 Tm (Runtime.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 591.0 Tm (- Eine kanonische, fiktive 3R-Kontaktquelle: 50 Kontakte - 17 recruit, 17 retain, 16) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 578.0 Tm (recover.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 562.0 Tm (- Deterministische kontaktbezogene Review-Queue mit Vor/Zurück, lokalem Prüfen,) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 549.0 Tm (Bestätigen, Überspringen und Abbruch.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 533.0 Tm (- Review-Ansicht ohne E-Mail-Adresse; kein SMTP, CRM, Webhook, Versand oder) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 520.0 Tm (automatischer Export.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 607.0 Tm (- Versioniertes Agentenprofil und gezielte Übernahme in eine isolierte lokale) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 594.0 Tm (Runtime.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 578.0 Tm (- Eine kanonische, fiktive 3R-Kontaktquelle: 50 Kontakte - 17 recruit, 17 retain, 16) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 565.0 Tm (recover.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 549.0 Tm (- Deterministische kontaktbezogene Review-Queue mit Vor/Zurück, lokalem Prüfen,) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 536.0 Tm (Bestätigen, Überspringen und Abbruch.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 520.0 Tm (- Review-Ansicht ohne E-Mail-Adresse; kein SMTP, CRM, Webhook, Versand oder) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 507.0 Tm (automatischer Export.) Tj ET
 0.90 0.95 0.98 rg
 46.0 106.0 503.0 105.0 re f
 0.18 0.39 0.56 RG 0.8 w
@@ -205,7 +206,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 12 0 R >>
 endobj
 12 0 obj
-<< /Length 3190 >>
+<< /Length 3282 >>
 stream
 0.05 0.19 0.34 rg
 BT /F2 19.0 Tf 1 0 0 1 46.0 790.0 Tm (Verifikation, Reproduzierbarkeit und nächster Schritt) Tj ET
@@ -225,22 +226,23 @@ BT /F2 12.5 Tf 1 0 0 1 46.0 608.0 Tm (Reproduzierbarer Ablauf) Tj ET
 BT /F1 9.2 Tf 1 0 0 1 56.0 588.0 Tm (1. make test - Offline-Prüfungen ohne Modellaufruf ausführen.) Tj ET
 BT /F1 9.2 Tf 1 0 0 1 56.0 572.0 Tm (2. make profile-apply - versioniertes Profil kontrolliert in die lokale Runtime) Tj ET
 BT /F1 9.2 Tf 1 0 0 1 56.0 559.0 Tm (übernehmen.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 543.0 Tm (3. sudo make run - Hermes-TUI am berechtigten Host starten.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 527.0 Tm (4. Fiktive 3R-Gruppe ansehen und eine kontaktbezogene Review-Queue starten.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 543.0 Tm (3. Aus track_2b/ make run starten; vollständige Docker- und lokale .env-) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 530.0 Tm (Konfiguration stehen in README.md.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 514.0 Tm (4. Fiktive 3R-Gruppe ansehen und eine kontaktbezogene Review-Queue starten.) Tj ET
 0.05 0.19 0.34 rg
-BT /F2 12.5 Tf 1 0 0 1 46.0 507.0 Tm (Offene Grenze) Tj ET
+BT /F2 12.5 Tf 1 0 0 1 46.0 494.0 Tm (Offene Grenze) Tj ET
 0 g
-BT /F1 9.2 Tf 1 0 0 1 46.0 487.0 Tm (Die natürliche Modellunterhaltung kann außerhalb des kontrollierten Queue-Pfads weiterhin) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 46.0 474.0 Tm (unpassende Geschäftsdetails formulieren. Darum ersetzt die Review-Queue keine) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 46.0 461.0 Tm (Zukunftsarbeit an der TUI, sondern sichert bereits Empfängerauswahl, Reihenfolge und) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 46.0 448.0 Tm (lokalen Review-Status ab.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 474.0 Tm (Die natürliche Modellunterhaltung kann außerhalb des kontrollierten Queue-Pfads weiterhin) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 461.0 Tm (unpassende Geschäftsdetails formulieren. Darum ersetzt die Review-Queue keine) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 448.0 Tm (Zukunftsarbeit an der TUI, sondern sichert bereits Empfängerauswahl, Reihenfolge und) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 435.0 Tm (lokalen Review-Status ab.) Tj ET
 0.05 0.19 0.34 rg
-BT /F2 12.5 Tf 1 0 0 1 46.0 425.0 Tm (Nächster sinnvoller Ausbau) Tj ET
+BT /F2 12.5 Tf 1 0 0 1 46.0 412.0 Tm (Nächster sinnvoller Ausbau) Tj ET
 0 g
-BT /F1 9.2 Tf 1 0 0 1 46.0 405.0 Tm (Die Queue direkt in den normalen TUI-Dialog einbetten: Vor jedem konkreten Entwurf zuerst) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 46.0 392.0 Tm (Empfängergruppe aus der CSV binden, die exakte Zahl nennen und dann den aktuellen Review-) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 46.0 379.0 Tm (Kontakt verwenden. Reale Datenimporte, Versand, CRM und Messaging bleiben außerhalb dieses) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 46.0 366.0 Tm (Demonstrators.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 392.0 Tm (Die Queue direkt in den normalen TUI-Dialog einbetten: Vor jedem konkreten Entwurf zuerst) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 379.0 Tm (Empfängergruppe aus der CSV binden, die exakte Zahl nennen und dann den aktuellen Review-) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 366.0 Tm (Kontakt verwenden. Reale Datenimporte, Versand, CRM und Messaging bleiben außerhalb dieses) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 353.0 Tm (Demonstrators.) Tj ET
 0.90 0.95 0.98 rg
 46.0 107.0 503.0 83.0 re f
 0.18 0.39 0.56 RG 0.8 w
@@ -265,14 +267,14 @@ xref
 0000000237 00000 n
 0000000339 00000 n
 0000000475 00000 n
-0000002839 00000 n
-0000002975 00000 n
-0000006366 00000 n
-0000006503 00000 n
-0000009614 00000 n
-0000009752 00000 n
+0000003018 00000 n
+0000003154 00000 n
+0000006545 00000 n
+0000006682 00000 n
+0000009793 00000 n
+0000009931 00000 n
 trailer
 << /Size 13 /Root 1 0 R >>
 startxref
-12994
+13265
 %%EOF

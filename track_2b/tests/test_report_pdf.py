@@ -30,6 +30,8 @@ class TechnicalReportPdfTests(unittest.TestCase):
         self.assertIn(OFFICIAL_PROJECT_NAME, pdf)
         self.assertNotIn(b"Apertus Draft Gate", pdf)
         self.assertNotIn(b"?", pdf)
+        self.assertIn(b"E-Mail-Automation", pdf)
+        self.assertIn(b"README.md", pdf)
         self.assertIn(b"43/43", pdf)
 
     def test_generator_creates_an_english_four_page_report(self):
@@ -50,6 +52,8 @@ class TechnicalReportPdfTests(unittest.TestCase):
         self.assertIn(OFFICIAL_PROJECT_NAME, pdf)
         self.assertNotIn(b"Apertus Draft Gate", pdf)
         self.assertNotIn(b"?", pdf)
+        self.assertIn(b"Email automation can mix", pdf)
+        self.assertIn(b"README.md", pdf)
         self.assertIn(b"43/43", pdf)
 
 
