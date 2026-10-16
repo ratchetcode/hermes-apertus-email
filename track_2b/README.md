@@ -176,13 +176,13 @@ implemented in this demonstrator.
 Both report editions are reproducible, four-page PDFs with the same verified
 technical scope, workflow and no-send boundary:
 
-- `NickMenzi_Report_DE.pdf` — German technical report; source: `technical_report.md`.
+- `NickMenzi_Report_DE.pdf` — German technical report; source: `technical_report_de.md`.
 - `NickMenzi_Report_EN.pdf` — English technical report; source: `technical_report_en.md`.
 
 Recreate them locally:
 
 ```bash
-python3 docs/create_report_pdf.py --language de technical_report.md NickMenzi_Report_DE.pdf
+python3 docs/create_report_pdf.py --language de technical_report_de.md NickMenzi_Report_DE.pdf
 python3 docs/create_report_pdf.py --language en technical_report_en.md NickMenzi_Report_EN.pdf
 ```
 

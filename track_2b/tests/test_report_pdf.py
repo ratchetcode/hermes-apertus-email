@@ -5,7 +5,7 @@ import unittest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-REPORT_SOURCE = ROOT / "technical_report.md"
+REPORT_SOURCE = ROOT / "technical_report_de.md"
 REPORT_SOURCE_EN = ROOT / "technical_report_en.md"
 OFFICIAL_PROJECT_NAME = b"Hermes Agent x Apertus for privacy-conscious email marketing"
 GENERATOR = ROOT / "docs" / "create_report_pdf.py"

@@ -5,7 +5,7 @@
   "date": "2026-10-15",
   "page_size": "A4",
   "maximum_pages": 4,
-  "source": "../technical_report.md",
+  "source": "../technical_report_de.md",
   "output": "../NickMenzi_Report_DE.pdf",
   "required_sections": [
     "Ziel und Ergebnis",
