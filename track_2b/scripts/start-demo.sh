@@ -7,7 +7,7 @@ set -eu
 
 cat <<'EOF'
 
-Apertus Draft Gate – Controlled Email Drafting Demo
+Hermes Agent x Apertus for privacy-conscious email marketing – Controlled Email Drafting Demo
 
 Diese isolierte Demonstration verwendet ausschliesslich fiktive Daten aus
 diesem Repository. Sie erstellt einen nachvollziehbaren E-Mail-Entwurf.

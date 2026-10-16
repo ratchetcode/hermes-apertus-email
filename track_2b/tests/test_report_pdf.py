@@ -28,6 +28,7 @@ class TechnicalReportPdfTests(unittest.TestCase):
         self.assertIn(b"Workflow", pdf)
         self.assertIn(b"Kein Versand", pdf)
         self.assertIn(OFFICIAL_PROJECT_NAME, pdf)
+        self.assertNotIn(b"Apertus Draft Gate", pdf)
         self.assertIn(b"43/43", pdf)
 
     def test_generator_creates_an_english_four_page_report(self):
@@ -46,6 +47,7 @@ class TechnicalReportPdfTests(unittest.TestCase):
         self.assertIn(b"controlled workflow", pdf)
         self.assertIn(b"No sending", pdf)
         self.assertIn(OFFICIAL_PROJECT_NAME, pdf)
+        self.assertNotIn(b"Apertus Draft Gate", pdf)
         self.assertIn(b"43/43", pdf)
 
 

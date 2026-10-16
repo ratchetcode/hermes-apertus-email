@@ -1,13 +1,13 @@
 # Hermes Agent x Apertus for privacy-conscious email marketing
 
-## Apertus Draft Gate – Technical Brief
+## Technical Brief
 
 **Hack Apertus Online Hackathon · Track 2B · 15 October 2026**
 **Project:** Nick Menzi · **Status:** local fictional no-send demonstrator
 
 ## 1. Purpose and result
 
-Apertus Draft Gate is a Docker-runnable Hermes demonstrator for controlled creation and review of fictional email drafts for **Onlineshop Demo AG**. It is deliberately not a newsletter or email-delivery system.
+Hermes Agent x Apertus for privacy-conscious email marketing is a Docker-runnable Hermes demonstrator for controlled creation and review of fictional email drafts for **Onlineshop Demo AG**. It is deliberately not a newsletter or email-delivery system.
 
 **Implemented:**
 

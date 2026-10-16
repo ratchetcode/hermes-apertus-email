@@ -16,32 +16,31 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
 endobj
 6 0 obj
-<< /Length 2334 >>
+<< /Length 2313 >>
 stream
 0.05 0.19 0.34 rg
-BT /F2 19.0 Tf 1 0 0 1 46.0 790.0 Tm (Apertus Draft Gate) Tj ET
+BT /F2 14.0 Tf 1 0 0 1 46.0 790.0 Tm (Hermes Agent x Apertus for privacy-conscious email marketing) Tj ET
 0 g
-BT /F2 9.3 Tf 1 0 0 1 46.0 765.0 Tm (Hermes Agent x Apertus for privacy-conscious email marketing) Tj ET
-BT /F2 10.0 Tf 1 0 0 1 46.0 749.0 Tm (Technischer Kurzbericht · Hack Apertus Online Hackathon · Track 2B) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 46.0 733.0 Tm (Projekt: Nick Menzi · Status: lokaler, fiktiver No-Send-Demonstrator) Tj ET
-0.10 0.35 0.56 RG 0.8 w 46 715.0 m 549 715.0 l S
+BT /F2 10.0 Tf 1 0 0 1 46.0 765.0 Tm (Technischer Kurzbericht · Hack Apertus Online Hackathon · Track 2B) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 749.0 Tm (Projekt: Nick Menzi · Status: lokaler, fiktiver No-Send-Demonstrator) Tj ET
+0.10 0.35 0.56 RG 0.8 w 46 731.0 m 549 731.0 l S
 0.05 0.19 0.34 rg
-BT /F2 12.5 Tf 1 0 0 1 46.0 691.0 Tm (Ziel) Tj ET
+BT /F2 12.5 Tf 1 0 0 1 46.0 707.0 Tm (Ziel) Tj ET
 0 g
-BT /F1 9.2 Tf 1 0 0 1 46.0 671.0 Tm (Docker-ausführbarer Hermes-Demonstrator für das kontrollierte Erstellen und Prüfen) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 46.0 658.0 Tm (fiktiver E-Mail-Entwürfe der Onlineshop Demo AG. Das Projekt ist absichtlich kein) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 46.0 645.0 Tm (Newsletter- oder Versandsystem.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 687.0 Tm (Docker-ausführbarer Hermes-Demonstrator für das kontrollierte Erstellen und Prüfen) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 674.0 Tm (fiktiver E-Mail-Entwürfe der Onlineshop Demo AG. Das Projekt ist absichtlich kein) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 46.0 661.0 Tm (Newsletter- oder Versandsystem.) Tj ET
 0.05 0.19 0.34 rg
-BT /F2 12.5 Tf 1 0 0 1 46.0 624.0 Tm (Ergebnis) Tj ET
+BT /F2 12.5 Tf 1 0 0 1 46.0 640.0 Tm (Ergebnis) Tj ET
 0 g
-BT /F1 9.2 Tf 1 0 0 1 56.0 604.0 Tm (? Versioniertes Agentenprofil und gezielte Übernahme in eine isolierte lokale) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 591.0 Tm (Runtime.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 575.0 Tm (? Eine kanonische, fiktive 3R-Kontaktquelle: 50 Kontakte ? 17 recruit, 17 retain, 16) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 562.0 Tm (recover.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 546.0 Tm (? Deterministische kontaktbezogene Review-Queue mit Vor/Zurück, lokalem Prüfen,) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 533.0 Tm (Bestätigen, Überspringen und Abbruch.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 517.0 Tm (? Review-Ansicht ohne E-Mail-Adresse; kein SMTP, CRM, Webhook, Versand oder) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 504.0 Tm (automatischer Export.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 620.0 Tm (? Versioniertes Agentenprofil und gezielte Übernahme in eine isolierte lokale) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 607.0 Tm (Runtime.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 591.0 Tm (? Eine kanonische, fiktive 3R-Kontaktquelle: 50 Kontakte ? 17 recruit, 17 retain, 16) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 578.0 Tm (recover.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 562.0 Tm (? Deterministische kontaktbezogene Review-Queue mit Vor/Zurück, lokalem Prüfen,) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 549.0 Tm (Bestätigen, Überspringen und Abbruch.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 533.0 Tm (? Review-Ansicht ohne E-Mail-Adresse; kein SMTP, CRM, Webhook, Versand oder) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 520.0 Tm (automatischer Export.) Tj ET
 0.90 0.95 0.98 rg
 46.0 106.0 503.0 105.0 re f
 0.18 0.39 0.56 RG 0.8 w
@@ -51,7 +50,7 @@ BT /F2 9.5 Tf 1 0 0 1 55.0 193.0 Tm (Sicherer Standardzustand) Tj ET
 BT /F1 7.6 Tf 1 0 0 1 55.0 177.0 Tm (Jeder Queue-Eintrag bleibt draft_only und no_send. Ein bestätigter Entwurf ist weder) Tj ET
 BT /F1 7.6 Tf 1 0 0 1 55.0 167.0 Tm (versandt noch zugestellt. Reale Kontakt- oder Kundendaten sind nicht Teil dieser Demo.) Tj ET
 0.10 0.35 0.56 RG 0.8 w 46 37.0 m 549 37.0 l S
-BT /F1 7.5 Tf 1 0 0 1 46.0 22.0 Tm (Apertus Draft Gate · Technischer Kurzbericht · 15. Oktober 2026) Tj ET
+BT /F1 6.6 Tf 1 0 0 1 46.0 22.0 Tm (Hermes Agent x Apertus for privacy-conscious email marketing · Technischer Kurzbericht · 15. Oktober 2026) Tj ET
 BT /F1 7.5 Tf 1 0 0 1 485.0 22.0 Tm (Seite 1 von 4) Tj ET
 endstream
 endobj
@@ -59,7 +58,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 8 0 R >>
 endobj
 8 0 obj
-<< /Length 3298 >>
+<< /Length 3340 >>
 stream
 0.05 0.19 0.34 rg
 BT /F2 19.0 Tf 1 0 0 1 46.0 790.0 Tm (Architektur und kontrollierter Workflow) Tj ET
@@ -137,7 +136,7 @@ BT /F2 9.5 Tf 1 0 0 1 55.0 161.0 Tm (Was bewusst fehlt) Tj ET
 BT /F1 7.6 Tf 1 0 0 1 55.0 145.0 Tm (Kein Versandadapter, kein SMTP, kein CRM, kein Newsletter-Job und kein Messaging-Gateway.) Tj ET
 BT /F1 7.6 Tf 1 0 0 1 55.0 135.0 Tm (Die Queue führt nur lokale Entwurfs- und Prüfzustände.) Tj ET
 0.10 0.35 0.56 RG 0.8 w 46 37.0 m 549 37.0 l S
-BT /F1 7.5 Tf 1 0 0 1 46.0 22.0 Tm (Apertus Draft Gate · Technischer Kurzbericht · 15. Oktober 2026) Tj ET
+BT /F1 6.6 Tf 1 0 0 1 46.0 22.0 Tm (Hermes Agent x Apertus for privacy-conscious email marketing · Technischer Kurzbericht · 15. Oktober 2026) Tj ET
 BT /F1 7.5 Tf 1 0 0 1 485.0 22.0 Tm (Seite 2 von 4) Tj ET
 endstream
 endobj
@@ -145,7 +144,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 10 0 R >>
 endobj
 10 0 obj
-<< /Length 3017 >>
+<< /Length 3059 >>
 stream
 0.05 0.19 0.34 rg
 BT /F2 19.0 Tf 1 0 0 1 46.0 790.0 Tm (Daten- und Sicherheitsgrenzen) Tj ET
@@ -198,7 +197,7 @@ BT /F1 7.6 Tf 1 0 0 1 55.0 168.0 Tm (Eine plausible Modellantwort wird nie als F
 BT /F1 7.6 Tf 1 0 0 1 55.0 158.0 Tm (Lieferzeiten oder Kundeneigenschaften müssen aus der Bedienereingabe stammen oder) Tj ET
 BT /F1 7.6 Tf 1 0 0 1 55.0 148.0 Tm (ausdrücklich als Vorschlag gekennzeichnet sein.) Tj ET
 0.10 0.35 0.56 RG 0.8 w 46 37.0 m 549 37.0 l S
-BT /F1 7.5 Tf 1 0 0 1 46.0 22.0 Tm (Apertus Draft Gate · Technischer Kurzbericht · 15. Oktober 2026) Tj ET
+BT /F1 6.6 Tf 1 0 0 1 46.0 22.0 Tm (Hermes Agent x Apertus for privacy-conscious email marketing · Technischer Kurzbericht · 15. Oktober 2026) Tj ET
 BT /F1 7.5 Tf 1 0 0 1 485.0 22.0 Tm (Seite 3 von 4) Tj ET
 endstream
 endobj
@@ -206,7 +205,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 12 0 R >>
 endobj
 12 0 obj
-<< /Length 3148 >>
+<< /Length 3190 >>
 stream
 0.05 0.19 0.34 rg
 BT /F2 19.0 Tf 1 0 0 1 46.0 790.0 Tm (Verifikation, Reproduzierbarkeit und nächster Schritt) Tj ET
@@ -253,7 +252,7 @@ BT /F1 7.6 Tf 1 0 0 1 55.0 146.0 Tm (produktive Lösung wären reale Consent-/Supp
 BT /F1 7.6 Tf 1 0 0 1 55.0 136.0 Tm (gesondert autorisierter Versandadapter und eine neue Datenschutz- und Sicherheitsfreigabe) Tj ET
 BT /F1 7.6 Tf 1 0 0 1 55.0 126.0 Tm (erforderlich.) Tj ET
 0.10 0.35 0.56 RG 0.8 w 46 37.0 m 549 37.0 l S
-BT /F1 7.5 Tf 1 0 0 1 46.0 22.0 Tm (Apertus Draft Gate · Technischer Kurzbericht · 15. Oktober 2026) Tj ET
+BT /F1 6.6 Tf 1 0 0 1 46.0 22.0 Tm (Hermes Agent x Apertus for privacy-conscious email marketing · Technischer Kurzbericht · 15. Oktober 2026) Tj ET
 BT /F1 7.5 Tf 1 0 0 1 485.0 22.0 Tm (Seite 4 von 4) Tj ET
 endstream
 endobj
@@ -266,14 +265,14 @@ xref
 0000000237 00000 n
 0000000339 00000 n
 0000000475 00000 n
-0000002860 00000 n
-0000002996 00000 n
-0000006345 00000 n
-0000006482 00000 n
-0000009551 00000 n
-0000009689 00000 n
+0000002839 00000 n
+0000002975 00000 n
+0000006366 00000 n
+0000006503 00000 n
+0000009614 00000 n
+0000009752 00000 n
 trailer
 << /Size 13 /Root 1 0 R >>
 startxref
-12889
+12994
 %%EOF

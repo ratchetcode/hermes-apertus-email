@@ -1,6 +1,6 @@
 # Hermes Agent x Apertus for privacy-conscious email marketing
 
-## Apertus Draft Gate — Hermes Email-Marketing Framework
+## Hermes Email-Marketing Framework
 
 A Docker-packaged, controlled **email and newsletter drafting framework** for
 Hack Apertus Online Hackathon Track 2B. It starts an isolated interactive Hermes
@@ -185,9 +185,6 @@ Recreate them locally:
 python3 docs/create_report_pdf.py --language de technical_report.md NickMenzi_Report_DE.pdf
 python3 docs/create_report_pdf.py --language en technical_report_en.md NickMenzi_Report_EN.pdf
 ```
-
-`NickMenzi_Report.pdf` remains the German compatibility copy used by the
-original report workflow.
 
 ## License
 

@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any
 
 
-DEMO_FROM = "Apertus Draft Gate <drafts@example.invalid>"
+DEMO_FROM = "Hermes Agent x Apertus <drafts@example.invalid>"
 
 
 def _subject_and_body(draft: str) -> tuple[str, str]:

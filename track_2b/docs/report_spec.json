@@ -1,12 +1,12 @@
 {
   "official_project_name": "Hermes Agent x Apertus for privacy-conscious email marketing",
-  "title": "Apertus Draft Gate – Technischer Kurzbericht",
+  "title": "Technischer Kurzbericht",
   "author": "Nick Menzi",
   "date": "2026-10-15",
   "page_size": "A4",
   "maximum_pages": 4,
   "source": "../technical_report.md",
-  "output": "../NickMenzi_Report.pdf",
+  "output": "../NickMenzi_Report_DE.pdf",
   "required_sections": [
     "Ziel und Ergebnis",
     "Architektur und kontrollierter Workflow",

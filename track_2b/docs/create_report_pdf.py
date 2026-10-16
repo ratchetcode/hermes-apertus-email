@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build a compact four-page PDF report for Apertus Draft Gate.
+"""Build a compact four-page PDF report for Hermes Agent x Apertus."
 
 This generator intentionally uses only the Python standard library so the report
 can be rebuilt in the constrained Docker/project environment.
@@ -19,6 +19,7 @@ TOP = 790
 BOTTOM = 52
 BODY_SIZE = 9.2
 LEADING = 13
+OFFICIAL_PROJECT_NAME = "Hermes Agent x Apertus for privacy-conscious email marketing"
 
 
 def escape_pdf(text: str) -> bytes:
@@ -60,10 +61,10 @@ def rule(commands: list[bytes], y: float) -> None:
 def footer(commands: list[bytes], page: int, *, language: str = "de") -> None:
     rule(commands, 37)
     if language == "en":
-        commands.append(text_command(LEFT, 22, "Apertus Draft Gate · Technical brief · 15 October 2026", size=7.5))
+        commands.append(text_command(LEFT, 22, f"{OFFICIAL_PROJECT_NAME} · Technical brief · 15 October 2026", size=6.6))
         commands.append(text_command(475, 22, f"Page {page} of 4", size=7.5))
         return
-    commands.append(text_command(LEFT, 22, "Apertus Draft Gate · Technischer Kurzbericht · 15. Oktober 2026", size=7.5))
+    commands.append(text_command(LEFT, 22, f"{OFFICIAL_PROJECT_NAME} · Technischer Kurzbericht · 15. Oktober 2026", size=6.6))
     commands.append(text_command(485, 22, f"Seite {page} von 4", size=7.5))
 
 
@@ -92,9 +93,10 @@ def arrow(commands: list[bytes], x: float, y_from: float, y_to: float) -> None:
 def page_one() -> bytes:
     c: list[bytes] = []
     y = TOP
-    y = heading(c, y, "Apertus Draft Gate", level=1)
-    c.append(text_command(LEFT, y, "Hermes Agent x Apertus for privacy-conscious email marketing", size=9.3, font="F2"))
-    y -= 16
+    c.append(b"0.05 0.19 0.34 rg\n")
+    c.append(text_command(LEFT, y, OFFICIAL_PROJECT_NAME, size=14, font="F2"))
+    c.append(b"0 g\n")
+    y -= 25
     c.append(text_command(LEFT, y, "Technischer Kurzbericht · Hack Apertus Online Hackathon · Track 2B", size=10, font="F2"))
     y -= 16
     c.append(text_command(LEFT, y, "Projekt: Nick Menzi · Status: lokaler, fiktiver No-Send-Demonstrator", size=9.2))
@@ -198,9 +200,10 @@ def page_four() -> bytes:
 def page_one_en() -> bytes:
     c: list[bytes] = []
     y = TOP
-    y = heading(c, y, "Apertus Draft Gate", level=1)
-    c.append(text_command(LEFT, y, "Hermes Agent x Apertus for privacy-conscious email marketing", size=9.3, font="F2"))
-    y -= 16
+    c.append(b"0.05 0.19 0.34 rg\n")
+    c.append(text_command(LEFT, y, OFFICIAL_PROJECT_NAME, size=14, font="F2"))
+    c.append(b"0 g\n")
+    y -= 25
     c.append(text_command(LEFT, y, "Technical brief · Hack Apertus Online Hackathon · Track 2B", size=10, font="F2"))
     y -= 16
     c.append(text_command(LEFT, y, "Project: Nick Menzi · Status: local fictional no-send demonstrator", size=9.2))

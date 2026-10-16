@@ -108,7 +108,7 @@ class ContainerStartTests(unittest.TestCase):
     def test_draft_start_script_keeps_the_explicit_live_confirmation_gate(self):
         script = DRAFT_START_SCRIPT_PATH.read_text(encoding="utf-8")
 
-        self.assertIn("Apertus Draft Gate – Controlled Email Drafting Demo", script)
+        self.assertIn("Hermes Agent x Apertus for privacy-conscious email marketing – Controlled Email Drafting Demo", script)
         self.assertIn("Niemals E-Mails versenden", script)
         self.assertIn("/workspace/AGENTS.md", script)
         self.assertIn(': "${LLM_NAME:?LLM_NAME must be set in .env}"', script)
