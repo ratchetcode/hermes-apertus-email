@@ -33,13 +33,13 @@ BT /F1 9.2 Tf 1 0 0 1 46.0 661.0 Tm (Newsletter- oder Versandsystem.) Tj ET
 0.05 0.19 0.34 rg
 BT /F2 12.5 Tf 1 0 0 1 46.0 640.0 Tm (Ergebnis) Tj ET
 0 g
-BT /F1 9.2 Tf 1 0 0 1 56.0 620.0 Tm (? Versioniertes Agentenprofil und gezielte Übernahme in eine isolierte lokale) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 620.0 Tm (- Versioniertes Agentenprofil und gezielte Übernahme in eine isolierte lokale) Tj ET
 BT /F1 9.2 Tf 1 0 0 1 56.0 607.0 Tm (Runtime.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 591.0 Tm (? Eine kanonische, fiktive 3R-Kontaktquelle: 50 Kontakte ? 17 recruit, 17 retain, 16) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 591.0 Tm (- Eine kanonische, fiktive 3R-Kontaktquelle: 50 Kontakte - 17 recruit, 17 retain, 16) Tj ET
 BT /F1 9.2 Tf 1 0 0 1 56.0 578.0 Tm (recover.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 562.0 Tm (? Deterministische kontaktbezogene Review-Queue mit Vor/Zurück, lokalem Prüfen,) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 562.0 Tm (- Deterministische kontaktbezogene Review-Queue mit Vor/Zurück, lokalem Prüfen,) Tj ET
 BT /F1 9.2 Tf 1 0 0 1 56.0 549.0 Tm (Bestätigen, Überspringen und Abbruch.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 533.0 Tm (? Review-Ansicht ohne E-Mail-Adresse; kein SMTP, CRM, Webhook, Versand oder) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 533.0 Tm (- Review-Ansicht ohne E-Mail-Adresse; kein SMTP, CRM, Webhook, Versand oder) Tj ET
 BT /F1 9.2 Tf 1 0 0 1 56.0 520.0 Tm (automatischer Export.) Tj ET
 0.90 0.95 0.98 rg
 46.0 106.0 503.0 105.0 re f
@@ -180,12 +180,12 @@ BT /F1 7.6 Tf 1 0 0 1 320.0 571.0 Tm (Versand- oder Zustellinformation.) Tj ET
 0.05 0.19 0.34 rg
 BT /F2 12.5 Tf 1 0 0 1 46.0 448.0 Tm (Nachweisbare Grenzen) Tj ET
 0 g
-BT /F1 9.2 Tf 1 0 0 1 56.0 428.0 Tm (? Der Modellendpunkt wird nicht durch dieses Repository bereitgestellt oder) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 428.0 Tm (- Der Modellendpunkt wird nicht durch dieses Repository bereitgestellt oder) Tj ET
 BT /F1 9.2 Tf 1 0 0 1 56.0 415.0 Tm (bestätigt.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 399.0 Tm (? Ein Live-Modellaufruf war kein Bestandteil der aktuellen Verifikation.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 383.0 Tm (? Der reale Docker-TUI-Start erfolgt am berechtigten Host; in der) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 399.0 Tm (- Ein Live-Modellaufruf war kein Bestandteil der aktuellen Verifikation.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 383.0 Tm (- Der reale Docker-TUI-Start erfolgt am berechtigten Host; in der) Tj ET
 BT /F1 9.2 Tf 1 0 0 1 56.0 370.0 Tm (Automationsumgebung war der Docker-Socket nicht verfügbar.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 354.0 Tm (? Ein Kontakt in der CSV bedeutet keine Versandberechtigung ? die Demo hat keinen) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 354.0 Tm (- Ein Kontakt in der CSV bedeutet keine Versandberechtigung - die Demo hat keinen) Tj ET
 BT /F1 9.2 Tf 1 0 0 1 56.0 341.0 Tm (Sender.) Tj ET
 0.90 0.95 0.98 rg
 46.0 118.0 503.0 84.0 re f
@@ -222,10 +222,10 @@ BT /F1 7.6 Tf 1 0 0 1 55.0 664.0 Tm (Docker-Compose-Konfiguration.) Tj ET
 0.05 0.19 0.34 rg
 BT /F2 12.5 Tf 1 0 0 1 46.0 608.0 Tm (Reproduzierbarer Ablauf) Tj ET
 0 g
-BT /F1 9.2 Tf 1 0 0 1 56.0 588.0 Tm (1. make test ? Offline-Prüfungen ohne Modellaufruf ausführen.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 572.0 Tm (2. make profile-apply ? versioniertes Profil kontrolliert in die lokale Runtime) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 588.0 Tm (1. make test - Offline-Prüfungen ohne Modellaufruf ausführen.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 572.0 Tm (2. make profile-apply - versioniertes Profil kontrolliert in die lokale Runtime) Tj ET
 BT /F1 9.2 Tf 1 0 0 1 56.0 559.0 Tm (übernehmen.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 543.0 Tm (3. sudo make run ? Hermes-TUI am berechtigten Host starten.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 543.0 Tm (3. sudo make run - Hermes-TUI am berechtigten Host starten.) Tj ET
 BT /F1 9.2 Tf 1 0 0 1 56.0 527.0 Tm (4. Fiktive 3R-Gruppe ansehen und eine kontaktbezogene Review-Queue starten.) Tj ET
 0.05 0.19 0.34 rg
 BT /F2 12.5 Tf 1 0 0 1 46.0 507.0 Tm (Offene Grenze) Tj ET

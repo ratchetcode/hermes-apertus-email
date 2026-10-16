@@ -23,7 +23,8 @@ OFFICIAL_PROJECT_NAME = "Hermes Agent x Apertus for privacy-conscious email mark
 
 
 def escape_pdf(text: str) -> bytes:
-    raw = text.encode("latin-1", "replace")
+    normalized = text.translate(str.maketrans({"–": "-", "—": "-", "•": "-", "→": "->"}))
+    raw = normalized.encode("latin-1", "replace")
     return raw.replace(b"\\", b"\\\\").replace(b"(", b"\\(").replace(b")", b"\\)")
 
 

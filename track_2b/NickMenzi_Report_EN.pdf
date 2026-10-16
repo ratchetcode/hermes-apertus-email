@@ -33,12 +33,12 @@ BT /F1 9.2 Tf 1 0 0 1 46.0 661.0 Tm (email-delivery system.) Tj ET
 0.05 0.19 0.34 rg
 BT /F2 12.5 Tf 1 0 0 1 46.0 640.0 Tm (Result) Tj ET
 0 g
-BT /F1 9.2 Tf 1 0 0 1 56.0 620.0 Tm (? Versioned agent profile and controlled transfer to an isolated local runtime.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 604.0 Tm (? One canonical fictional 3R contact source: 50 contacts ? 17 recruit, 17 retain, 16) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 620.0 Tm (- Versioned agent profile and controlled transfer to an isolated local runtime.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 604.0 Tm (- One canonical fictional 3R contact source: 50 contacts - 17 recruit, 17 retain, 16) Tj ET
 BT /F1 9.2 Tf 1 0 0 1 56.0 591.0 Tm (recover.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 575.0 Tm (? Deterministic per-contact review queue with previous/next, local review,) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 575.0 Tm (- Deterministic per-contact review queue with previous/next, local review,) Tj ET
 BT /F1 9.2 Tf 1 0 0 1 56.0 562.0 Tm (confirmation, skip and abort.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 546.0 Tm (? No email address in the review view; no SMTP, CRM, webhook, sending or automatic) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 546.0 Tm (- No email address in the review view; no SMTP, CRM, webhook, sending or automatic) Tj ET
 BT /F1 9.2 Tf 1 0 0 1 56.0 533.0 Tm (export.) Tj ET
 0.90 0.95 0.98 rg
 46.0 106.0 503.0 105.0 re f
@@ -177,11 +177,11 @@ BT /F1 7.6 Tf 1 0 0 1 320.0 571.0 Tm (delivery information.) Tj ET
 0.05 0.19 0.34 rg
 BT /F2 12.5 Tf 1 0 0 1 46.0 448.0 Tm (Evidence-based limits) Tj ET
 0 g
-BT /F1 9.2 Tf 1 0 0 1 56.0 428.0 Tm (? The model endpoint is not supplied or verified by this repository.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 412.0 Tm (? A live model call was not part of the current verification.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 396.0 Tm (? The real Docker TUI must run on an authorised host; the Docker socket was) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 428.0 Tm (- The model endpoint is not supplied or verified by this repository.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 412.0 Tm (- A live model call was not part of the current verification.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 396.0 Tm (- The real Docker TUI must run on an authorised host; the Docker socket was) Tj ET
 BT /F1 9.2 Tf 1 0 0 1 56.0 383.0 Tm (unavailable in the automation environment.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 367.0 Tm (? A contact in the CSV does not grant delivery permission ? the demo has no sender.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 367.0 Tm (- A contact in the CSV does not grant delivery permission - the demo has no sender.) Tj ET
 0.90 0.95 0.98 rg
 46.0 118.0 503.0 84.0 re f
 0.18 0.39 0.56 RG 0.8 w
@@ -217,9 +217,9 @@ BT /F1 7.6 Tf 1 0 0 1 55.0 664.0 Tm (Compose configuration.) Tj ET
 0.05 0.19 0.34 rg
 BT /F2 12.5 Tf 1 0 0 1 46.0 608.0 Tm (Reproducible sequence) Tj ET
 0 g
-BT /F1 9.2 Tf 1 0 0 1 56.0 588.0 Tm (1. make test ? run offline checks without a model call.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 572.0 Tm (2. make profile-apply ? transfer the versioned profile to the local runtime.) Tj ET
-BT /F1 9.2 Tf 1 0 0 1 56.0 556.0 Tm (3. sudo make run ? start the Hermes TUI on the authorised host.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 588.0 Tm (1. make test - run offline checks without a model call.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 572.0 Tm (2. make profile-apply - transfer the versioned profile to the local runtime.) Tj ET
+BT /F1 9.2 Tf 1 0 0 1 56.0 556.0 Tm (3. sudo make run - start the Hermes TUI on the authorised host.) Tj ET
 BT /F1 9.2 Tf 1 0 0 1 56.0 540.0 Tm (4. View a fictional 3R group and start a per-contact review queue.) Tj ET
 0.05 0.19 0.34 rg
 BT /F2 12.5 Tf 1 0 0 1 46.0 520.0 Tm (Open limitation) Tj ET
